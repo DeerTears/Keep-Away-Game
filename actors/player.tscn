@@ -1,0 +1,94 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://scripts/playerstats.gd" type="Script" id=1]
+[ext_resource path="res://sounds/combat/clang.wav" type="AudioStream" id=2]
+[ext_resource path="res://scripts/playermove.gd" type="Script" id=3]
+[ext_resource path="res://sounds/combat/swoosh.wav" type="AudioStream" id=4]
+[ext_resource path="res://sounds/combat/ow.wav" type="AudioStream" id=5]
+[ext_resource path="res://sounds/combat/hitworld.wav" type="AudioStream" id=6]
+
+[sub_resource type="CapsuleShape" id=1]
+radius = 0.5
+
+[sub_resource type="SpatialMaterial" id=2]
+params_diffuse_mode = 3
+params_specular_mode = 1
+albedo_color = Color( 1, 0, 0.470588, 1 )
+
+[sub_resource type="CapsuleMesh" id=3]
+material = SubResource( 2 )
+radius = 0.5
+radial_segments = 32
+rings = 6
+
+[sub_resource type="CylinderShape" id=4]
+radius = 0.6
+
+[node name="Player" type="Spatial" groups=[
+"Players",
+]]
+script = ExtResource( 1 )
+
+[node name="KinematicBody" type="KinematicBody" parent="."]
+collision_layer = 2
+collision_mask = 2147483655
+script = ExtResource( 3 )
+
+[node name="CollisionShape" type="CollisionShape" parent="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0, 0 )
+shape = SubResource( 1 )
+
+[node name="Head" type="Spatial" parent="KinematicBody"]
+
+[node name="Camera" type="Camera" parent="KinematicBody/Head"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0 )
+current = true
+fov = 90.0
+
+[node name="AttackRay" type="RayCast" parent="KinematicBody/Head"]
+enabled = true
+cast_to = Vector3( 0, 0, -2 )
+collision_mask = 7
+__meta__ = {
+"_editor_description_": "todo: apply force to known kinematic or rigid body"
+}
+
+[node name="MeshInstance" type="MeshInstance" parent="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0, 0 )
+mesh = SubResource( 3 )
+material/0 = null
+
+[node name="Grabber" type="Area" parent="KinematicBody"]
+monitorable = false
+collision_layer = 0
+collision_mask = 2147483656
+
+[node name="CollisionShape" type="CollisionShape" parent="KinematicBody/Grabber"]
+shape = SubResource( 4 )
+
+[node name="AttackCooldown" type="Timer" parent="KinematicBody"]
+process_mode = 0
+one_shot = true
+
+[node name="AttackWindup" type="Timer" parent="KinematicBody"]
+process_mode = 0
+one_shot = true
+
+[node name="Listener" type="Listener" parent="KinematicBody"]
+current = true
+
+[node name="Sounds" type="Spatial" parent="KinematicBody"]
+
+[node name="Swoosh" type="AudioStreamPlayer3D" parent="KinematicBody/Sounds"]
+stream = ExtResource( 4 )
+
+[node name="Clang" type="AudioStreamPlayer3D" parent="KinematicBody/Sounds"]
+stream = ExtResource( 2 )
+
+[node name="Ow" type="AudioStreamPlayer3D" parent="KinematicBody/Sounds"]
+stream = ExtResource( 5 )
+
+[node name="HitWorld" type="AudioStreamPlayer3D" parent="KinematicBody/Sounds"]
+stream = ExtResource( 6 )
+[connection signal="body_entered" from="KinematicBody/Grabber" to="KinematicBody" method="_on_Grabber_body_entered"]
+[connection signal="timeout" from="KinematicBody/AttackWindup" to="KinematicBody" method="_on_AttackWindup_timeout"]
