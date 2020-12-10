@@ -133,6 +133,12 @@ func play_impact_sound(impact_type:String):
 			sound_hitworld.pitch_scale = random_pitch
 			sound_hitworld.play()
 
+func teleport(target:Node):
+	if target == null:
+		return
+	var teleport_point=to_global(target.translation)
+	translation = teleport_point
+
 #func die():
 #	speed = 0
 #	camera_height = -0.55

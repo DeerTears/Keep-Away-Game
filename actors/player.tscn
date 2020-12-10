@@ -74,9 +74,6 @@ one_shot = true
 process_mode = 0
 one_shot = true
 
-[node name="Listener" type="Listener" parent="KinematicBody"]
-current = true
-
 [node name="Sounds" type="Spatial" parent="KinematicBody"]
 
 [node name="Swoosh" type="AudioStreamPlayer3D" parent="KinematicBody/Sounds"]
