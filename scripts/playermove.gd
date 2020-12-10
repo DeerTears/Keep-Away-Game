@@ -9,6 +9,7 @@ onready var sound_swoosh = $Sounds/Swoosh
 onready var sound_clang = $Sounds/Clang
 onready var sound_ow = $Sounds/Ow
 onready var sound_hitworld = $Sounds/HitWorld
+onready var sound_teleport = $Sounds/Teleport
 
 # settings
 export var controlling_player: int = 0
@@ -43,6 +44,7 @@ func _ready():
 	translate_offset = Vector3(0,camera_height,0)
 	attack_windup.wait_time = attack_windup_time
 	attack_cooldown.wait_time = attack_cooldown_time
+	teleport(get_node_or_null("/root/Spatial/StartingPoints/Player%s" % [controlling_player]))
 
 func _on_AttackWindup_timeout():
 	if attack_cooldown.is_stopped():
@@ -134,10 +136,13 @@ func play_impact_sound(impact_type:String):
 			sound_hitworld.play()
 
 func teleport(target:Node):
+	print(target)
 	if target == null:
 		return
-	var teleport_point=to_global(target.translation)
+	var teleport_point = target.translation
 	translation = teleport_point
+	yield(get_tree(),"idle_frame")
+	sound_teleport.play()
 
 #func die():
 #	speed = 0
@@ -148,3 +153,9 @@ func teleport(target:Node):
 #	speed = 5
 #	camera_height = 0.55
 #	translate_offset = Vector3(0,camera_height,0)
+
+
+func _on_Grabber_area_entered(area):
+	if area.get_collision_layer() == 2147483776:
+		teleport(get_node_or_null("/root/Spatial/StartingPoints/Player%s" % [controlling_player]))
+	#print("%s - %s" % [area.get_name(), area.get_collision_layer()])

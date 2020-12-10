@@ -96,6 +96,7 @@ attack_1={
 3d_physics/layer_5="ingredients"
 3d_physics/layer_6="pots"
 3d_physics/layer_7="traps"
+3d_physics/layer_8="pits"
 
 [rendering]
 
