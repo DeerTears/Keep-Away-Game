@@ -1,5 +1,8 @@
 extends Spatial
 
+# refactor: simplify so this script can be removed
+# any time this script/node is referenced, have the calling object find this node, go one level deeper to the kinematicbody, and call the body instead
+
 onready var kinematic = $KinematicBody
 onready var model = $KinematicBody/MeshInstance
 export var player_number: int = 0

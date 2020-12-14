@@ -1,9 +1,43 @@
 extends KinematicBody
 
+# overview:
+
+# VARIABLES
+# looking, attacking
+# timers
+# sounds
+# controller settings
+# combat statistics
+# movement statistics
+# character controller vars
+# movement checks
+
+# CALLBACKS
+# ready, init
+# callbacks for timers
+# callbacks for entering areas
+# looking, attack input
+
+# PHYSICS PROCESS
+# jumping, on ground
+# walking
+# attacking
+# momentum
+# finalization
+
+# FUNCTIONS
+# playing impact sounds
+# teleporting self
+# dying, living
+# taking damage
+# enabling input
+
 onready var head = $Head
 onready var attack_ray = $Head/AttackRay
+
 onready var attack_windup = $AttackWindup
 onready var attack_cooldown = $AttackCooldown
+onready var respawn_timer = $RespawnTimer
 
 onready var sound_swoosh = $Sounds/Swoosh
 onready var sound_clang = $Sounds/Clang
@@ -11,12 +45,13 @@ onready var sound_ow = $Sounds/Ow
 onready var sound_hitworld = $Sounds/HitWorld
 onready var sound_teleport = $Sounds/Teleport
 
-# settings
 export var controlling_player: int = 0
 export var look_sensitivity = 0.5
 var look_device = InputEventMouseMotion # todo: test with Joypads
 
 # combat statistics
+var max_health = 100
+var health = 100
 var push_strength = 8
 var attack_windup_time = 0.1
 var attack_cooldown_time = 0.4
@@ -41,10 +76,14 @@ var movement_enabled = true
 var attacking = false
 
 func _ready():
+	init()
+
+func init():
 	translate_offset = Vector3(0,camera_height,0)
 	attack_windup.wait_time = attack_windup_time
 	attack_cooldown.wait_time = attack_cooldown_time
-	teleport(get_node_or_null("/root/Spatial/StartingPoints/Player%s" % [controlling_player]))
+	teleport(GameInfo.get_my_respawn_location(controlling_player))
+
 
 func _on_AttackWindup_timeout():
 	if attack_cooldown.is_stopped():
@@ -52,6 +91,17 @@ func _on_AttackWindup_timeout():
 		yield(get_tree(),"idle_frame")
 		attacking = false
 		attack_cooldown.start()
+
+func _on_ItemGrabber_area_entered(area):
+	if "coin_quality" in area.get_parent():
+		area.get_parent().collect()
+		return
+	if area.get_parent().name == "Pits":
+		teleport(GameInfo.get_my_respawn_location(controlling_player))
+		"use of pits name successful!"
+		return
+	if area.get_collision_layer() == 2147483776: # hit death barrier area
+		teleport(GameInfo.get_my_respawn_location(controlling_player))
 
 func _input(event):
 	if event is look_device and movement_enabled: # todo: test with Joypads
@@ -87,35 +137,31 @@ func _physics_process(delta):
 		direction = direction.normalized()
 	else:
 		direction = Vector3.ZERO
-	# applying force from attacks
+	
+	# applying attack force to others
 	if attacking:
 		var look_direction = Vector3(0,head.rotation.x,0) - transform.basis.z # get all angles
 		look_direction.y += 1.15 # hit items off the ground for cartoony effect
-		look_direction *= push_strength
+		look_direction *= push_strength # apply strength stat
 		var reported_body = attack_ray.get_collider()
 		if reported_body != null:
 			var impact_type = reported_body.get_class()
-			print(impact_type)
+#			print(impact_type)
 			match impact_type:
 				"RigidBody": # physics object
 					reported_body.apply_impulse(Vector3.ZERO,look_direction)
 				"KinematicBody": # player
 					reported_body.gravity_vec += look_direction
-					# bad code:
-					#reported_body.move_and_collide(Vector3(look_direction.x,0,look_direction.z))
-					# fixed with:
-					#reported_body.gravity_vec += look_direction
 			play_impact_sound(impact_type)
+	
 	# momentum
 	h_velocity = h_velocity.linear_interpolate(direction * speed, h_acceleration * delta)
+	
 	# final calculations
 	movement.z = h_velocity.z + gravity_vec.z
 	movement.x = h_velocity.x + gravity_vec.x
 	movement.y = gravity_vec.y
 	move_and_slide(movement, Vector3.UP)
-
-func _on_Grabber_body_entered(body):
-	print(body)
 
 func play_impact_sound(impact_type:String):
 	var random_pitch = rand_range(0.8,1.2)
@@ -135,27 +181,26 @@ func play_impact_sound(impact_type:String):
 			sound_hitworld.pitch_scale = random_pitch
 			sound_hitworld.play()
 
-func teleport(target:Node):
-	print(target)
-	if target == null:
-		return
-	var teleport_point = target.translation
-	translation = teleport_point
+func teleport(target:Vector3):
+	transform.origin = target
 	yield(get_tree(),"idle_frame")
 	sound_teleport.play()
 
-#func die():
-#	speed = 0
-#	camera_height = -0.55
-#	translate_offset = Vector3(0,camera_height,0)
-#
-#func live():
-#	speed = 5
-#	camera_height = 0.55
-#	translate_offset = Vector3(0,camera_height,0)
+func die():
+	speed = 0
+	camera_height = -0.55
+	translate_offset = Vector3(0,camera_height,0)
+	respawn_timer.start()
 
+func live():
+	speed = 5
+	camera_height = 0.55
+	translate_offset = Vector3(0,camera_height,0)
 
-func _on_Grabber_area_entered(area):
-	if area.get_collision_layer() == 2147483776:
-		teleport(get_node_or_null("/root/Spatial/StartingPoints/Player%s" % [controlling_player]))
-	#print("%s - %s" % [area.get_name(), area.get_collision_layer()])
+func take_damage(_health:int):
+	health -= _health
+	if health <= 0:
+		die()
+
+func enable_input(_true:bool):
+	movement_enabled = _true
