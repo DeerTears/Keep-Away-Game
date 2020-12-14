@@ -84,7 +84,6 @@ func init():
 	attack_cooldown.wait_time = attack_cooldown_time
 	teleport(GameInfo.get_my_respawn_location(controlling_player))
 
-
 func _on_AttackWindup_timeout():
 	if attack_cooldown.is_stopped():
 		attacking = true
@@ -95,6 +94,7 @@ func _on_AttackWindup_timeout():
 func _on_ItemGrabber_area_entered(area):
 	if "coin_quality" in area.get_parent():
 		area.get_parent().collect()
+		GameInfo.add_score(controlling_player, area.get_parent().coin_quality)
 		return
 	if area.get_parent().name == "Pits":
 		teleport(GameInfo.get_my_respawn_location(controlling_player))

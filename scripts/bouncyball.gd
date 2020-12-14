@@ -1,13 +1,10 @@
 extends RigidBody
 
-func teleport(target:Node):
-	print(target)
-	if target == null:
-		return
-	var teleport_point = target.translation
-	print(get_translation())
-	set_translation(teleport_point) # why this no work? eh...
+func teleport(target:Vector3):
+	self.transform.origin = target
+	yield(get_tree(),"idle_frame")
+	print(transform.origin)
 
 func _on_Area_area_entered(area):
 	if area.get_collision_layer() == 2147483776:
-		teleport(get_node_or_null("/root/Spatial/"))
+		teleport(Vector3(rand_range(-50,50), 50, rand_range(-50, 50)))

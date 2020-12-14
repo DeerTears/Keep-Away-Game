@@ -10,15 +10,28 @@ rings = 1
 script = ExtResource( 1 )
 
 [node name="Player0" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 0, -1 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 0 )
 
 [node name="MeshInstance" type="MeshInstance" parent="Player0"]
 mesh = SubResource( 1 )
 material/0 = null
 
 [node name="Player1" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 2, 10 )
 
 [node name="MeshInstance" type="MeshInstance" parent="Player1"]
+mesh = SubResource( 1 )
+material/0 = null
+
+[node name="Player2" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, 0 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Player2"]
+mesh = SubResource( 1 )
+material/0 = null
+
+[node name="Player3" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, 0 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Player3"]
 mesh = SubResource( 1 )
 material/0 = null

@@ -7,6 +7,7 @@ onready var animator = $AnimationPlayer
 export var respawn_time: float = 5.0
 
 enum qualities {
+	GARBAGE,
 	BRONZE,
 	SILVER,
 	GOLD
@@ -15,10 +16,14 @@ enum qualities {
 var coin_quality: int
 
 func _ready():
-	var temp = qualities
-	print(temp)
-	coin_quality = temp["BRONZE"]
-	print(coin_quality)
+	randomize()
+	match randi() % qualities.size() - 1:
+		0:
+			coin_quality = qualities.get("BRONZE")
+		1:
+			coin_quality = qualities.get("SILVER")
+		2:
+			coin_quality = qualities.get("GOLD")
 	match coin_quality:
 		qualities.BRONZE:
 			pass
@@ -26,7 +31,7 @@ func _ready():
 			pass
 		qualities.GOLD:
 			pass
-		
+	print(coin_quality)
 
 func collect():
 	area.monitorable = false
