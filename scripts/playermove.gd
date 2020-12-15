@@ -1,31 +1,9 @@
 extends KinematicBody
 
+signal score_changed
 # overview:
 
-# VARIABLES
-# looking, attacking
-# timers
-# sounds
-# controller settings
-# combat statistics
-# movement statistics
-# character controller vars
-# movement checks
-
-# CALLBACKS
-# ready, init
-# callbacks for timers
-# callbacks for entering areas
-# looking, attack input
-
-# PHYSICS PROCESS
-# jumping, on ground
-# walking
-# attacking
-# momentum
-# finalization
-
-# FUNCTIONS
+# NON-STANDARD FUNCTIONS
 # playing impact sounds
 # teleporting self
 # dying, living
@@ -45,8 +23,8 @@ onready var sound_ow = $Sounds/Ow
 onready var sound_hitworld = $Sounds/HitWorld
 onready var sound_teleport = $Sounds/Teleport
 
-export var controlling_player: int = 0
-export var look_sensitivity = 0.5
+export var player_number: int = 0
+export var look_sensitivity = 0.4
 var look_device = InputEventMouseMotion # todo: test with Joypads
 
 # combat statistics
@@ -65,7 +43,7 @@ var jump = 6
 # character controller vars
 var movement = Vector3()
 var direction = Vector3()
-var velocity = Vector3()
+#var velocity = Vector3()
 var h_velocity = Vector3()
 var gravity_vec = Vector3()
 var translate_offset = Vector3()
@@ -82,7 +60,7 @@ func init():
 	translate_offset = Vector3(0,camera_height,0)
 	attack_windup.wait_time = attack_windup_time
 	attack_cooldown.wait_time = attack_cooldown_time
-	teleport(GameInfo.get_my_respawn_location(controlling_player))
+	teleport(GameInfo.get_my_respawn_location(player_number), true)
 
 func _on_AttackWindup_timeout():
 	if attack_cooldown.is_stopped():
@@ -91,25 +69,28 @@ func _on_AttackWindup_timeout():
 		attacking = false
 		attack_cooldown.start()
 
+
+
 func _on_ItemGrabber_area_entered(area):
 	if "coin_quality" in area.get_parent():
 		area.get_parent().collect()
-		GameInfo.add_score(controlling_player, area.get_parent().coin_quality)
+		emit_signal("score_changed", area.get_parent().coin_quality)
 		return
+	
 	if area.get_parent().name == "Pits":
-		teleport(GameInfo.get_my_respawn_location(controlling_player))
+		teleport(GameInfo.get_my_respawn_location(player_number), false)
 		"use of pits name successful!"
 		return
 	if area.get_collision_layer() == 2147483776: # hit death barrier area
-		teleport(GameInfo.get_my_respawn_location(controlling_player))
+		teleport(GameInfo.get_my_respawn_location(player_number), false)
 
 func _input(event):
-	if event is look_device and movement_enabled: # todo: test with Joypads
+	if event is look_device: # todo: test with Joypads
 		rotate_y(deg2rad(-event.relative.x * look_sensitivity))
 		head.rotate_x(deg2rad(-event.relative.y * look_sensitivity))
 		head.rotation.x = clamp(head.rotation.x, deg2rad(-90), deg2rad(90))
-	if attack_cooldown.is_stopped() and attack_windup.is_stopped():
-		if event.is_action_pressed("attack_%s" % [controlling_player]):
+	if attack_cooldown.is_stopped() and attack_windup.is_stopped() and movement_enabled:
+		if event.is_action_pressed("attack_%s" % [player_number]):
 			attack_windup.start()
 			sound_swoosh.play()
 
@@ -121,17 +102,17 @@ func _physics_process(delta):
 		gravity_vec += Vector3.DOWN * gravity * delta
 	else:
 		gravity_vec = Vector3.ZERO
-	if Input.is_action_pressed("jump_%s" % [controlling_player]) and is_on_floor() and movement_enabled:
+	if Input.is_action_pressed("jump_%s" % [player_number]) and is_on_floor() and movement_enabled:
 		gravity_vec = Vector3.UP * jump
 	
 	# walking
-	if Input.is_action_pressed("fwd_%s" % [controlling_player]):
+	if Input.is_action_pressed("fwd_%s" % [player_number]):
 		direction -= transform.basis.z
-	if Input.is_action_pressed("back_%s" % [controlling_player]):
+	if Input.is_action_pressed("back_%s" % [player_number]):
 		direction += transform.basis.z
-	if Input.is_action_pressed("left_%s" % [controlling_player]):
+	if Input.is_action_pressed("left_%s" % [player_number]):
 		direction -= transform.basis.x
-	if Input.is_action_pressed("right_%s" % [controlling_player]):
+	if Input.is_action_pressed("right_%s" % [player_number]):
 		direction += transform.basis.x
 	if movement_enabled:
 		direction = direction.normalized()
@@ -181,9 +162,12 @@ func play_impact_sound(impact_type:String):
 			sound_hitworld.pitch_scale = random_pitch
 			sound_hitworld.play()
 
-func teleport(target:Vector3):
+func teleport(target:Vector3, silent:bool):
 	transform.origin = target
+	gravity_vec = Vector3.ZERO # resets previous pushes/gravity
 	yield(get_tree(),"idle_frame")
+	if silent:
+		return
 	sound_teleport.play()
 
 func die():

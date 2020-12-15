@@ -357,6 +357,18 @@ shape = SubResource( 2 )
 [node name="SpawnLocations" parent="." instance=ExtResource( 5 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0 )
 
+[node name="Player0" parent="SpawnLocations" index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 18 )
+
+[node name="Player1" parent="SpawnLocations" index="1"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -26, 4, 14 )
+
+[node name="Player2" parent="SpawnLocations" index="2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 19, -2, 0 )
+
+[node name="Player3" parent="SpawnLocations" index="3"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 12, -2, -5 )
+
 [node name="Player2" parent="." instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0 )
 player_number = 1

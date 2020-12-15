@@ -40,7 +40,6 @@ func check_quality():
 			model.scale = Vector3.ONE * 0.65
 		qualities.GOLD:
 			model.scale = Vector3.ONE * 1
-	print(coin_quality)
 
 func collect():
 	area.monitorable = false

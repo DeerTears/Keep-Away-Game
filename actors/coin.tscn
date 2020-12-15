@@ -125,7 +125,9 @@ albedo_texture = SubResource( 10 )
 [sub_resource type="QuadMesh" id=12]
 material = SubResource( 11 )
 
-[node name="Coin" type="Spatial"]
+[node name="Coin" type="Spatial" groups=[
+"Coins",
+]]
 script = ExtResource( 1 )
 
 [node name="Area" type="Area" parent="."]
