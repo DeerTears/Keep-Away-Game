@@ -82,10 +82,10 @@ func _on_ItemGrabber_area_entered(area):
 	
 	if area.get_parent().name == "Pits":
 		teleport(GameInfo.get_my_respawn_location(player_number), false)
-		"use of pits name successful!"
+		print("use of pits name successful!")
 		return
-	if area.get_collision_layer() == 2147483776: # hit death barrier area
-		teleport(GameInfo.get_my_respawn_location(player_number), false)
+#	if area.get_collision_layer() == 2147483776: # hit death barrier area
+#		teleport(GameInfo.get_my_respawn_location(player_number), false)
 
 func _input(event):
 	if event is look_device: # todo: test with Joypads

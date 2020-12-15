@@ -28,6 +28,9 @@ tonemap_mode = 3
 tonemap_white = 5.0
 
 [node name="Game" type="Spatial"]
+__meta__ = {
+"_editor_description_": ""
+}
 
 [node name="CSGCombinerC" type="CSGCombiner" parent="."]
 use_collision = true
@@ -91,6 +94,7 @@ depth = 20.0
 
 [node name="CSGBox3" type="CSGBox" parent="CSGCombinerB"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 0, 14 )
+visible = false
 width = 4.0
 height = 10.0
 depth = 20.0
@@ -303,6 +307,9 @@ depth = 4.0
 
 [node name="BouncyBall" parent="Targets" instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, 0 )
+
+[node name="BouncyBall7" parent="Targets" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 3, 21 )
 
 [node name="BouncyBall2" parent="Targets" instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, -3 )
