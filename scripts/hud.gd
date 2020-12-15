@@ -11,3 +11,6 @@ func _process(_delta):
 
 func update_score(amount:int):
 	score_label.text = "%03d" % [amount]
+
+func update_stamina(amount:float):
+	stamina_bar.value = amount

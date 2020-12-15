@@ -1,14 +1,14 @@
 extends KinematicBody
 
 signal score_changed
+signal stamina_changed
 
 # overview:
 
 # NON-STANDARD FUNCTIONS
 # playing impact sounds
 # teleporting self
-# dying, living
-# taking damage
+# taking hits
 # enabling input
 
 onready var head = $Head
@@ -29,11 +29,13 @@ export var look_sensitivity = 0.4
 var look_device = InputEventMouseMotion # todo: test with Joypads
 
 # combat statistics
-var max_health = 100
-var health = 100
+var max_stamina = 100
+var stamina = 100
+var attack_cost_to_stamina = 5
 var push_strength = 8
 var attack_windup_time = 0.1
 var attack_cooldown_time = 0.4
+
 
 # movement statistics
 var speed = 5
@@ -90,10 +92,11 @@ func _input(event):
 		rotate_y(deg2rad(-event.relative.x * look_sensitivity))
 		head.rotate_x(deg2rad(-event.relative.y * look_sensitivity))
 		head.rotation.x = clamp(head.rotation.x, deg2rad(-90), deg2rad(90))
-	if attack_cooldown.is_stopped() and attack_windup.is_stopped() and movement_enabled:
+	if attack_cooldown.is_stopped() and attack_windup.is_stopped() and movement_enabled and stamina != 0:
 		if event.is_action_pressed("attack_%s" % [player_number]):
 			attack_windup.start()
 			sound_swoosh.play()
+			stamina -= attack_cost_to_stamina
 
 func _physics_process(delta):
 	direction = Vector3()
@@ -145,6 +148,11 @@ func _physics_process(delta):
 	movement.y = gravity_vec.y
 	move_and_slide(movement, Vector3.UP)
 
+func _process(delta):
+	# update hud
+	emit_signal("stamina_changed", stamina)
+	pass
+
 func play_impact_sound(impact_type:String):
 	var random_pitch = rand_range(0.8,1.2)
 	match impact_type:
@@ -171,21 +179,21 @@ func teleport(target:Vector3, silent:bool):
 		return
 	sound_teleport.play()
 
-func die():
+func knockout():
 	speed = 0
 	camera_height = -0.55
 	translate_offset = Vector3(0,camera_height,0)
 	respawn_timer.start()
 
-func live():
+func recover():
 	speed = 5
 	camera_height = 0.55
 	translate_offset = Vector3(0,camera_height,0)
 
-func take_damage(_health:int):
-	health -= _health
-	if health <= 0:
-		die()
+func take_hit(_stamina:int):
+	stamina -= _stamina
+	if stamina <= 0:
+		knockout()
 
 func enable_input(_true:bool):
 	movement_enabled = _true

@@ -19,10 +19,14 @@ func _ready():
 	kinematic.look_device = detected_devices[player_number]
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	kinematic.connect("score_changed",self,"change_score")
+	kinematic.connect("stamina_changed",self,"update_stamina_label")
 
 func change_score(amount:int): # refactor: unify "change" vs. "set"
 	GameInfo.add_score(player_number, amount)
 	hud.update_score(GameInfo.p0_score)
+
+func update_stamina_label(amount:float):
+	hud.update_stamina(amount)
 
 func reset_score_label():
 	hud.update_score(0)
