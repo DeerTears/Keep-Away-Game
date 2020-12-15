@@ -1,6 +1,7 @@
 extends KinematicBody
 
 signal score_changed
+
 # overview:
 
 # NON-STANDARD FUNCTIONS

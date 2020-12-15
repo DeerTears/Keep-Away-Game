@@ -34,8 +34,9 @@ var current_gamestate: int = GameStates.LOADING
 
 var warmup_time: float = 3.0
 var countdown_time: float = 3.0
-var round_time: float = 5.0
+var round_time: float = 20.0
 var postgame_time: float = 10.0
+
 func _ready():
 	set_autostart(false)
 	set_one_shot(true)
