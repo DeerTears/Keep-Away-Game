@@ -2,24 +2,6 @@ extends Timer
 
 # using Timer to allow global access of time_left property, yield and create_timer is still used to handle the state machine
 
-# respawning
-
-# tip: if a player teleports to 0,0,0, then SpawnLocations.tscn and its children are missing from the level
-
-var p0_respawn_location = Vector3.ZERO
-var p1_respawn_location = Vector3.ZERO
-var p2_respawn_location = Vector3.ZERO
-var p3_respawn_location = Vector3.ZERO
-
-func get_my_respawn_location(num:int) -> Vector3:
-	match num:
-		0:
-			return p0_respawn_location
-		1:
-			return p1_respawn_location
-	print("Error, could not find player number to teleport")
-	return Vector3.ZERO
-
 # statemachine
 
 enum GameStates {
@@ -92,6 +74,24 @@ func switch_gamestate(state:int): # self-contained and recursive
 			yield(get_tree().create_timer(postgame_time),"timeout")
 			switch_gamestate(GameStates.WARMUP)
 			
+
+# respawning
+
+# tip: if a player teleports to 0,0,0, then SpawnLocations.tscn and its children are missing from the level
+
+var p0_respawn_location = Vector3.ZERO
+var p1_respawn_location = Vector3.ZERO
+var p2_respawn_location = Vector3.ZERO
+var p3_respawn_location = Vector3.ZERO
+
+func get_my_respawn_location(num:int) -> Vector3:
+	match num:
+		0:
+			return p0_respawn_location
+		1:
+			return p1_respawn_location
+	print("Error, could not find player number to teleport")
+	return Vector3.ZERO
 
 # scoring
 
