@@ -42,34 +42,55 @@ func _ready():
 	switch_gamestate(GameStates.WARMUP)
 
 func switch_gamestate(state:int): # self-contained and recursive
+	current_gamestate = state # update our state, so other objects can read what's going on
 	match state:
 		GameStates.LOADING:
 			print("Loading...")
+			# Hide Coins
+			get_tree().call_group("Coins","change_to_state", Coin.states.DISABLED)
+		
 		GameStates.WARMUP:
 			reset_scores()
 			print("Warming up...")
-			start(warmup_time) # not needed for state machine. this timer is used so other objects can see time_left on the yield's timer below
+			# Let other objects get our wait_time
+			start(warmup_time)
+			# Hide Coins
+			get_tree().call_group("Coins","change_to_state", Coin.states.DISABLED)
 			yield(get_tree().create_timer(warmup_time),"timeout")
 			switch_gamestate(GameStates.COUNTDOWN)
+		
 		GameStates.COUNTDOWN:
 			print("Ready...")
+			# Reset and Freeze Players
 			get_tree().call_group("Players","respawn")
 			get_tree().call_group("Players","enable_movement",false)
+			# Spawn Coins
+			get_tree().call_group("Coins","change_to_state", Coin.states.SPAWNED)
+			# Let other objects get our wait_time
 			start(countdown_time)
+			# Start the countdown timer
 			yield(get_tree().create_timer(countdown_time),"timeout")
 			switch_gamestate(GameStates.STARTED)
+		
 		GameStates.STARTED:
-			print_debug("Go!")
+			print("Go!")
+			# Release Players
 			get_tree().call_group("Players","enable_movement",true)
+			# Let other objects get our wait_time
 			start(round_time)
+			# Wait until round is over
 			yield(get_tree().create_timer(round_time),"timeout")
 			switch_gamestate(GameStates.POSTGAME)
+			
 		GameStates.POSTGAME:
 			print("Finish!")
+			# Find out who won
 			determine_winner()
+			# todo: make sure coins don't respawn when collected and disabled
+			get_tree().call_group("Coins","change_to_state", Coin.states.DISABLED)
 			yield(get_tree().create_timer(postgame_time),"timeout")
 			switch_gamestate(GameStates.WARMUP)
-	current_gamestate = state # so other objects can read the current state
+			
 
 # scoring
 

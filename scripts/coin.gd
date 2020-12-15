@@ -1,4 +1,13 @@
 extends Spatial
+class_name Coin
+
+enum states {
+	DISABLED,
+	SPAWNED,
+	TAKEN,
+}
+
+var current_state = states.DISABLED
 
 onready var model = $MeshInstance
 onready var area = $Area
@@ -41,7 +50,8 @@ func check_quality():
 		qualities.GOLD:
 			model.scale = Vector3.ONE * 1
 
-func collect():
+func collect(): # todo: replace duplicate calls with change_to_state
+	# todo 2: add a check so coins can't respawn after being disabled
 	area.monitorable = false
 	sound_collect.pitch_scale = rand_range(3.25,3.5) - coin_quality
 	sound_collect.play()
@@ -52,3 +62,18 @@ func collect():
 	show()
 	area.monitorable = true
 	animator.play("Idle")
+
+func change_to_state(state:int):
+	current_state = state
+	match state:
+		states.DISABLED:
+			area.monitorable = false
+			hide()
+		states.SPAWNED:
+			area.monitorable = true
+			show()
+		states.TAKEN:
+			area.monitorable = false
+			hide()
+			yield(get_tree().create_timer(respawn_time),"timeout")
+			change_to_state(states.SPAWNED)
