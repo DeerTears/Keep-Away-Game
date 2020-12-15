@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://scripts/playerstats.gd" type="Script" id=1]
 [ext_resource path="res://sounds/combat/clang.wav" type="AudioStream" id=2]
@@ -25,6 +25,29 @@ rings = 6
 
 [sub_resource type="CylinderShape" id=4]
 radius = 0.6
+
+[sub_resource type="Gradient" id=5]
+offsets = PoolRealArray( 0, 0.476563, 1 )
+colors = PoolColorArray( 0, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0, 1 )
+
+[sub_resource type="GradientTexture" id=6]
+gradient = SubResource( 5 )
+
+[sub_resource type="ParticlesMaterial" id=9]
+trail_divisor = 15
+trail_color_modifier = SubResource( 6 )
+gravity = Vector3( 0, 0, 0 )
+scale = 0.25
+
+[sub_resource type="SpatialMaterial" id=10]
+flags_do_not_receive_shadows = true
+flags_disable_ambient_light = true
+vertex_color_use_as_albedo = true
+params_billboard_mode = 2
+
+[sub_resource type="QuadMesh" id=11]
+material = SubResource( 10 )
+size = Vector2( 0.25, 0.25 )
 
 [node name="Player" type="Spatial" groups=[
 "Players",
@@ -98,6 +121,14 @@ stream = ExtResource( 7 )
 [node name="Score" type="Sprite3D" parent="KinematicBody"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0 )
 billboard = 1
+
+[node name="Particles" type="Particles" parent="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0 )
+amount = 40
+lifetime = 2.0
+local_coords = false
+process_material = SubResource( 9 )
+draw_pass_1 = SubResource( 11 )
 
 [node name="HUD" type="MarginContainer" parent="."]
 anchor_right = 1.0
