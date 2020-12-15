@@ -1,4 +1,5 @@
 extends Spatial
+
 class_name Coin
 
 enum states {

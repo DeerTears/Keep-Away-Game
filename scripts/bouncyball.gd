@@ -13,7 +13,4 @@ func teleport(target:Vector3):
 func _on_Area_area_entered(area):
 	if area.get_parent().name == "Pits":
 		teleport(Vector3(0,20,0))
-		print("use of pits name successful!")
 		return
-#	if area.get_collision_layer() == 2147483776:
-#		teleport(Vector3(rand_range(-50,50), 50, rand_range(-50, 50)))

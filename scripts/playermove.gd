@@ -82,10 +82,7 @@ func _on_ItemGrabber_area_entered(area):
 	
 	if area.get_parent().name == "Pits":
 		teleport(GameInfo.get_my_respawn_location(player_number), false)
-		print("use of pits name successful!")
 		return
-#	if area.get_collision_layer() == 2147483776: # hit death barrier area
-#		teleport(GameInfo.get_my_respawn_location(player_number), false)
 
 func _input(event):
 	if event is look_device: # todo: test with Joypads
@@ -148,7 +145,7 @@ func _physics_process(delta):
 	movement.y = gravity_vec.y
 	move_and_slide(movement, Vector3.UP)
 
-func _process(delta):
+func _process(_delta):
 	# update hud
 	emit_signal("stamina_changed", stamina)
 	pass
