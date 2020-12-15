@@ -14,16 +14,16 @@ uv1_triplanar = true
 [sub_resource type="BoxShape" id=2]
 extents = Vector3( 64, 5, 64 )
 
-[sub_resource type="ProceduralSky" id=4]
+[sub_resource type="ProceduralSky" id=3]
 sky_top_color = Color( 0.372549, 0.670588, 0.831373, 1 )
 sun_latitude = 10.0
 sun_longitude = 180.0
 sun_angle_min = 2.0
 sun_angle_max = 25.0
 
-[sub_resource type="Environment" id=5]
+[sub_resource type="Environment" id=4]
 background_mode = 2
-background_sky = SubResource( 4 )
+background_sky = SubResource( 3 )
 tonemap_mode = 3
 tonemap_white = 5.0
 
@@ -365,9 +365,10 @@ player_number = 1
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 4 )
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource( 5 )
+environment = SubResource( 4 )
 
 [node name="Coins" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -375,10 +376,19 @@ __meta__ = {
 [node name="Coin" parent="Coins" instance=ExtResource( 3 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 1, 0 )
 
+[node name="Coin6" parent="Coins" instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -8.07307, 1, -7.98307 )
+
 [node name="Coin2" parent="Coins" instance=ExtResource( 3 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 1, 0 )
 
 [node name="Coin3" parent="Coins" instance=ExtResource( 3 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 1, 5 )
+
+[node name="Coin4" parent="Coins" instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 1, 5 )
+
+[node name="Coin5" parent="Coins" instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -26, 3, 10 )
 
 [editable path="SpawnLocations"]

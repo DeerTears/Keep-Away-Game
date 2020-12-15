@@ -1,14 +1,15 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://scripts/coin.gd" type="Script" id=1]
 [ext_resource path="res://materials/particles/spotlight_1.png" type="Texture" id=2]
 [ext_resource path="res://materials/particles/spotlight_2.png" type="Texture" id=3]
 [ext_resource path="res://materials/particles/spotlight_5.png" type="Texture" id=4]
+[ext_resource path="res://sounds/combat/clang.wav" type="AudioStream" id=5]
 
-[sub_resource type="SphereShape" id=2]
+[sub_resource type="SphereShape" id=1]
 radius = 0.6
 
-[sub_resource type="Animation" id=12]
+[sub_resource type="Animation" id=2]
 resource_name = "Collected"
 tracks/0/type = "value"
 tracks/0/path = NodePath("MeshInstance:rotation_degrees")
@@ -35,7 +36,7 @@ tracks/1/keys = {
 "values": [ Vector3( 0, 0, 0 ), Vector3( 0, 1, 0 ), Vector3( 0, 0, 0 ) ]
 }
 
-[sub_resource type="Animation" id=11]
+[sub_resource type="Animation" id=3]
 resource_name = "Idle"
 length = 2.0
 loop = true
@@ -48,7 +49,7 @@ tracks/0/enabled = true
 tracks/0/keys = {
 "times": PoolRealArray( 0, 1, 2 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
-"update": 3,
+"update": 0,
 "values": [ Vector3( 90, 0, 0 ), Vector3( 90, 180, 0 ), Vector3( 90, 360, 0 ) ]
 }
 tracks/1/type = "value"
@@ -60,30 +61,28 @@ tracks/1/enabled = true
 tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
-"update": 2,
+"update": 0,
 "values": [ Vector3( 0, 0, 0 ) ]
 }
 
-[sub_resource type="CylinderMesh" id=1]
-top_radius = 0.6
-bottom_radius = 0.6
-height = 0.1
+[sub_resource type="CylinderMesh" id=4]
+height = 0.4
 radial_segments = 24
 rings = 1
 
-[sub_resource type="Gradient" id=9]
+[sub_resource type="Gradient" id=5]
 colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 0 )
 
-[sub_resource type="GradientTexture" id=10]
-gradient = SubResource( 9 )
+[sub_resource type="GradientTexture" id=6]
+gradient = SubResource( 5 )
 
-[sub_resource type="Curve" id=6]
+[sub_resource type="Curve" id=7]
 _data = [ Vector2( 0, 1 ), 0.0, -0.67049, 0, 0, Vector2( 1, 0 ), -0.373455, 0.0, 0, 0 ]
 
-[sub_resource type="CurveTexture" id=7]
-curve = SubResource( 6 )
+[sub_resource type="CurveTexture" id=8]
+curve = SubResource( 7 )
 
-[sub_resource type="ParticlesMaterial" id=3]
+[sub_resource type="ParticlesMaterial" id=9]
 direction = Vector3( 0, 1, 0 )
 spread = 30.0
 gravity = Vector3( 0, -4.9, 0 )
@@ -93,12 +92,12 @@ angular_velocity_random = 1.0
 angle = 25.0
 angle_random = 1.0
 scale = 0.6
-scale_curve = SubResource( 7 )
-color_ramp = SubResource( 10 )
+scale_curve = SubResource( 8 )
+color_ramp = SubResource( 6 )
 hue_variation = 0.3
 hue_variation_random = 0.2
 
-[sub_resource type="AnimatedTexture" id=8]
+[sub_resource type="AnimatedTexture" id=10]
 flags = 23
 frames = 4
 fps = 12.0
@@ -110,7 +109,7 @@ frame_2/delay_sec = 0.0
 frame_3/texture = ExtResource( 4 )
 frame_3/delay_sec = 0.0
 
-[sub_resource type="SpatialMaterial" id=4]
+[sub_resource type="SpatialMaterial" id=11]
 flags_transparent = true
 flags_do_not_receive_shadows = true
 vertex_color_use_as_albedo = true
@@ -121,10 +120,10 @@ params_billboard_mode = 3
 particles_anim_h_frames = 1
 particles_anim_v_frames = 1
 particles_anim_loop = false
-albedo_texture = SubResource( 8 )
+albedo_texture = SubResource( 10 )
 
-[sub_resource type="QuadMesh" id=5]
-material = SubResource( 4 )
+[sub_resource type="QuadMesh" id=12]
+material = SubResource( 11 )
 
 [node name="Coin" type="Spatial"]
 script = ExtResource( 1 )
@@ -135,20 +134,24 @@ collision_layer = 2147483656
 collision_mask = 0
 
 [node name="CollisionShape" type="CollisionShape" parent="Area"]
-shape = SubResource( 2 )
+shape = SubResource( 1 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "Idle"
-anims/Collected = SubResource( 12 )
-anims/Idle = SubResource( 11 )
+anims/Collected = SubResource( 2 )
+anims/Idle = SubResource( 3 )
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
-transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0, 0 )
-mesh = SubResource( 1 )
+transform = Transform( 0.485006, -0.874511, 3.82261e-08, 0, -4.37114e-08, -1, 0.874511, 0.485006, -2.12003e-08, 0, 0, 0 )
+mesh = SubResource( 4 )
 material/0 = null
 
 [node name="Particles" type="Particles" parent="."]
 amount = 3
 lifetime = 1.5
-process_material = SubResource( 3 )
-draw_pass_1 = SubResource( 5 )
+process_material = SubResource( 9 )
+draw_pass_1 = SubResource( 12 )
+
+[node name="Collect" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource( 5 )
+pitch_scale = 0.25

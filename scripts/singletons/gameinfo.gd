@@ -1,5 +1,4 @@
 extends Node
-
 # consider: extend a timer, when we run ourselves, we provide the amount of time_left to every other node in the scene
 
 # scoring
@@ -85,3 +84,5 @@ func add_score(player:int,score:int):
 func reset_scores():
 	p0_score = 0
 	p1_score = 0
+	p2_score = 0
+	p3_score = 0
