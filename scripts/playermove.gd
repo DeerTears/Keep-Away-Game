@@ -49,6 +49,7 @@ var direction = Vector3()
 #var velocity = Vector3()
 var h_velocity = Vector3()
 var gravity_vec = Vector3()
+var impact_vec = Vector3()
 var translate_offset = Vector3()
 var camera_height = 0.5
 
@@ -73,7 +74,6 @@ func _on_AttackWindup_timeout():
 		attack_cooldown.start()
 
 
-
 func _on_ItemGrabber_area_entered(area):
 	if "coin_quality" in area.get_parent():
 		area.get_parent().collect()
@@ -89,19 +89,23 @@ func _input(event):
 		rotate_y(deg2rad(-event.relative.x * look_sensitivity))
 		head.rotate_x(deg2rad(-event.relative.y * look_sensitivity))
 		head.rotation.x = clamp(head.rotation.x, deg2rad(-90), deg2rad(90))
+	if event.is_action_pressed("aim_%s" % [player_number]):
+		impact_vec = Vector3.UP * push_strength
 	if attack_cooldown.is_stopped() and attack_windup.is_stopped() and movement_enabled and stamina != 0:
 		if event.is_action_pressed("attack_%s" % [player_number]):
 			attack_windup.start()
 			sound_swoosh.play()
 			stamina -= attack_cost_to_stamina
+var is_hitstunned: bool = false
 
 func _physics_process(delta):
 	direction = Vector3()
 	
 	# jumping and falling
-	if not is_on_floor():
+	if not is_on_floor() and not is_hitstunned:
 		gravity_vec += Vector3.DOWN * gravity * delta
 	else:
+		#gravity_vec = impact_vec
 		gravity_vec = Vector3.ZERO
 	if Input.is_action_pressed("jump_%s" % [player_number]) and is_on_floor() and movement_enabled:
 		gravity_vec = Vector3.UP * jump
@@ -128,22 +132,30 @@ func _physics_process(delta):
 		var reported_body = attack_ray.get_collider()
 		if reported_body != null:
 			var impact_type = reported_body.get_class()
-#			print(impact_type)
 			match impact_type:
 				"RigidBody": # physics object
 					reported_body.apply_impulse(Vector3.ZERO,look_direction)
 				"KinematicBody": # player
-					reported_body.gravity_vec += look_direction
+					reported_body.is_hitstunned = true
+					reported_body.impact_vec += look_direction * 2
 			play_impact_sound(impact_type)
 	
 	# momentum
 	h_velocity = h_velocity.linear_interpolate(direction * speed, h_acceleration * delta)
 	
 	# final calculations
-	movement.z = h_velocity.z + gravity_vec.z
-	movement.x = h_velocity.x + gravity_vec.x
-	movement.y = gravity_vec.y
+	movement.z = h_velocity.z + impact_vec.z
+	movement.x = h_velocity.x + impact_vec.x
+	movement.y = gravity_vec.y + (impact_vec.y / 2)
 	move_and_slide(movement, Vector3.UP)
+	if impact_vec.length() <= 0.5 or is_on_floor():
+		impact_vec = Vector3.ZERO
+	if impact_vec.length() <= 6:
+		is_hitstunned = false
+	var impact_decay = 0.96
+	impact_vec *= 0.96
+	#impact_vec *= Vector3(1,impact_decay,1)
+
 
 func _process(_delta):
 	# update hud
@@ -171,6 +183,7 @@ func play_impact_sound(impact_type:String):
 func teleport(target:Vector3, silent:bool):
 	transform.origin = target
 	gravity_vec = Vector3.ZERO # resets previous pushes/gravity
+	impact_vec = Vector3.ZERO
 	yield(get_tree(),"idle_frame")
 	if silent:
 		return
