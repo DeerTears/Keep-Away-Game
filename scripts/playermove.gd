@@ -90,12 +90,11 @@ func _input(event):
 		head.rotate_x(deg2rad(-event.relative.y * look_sensitivity))
 		head.rotation.x = clamp(head.rotation.x, deg2rad(-90), deg2rad(90))
 	if event.is_action_pressed("aim_%s" % [player_number]):
-		impact_vec = Vector3.UP * push_strength
-	if attack_cooldown.is_stopped() and attack_windup.is_stopped() and movement_enabled and stamina != 0:
+		print("aim %s" % [player_number])
+	if attack_cooldown.is_stopped() and attack_windup.is_stopped() and movement_enabled:
 		if event.is_action_pressed("attack_%s" % [player_number]):
 			attack_windup.start()
 			sound_swoosh.play()
-			stamina -= attack_cost_to_stamina
 var is_hitstunned: bool = false
 
 func _physics_process(delta):
@@ -137,7 +136,7 @@ func _physics_process(delta):
 					reported_body.apply_impulse(Vector3.ZERO,look_direction)
 				"KinematicBody": # player
 					reported_body.is_hitstunned = true
-					reported_body.impact_vec += look_direction * 2
+					reported_body.impact_vec += look_direction * 2.5
 			play_impact_sound(impact_type)
 	
 	# momentum
@@ -148,19 +147,20 @@ func _physics_process(delta):
 	movement.x = h_velocity.x + impact_vec.x
 	movement.y = gravity_vec.y + (impact_vec.y / 2)
 	move_and_slide(movement, Vector3.UP)
-	if impact_vec.length() <= 0.5 or is_on_floor():
+	# hacky way of creating a fake curve for knockbacks
+	# would love to implement something far more robust, perhaps even showing the endpoint and interpolating as needed
+	var impact_decay = 0.97
+	impact_vec *= impact_decay
+	if is_on_floor():
 		impact_vec = Vector3.ZERO
-	if impact_vec.length() <= 6:
 		is_hitstunned = false
-	var impact_decay = 0.96
-	impact_vec *= 0.96
-	#impact_vec *= Vector3(1,impact_decay,1)
-
-
-func _process(_delta):
-	# update hud
-	emit_signal("stamina_changed", stamina)
-	pass
+	else:
+		if impact_vec.length() <= 0.5:
+			impact_vec *= impact_decay
+			return
+		if impact_vec.length() <= 26 and is_hitstunned:
+			print("yo!")
+			is_hitstunned = false
 
 func play_impact_sound(impact_type:String):
 	var random_pitch = rand_range(0.8,1.2)
