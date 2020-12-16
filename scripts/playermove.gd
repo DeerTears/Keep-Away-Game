@@ -1,7 +1,6 @@
 extends KinematicBody
 
 signal score_changed
-signal stamina_changed
 
 # overview:
 
@@ -29,9 +28,6 @@ export var look_sensitivity = 0.4
 var look_device = InputEventMouseMotion # todo: test with Joypads
 
 # combat statistics
-var max_stamina = 100
-var stamina = 100
-var attack_cost_to_stamina = 5
 var push_strength = 8
 var attack_windup_time = 0.1
 var attack_cooldown_time = 0.4
@@ -188,22 +184,17 @@ func teleport(target:Vector3, silent:bool):
 	if silent:
 		return
 	sound_teleport.play()
-
-func knockout():
-	speed = 0
-	camera_height = -0.55
-	translate_offset = Vector3(0,camera_height,0)
-	respawn_timer.start()
-
-func recover():
-	speed = 5
-	camera_height = 0.55
-	translate_offset = Vector3(0,camera_height,0)
-
-func take_hit(_stamina:int):
-	stamina -= _stamina
-	if stamina <= 0:
-		knockout()
+#
+#func knockout():
+#	speed = 0
+#	camera_height = -0.55
+#	translate_offset = Vector3(0,camera_height,0)
+#	respawn_timer.start()
+#
+#func recover():
+#	speed = 5
+#	camera_height = 0.55
+#	translate_offset = Vector3(0,camera_height,0)
 
 func enable_input(_true:bool):
 	movement_enabled = _true
