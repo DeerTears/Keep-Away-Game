@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://scripts/playerstats.gd" type="Script" id=1]
 [ext_resource path="res://sounds/combat/clang.wav" type="AudioStream" id=2]
@@ -47,6 +47,13 @@ params_billboard_mode = 2
 [sub_resource type="QuadMesh" id=11]
 material = SubResource( 10 )
 size = Vector2( 0.25, 0.25 )
+
+[sub_resource type="StyleBoxFlat" id=14]
+bg_color = Color( 0.164706, 0.164706, 0.180392, 1 )
+expand_margin_left = 12.0
+expand_margin_right = 12.0
+expand_margin_top = 8.0
+expand_margin_bottom = 8.0
 
 [node name="Player" type="Spatial" groups=[
 "Players",
@@ -227,6 +234,42 @@ text = "000"
 align = 1
 valign = 1
 clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Notifier" type="MarginContainer" parent="HUD/Control"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/margin_top = 46
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Control" type="VBoxContainer" parent="HUD/Control/Notifier"]
+margin_top = 46.0
+margin_right = 1248.0
+margin_bottom = 568.0
+
+[node name="Label" type="Label" parent="HUD/Control/Notifier/Control"]
+margin_left = 615.0
+margin_right = 633.0
+margin_bottom = 14.0
+size_flags_horizontal = 6
+size_flags_vertical = 0
+text = "???"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="HUD/Control/Notifier/Control/Label"]
+show_behind_parent = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/panel = SubResource( 14 )
 __meta__ = {
 "_edit_use_anchors_": false
 }

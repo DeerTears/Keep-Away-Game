@@ -13,15 +13,21 @@ _global_script_classes=[ {
 "class": "Coin",
 "language": "GDScript",
 "path": "res://scripts/coin.gd"
+}, {
+"base": "Control",
+"class": "HUD",
+"language": "GDScript",
+"path": "res://scripts/hud.gd"
 } ]
 _global_script_class_icons={
-"Coin": ""
+"Coin": "",
+"HUD": ""
 }
 
 [application]
 
 config/name="BrewMakersProto"
-run/main_scene="res://levels/romping.tscn"
+run/main_scene="res://menus/mainmenu.tscn"
 config/icon="res://icon.png"
 
 [autoload]
