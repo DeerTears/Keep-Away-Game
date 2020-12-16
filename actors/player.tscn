@@ -123,6 +123,7 @@ billboard = 1
 
 [node name="Particles" type="Particles" parent="KinematicBody"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0 )
+visible = false
 amount = 50
 lifetime = 2.5
 local_coords = false
@@ -168,47 +169,6 @@ clip_text = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
-[node name="Stamina" type="Panel" parent="HUD/Control"]
-anchor_top = 1.0
-anchor_bottom = 1.0
-margin_top = -40.0
-margin_right = 116.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="MarginContainer" type="MarginContainer" parent="HUD/Control/Stamina"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-custom_constants/margin_right = 4
-custom_constants/margin_top = 4
-custom_constants/margin_left = 4
-custom_constants/margin_bottom = 4
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="VBoxContainer" type="VBoxContainer" parent="HUD/Control/Stamina/MarginContainer"]
-margin_left = 4.0
-margin_top = 4.0
-margin_right = 112.0
-margin_bottom = 36.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="ProgressBar" type="ProgressBar" parent="HUD/Control/Stamina/MarginContainer/VBoxContainer"]
-margin_right = 108.0
-margin_bottom = 14.0
-
-[node name="Label" type="Label" parent="HUD/Control/Stamina/MarginContainer/VBoxContainer"]
-margin_top = 18.0
-margin_right = 108.0
-margin_bottom = 32.0
-text = "Stamina"
-align = 1
-valign = 1
 
 [node name="Score" type="Panel" parent="HUD/Control"]
 anchor_left = 1.0

@@ -5,6 +5,7 @@ extends Spatial
 onready var kinematic = $KinematicBody
 onready var model = $KinematicBody/MeshInstance
 onready var hud = $HUD
+onready var debug_particles = $KinematicBody/Particles
 
 export var player_number: int = 0
 
@@ -38,3 +39,10 @@ func enable_movement(_true:bool):
 func respawn():
 	var target = GameInfo.get_my_respawn_location(player_number)
 	kinematic.teleport(target, false)
+
+var debug: bool = false
+
+func _input(event):
+	if event.is_action_released("toggle_debug"):
+		debug = not debug
+		debug_particles.visible = debug

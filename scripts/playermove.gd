@@ -132,7 +132,7 @@ func _physics_process(delta):
 					reported_body.apply_impulse(Vector3.ZERO,look_direction)
 				"KinematicBody": # player
 					reported_body.is_hitstunned = true
-					reported_body.impact_vec += look_direction * 2.5
+					reported_body.impact_vec += look_direction * 1.5
 			play_impact_sound(impact_type)
 	
 	# momentum
@@ -141,11 +141,11 @@ func _physics_process(delta):
 	# final calculations
 	movement.z = h_velocity.z + impact_vec.z
 	movement.x = h_velocity.x + impact_vec.x
-	movement.y = gravity_vec.y + (impact_vec.y / 2)
+	movement.y = gravity_vec.y + (impact_vec.y / 1.5)
 	move_and_slide(movement, Vector3.UP)
 	# hacky way of creating a fake curve for knockbacks
 	# would love to implement something far more robust, perhaps even showing the endpoint and interpolating as needed
-	var impact_decay = 0.97
+	var impact_decay = 0.98
 	impact_vec *= impact_decay
 	if is_on_floor():
 		impact_vec = Vector3.ZERO
