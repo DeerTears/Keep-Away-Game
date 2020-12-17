@@ -5,6 +5,7 @@ extends Spatial
 onready var kinematic = $KinematicBody
 onready var model = $KinematicBody/MeshInstance
 onready var hud = $HUD
+onready var debug_particles = $KinematicBody/Particles
 
 export var player_number: int = 0
 
@@ -19,14 +20,10 @@ func _ready():
 	kinematic.look_device = detected_devices[player_number]
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	kinematic.connect("score_changed",self,"change_score")
-	kinematic.connect("stamina_changed",self,"update_stamina_label")
 
 func change_score(amount:int): # refactor: unify "change" vs. "set"
 	GameInfo.add_score(player_number, amount)
 	hud.update_score(GameInfo.p0_score)
-
-func update_stamina_label(amount:float):
-	hud.update_stamina(amount)
 
 func reset_score_label():
 	hud.update_score(0)
@@ -42,3 +39,13 @@ func enable_movement(_true:bool):
 func respawn():
 	var target = GameInfo.get_my_respawn_location(player_number)
 	kinematic.teleport(target, false)
+
+var debug: bool = false
+
+func _input(event):
+	if event.is_action_released("toggle_debug"):
+		debug = not debug
+		debug_particles.visible = debug
+
+func show_notice(notice_type:int):
+	hud.show_notice(notice_type)

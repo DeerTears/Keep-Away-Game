@@ -376,12 +376,12 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 19, -2, 0 )
 [node name="Player3" parent="SpawnLocations" index="3"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 12, -2, -5 )
 
+[node name="Player" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 4 )
+
 [node name="Player2" parent="." instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0 )
 player_number = 1
-
-[node name="Player" parent="." instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 4 )
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 4 )

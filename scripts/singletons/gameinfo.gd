@@ -4,6 +4,8 @@ extends Timer
 
 # statemachine
 
+var ingame: bool = false # don't start the machine if we're not in a game yet
+
 enum GameStates {
 	LOADING,
 	WARMUP,
@@ -13,32 +15,39 @@ enum GameStates {
 }
 
 var current_gamestate: int = GameStates.LOADING
-
-var warmup_time: float = 3.0
-var countdown_time: float = 3.0
-var round_time: float = 20.0
+var loading_time: float = 3.0
+var warmup_time: float = 15.0
+var countdown_time: float = 10.0
+var round_time: float = 25.0
 var postgame_time: float = 10.0
 
 func _ready():
+	ingame = false
 	set_autostart(false)
 	set_one_shot(true)
-	switch_gamestate(GameStates.WARMUP)
+	switch_gamestate(GameStates.LOADING)
 
 func switch_gamestate(state:int): # self-contained and recursive
+	if not ingame: # todo: make this turn on/turn off from menus
+		return
 	current_gamestate = state # update our state, so other objects can read what's going on
 	match state:
 		GameStates.LOADING:
 			print("Loading...")
 			# Hide Coins
 			get_tree().call_group("Coins","change_to_state", Coin.states.DISABLED)
-		
+			yield(get_tree().create_timer(loading_time),"timeout")
+			switch_gamestate(GameStates.WARMUP)
 		GameStates.WARMUP:
 			reset_scores()
+			# Inform players
 			print("Warming up...")
+			get_tree().call_group("Players","show_notice",HUD.notice.WARMUP)
 			# Let other objects get our wait_time
 			start(warmup_time)
 			# Hide Coins
 			get_tree().call_group("Coins","change_to_state", Coin.states.DISABLED)
+			
 			yield(get_tree().create_timer(warmup_time),"timeout")
 			switch_gamestate(GameStates.COUNTDOWN)
 		
@@ -47,6 +56,7 @@ func switch_gamestate(state:int): # self-contained and recursive
 			# Reset and Freeze Players
 			get_tree().call_group("Players","respawn")
 			get_tree().call_group("Players","enable_movement",false)
+			get_tree().call_group("Players","show_notice",HUD.notice.INTRO_KEEPAWAY)
 			# Spawn Coins
 			get_tree().call_group("Coins","change_to_state", Coin.states.SPAWNED)
 			# Let other objects get our wait_time
@@ -59,6 +69,7 @@ func switch_gamestate(state:int): # self-contained and recursive
 			print("Go!")
 			# Release Players
 			get_tree().call_group("Players","enable_movement",true)
+			get_tree().call_group("Players","show_notice",HUD.notice.GO)
 			# Let other objects get our wait_time
 			start(round_time)
 			# Wait until round is over
@@ -110,10 +121,13 @@ var player_scores = [ # todo, make the above variables condensed and easier to a
 func determine_winner():
 	if p0_score > p1_score:
 		print("p0 is the winner!")
+		get_tree().call_group("Players","show_notice",HUD.notice.WIN)
 	if p1_score > p0_score:
 		print("p1 is the winner!")
+		get_tree().call_group("Players","show_notice",HUD.notice.LOSE)
 	if p1_score == p0_score:
 		print("it's a tie!")
+		get_tree().call_group("Players","show_notice",HUD.notice.TIE)
 
 func add_score(player:int,score:int):
 	match player:

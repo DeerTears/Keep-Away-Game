@@ -1,0 +1,114 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://icon.png" type="Texture" id=1]
+[ext_resource path="res://menus/mainmenu.gd" type="Script" id=2]
+
+[node name="MainMenu" type="Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/margin_right = 32
+custom_constants/margin_top = 32
+custom_constants/margin_left = 32
+custom_constants/margin_bottom = 32
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+margin_left = 32.0
+margin_top = 32.0
+margin_right = 1248.0
+margin_bottom = 568.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 16
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
+margin_right = 1216.0
+margin_bottom = 14.0
+text = "SuperSkeeball64"
+align = 1
+valign = 1
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer"]
+margin_top = 30.0
+margin_right = 1216.0
+margin_bottom = 94.0
+texture = ExtResource( 1 )
+stretch_mode = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+margin_top = 110.0
+margin_right = 1216.0
+margin_bottom = 124.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+margin_right = 1081.0
+margin_bottom = 14.0
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "a prototype by Emberlynn Bland (DeerTears)"
+
+[node name="LinkButton" type="LinkButton" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+margin_left = 1085.0
+margin_right = 1216.0
+margin_bottom = 14.0
+text = "Follow me on Itch.io"
+
+[node name="HSeparator" type="HSeparator" parent="MarginContainer/VBoxContainer"]
+margin_top = 140.0
+margin_right = 1216.0
+margin_bottom = 144.0
+
+[node name="GridContainer" type="GridContainer" parent="MarginContainer/VBoxContainer"]
+margin_top = 160.0
+margin_right = 1216.0
+margin_bottom = 536.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/vseparation = 16
+custom_constants/hseparation = 16
+columns = 2
+
+[node name="Romp" type="Button" parent="MarginContainer/VBoxContainer/GridContainer"]
+margin_right = 600.0
+margin_bottom = 180.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Play \"Romping\""
+
+[node name="Pits" type="Button" parent="MarginContainer/VBoxContainer/GridContainer"]
+margin_left = 616.0
+margin_right = 1216.0
+margin_bottom = 180.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Play \"2pits\""
+
+[node name="About" type="Button" parent="MarginContainer/VBoxContainer/GridContainer"]
+margin_top = 196.0
+margin_right = 600.0
+margin_bottom = 376.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "About"
+
+[node name="Quit" type="Button" parent="MarginContainer/VBoxContainer/GridContainer"]
+margin_left = 616.0
+margin_top = 196.0
+margin_right = 1216.0
+margin_bottom = 376.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Quit"
