@@ -22,6 +22,7 @@ var round_time: float = 25.0
 var postgame_time: float = 10.0
 
 func _ready():
+	ingame = false
 	set_autostart(false)
 	set_one_shot(true)
 	switch_gamestate(GameStates.LOADING)
