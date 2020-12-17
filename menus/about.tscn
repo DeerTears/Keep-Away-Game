@@ -29,11 +29,19 @@ margin_bottom = 568.0
 
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
 margin_right = 1216.0
-margin_bottom = 14.0
-text = "this game is a cool i guess"
+margin_bottom = 150.0
+text = "A 3D local multiplayer game about whacking balls at eachother for points, made in Godot.
+
+I started this project on December 1st, and published this prototype on github December 15th. My goal was to take inspiration from this game https://bitzawolf.itch.io/potion-wolf and to create a FPS multiplayer splitscreen game from it. The result was instead a game about whacking balls in first person in an attempt to recreate some of many sports that also feature balls in them. I don't have a precise idea of what the game is going to be about, other than there's probably going to be some golf-with-your-friends stuff going on.
+
+This game is not open-source, it's just source-available.
+
+If you'd like to see my other projects, check out deertears.itch.io for more!"
+autowrap = true
 
 [node name="Button" type="Button" parent="MarginContainer/VBoxContainer"]
-margin_top = 18.0
+margin_top = 516.0
 margin_right = 1216.0
-margin_bottom = 38.0
+margin_bottom = 536.0
+size_flags_vertical = 10
 text = "Back"

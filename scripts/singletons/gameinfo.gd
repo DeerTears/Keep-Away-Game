@@ -145,3 +145,10 @@ func reset_scores():
 	p3_score = 0
 	print("All scores reset.")
 	get_tree().call_group("Players", "reset_score_label")
+
+var fullscreen = false
+
+func _unhandled_input(event):
+	if event.is_action_pressed("toggle_fullscreen"):
+		fullscreen = not fullscreen
+		OS.window_fullscreen = fullscreen

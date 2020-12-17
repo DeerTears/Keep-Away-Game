@@ -86,7 +86,7 @@ margin_right = 600.0
 margin_bottom = 180.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-text = "Play \"Romping\""
+text = "Load \"romping\" Map"
 
 [node name="Pits" type="Button" parent="MarginContainer/VBoxContainer/GridContainer"]
 margin_left = 616.0
@@ -94,7 +94,7 @@ margin_right = 1216.0
 margin_bottom = 180.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-text = "Play \"2pits\""
+text = "Load \"pits\" Map"
 
 [node name="About" type="Button" parent="MarginContainer/VBoxContainer/GridContainer"]
 margin_top = 196.0

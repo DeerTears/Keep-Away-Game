@@ -19,7 +19,7 @@ func play_level(level:String):
 		"romp":
 			GameInfo.ingame = true
 			GameInfo.switch_gamestate(GameInfo.GameStates.LOADING)
-			get_tree().change_scene("res://levels/romping.tscn")
+			get_tree().change_scene("res://levels/romp_multi.tscn")
 		"pits":
 			GameInfo.ingame = true
 			GameInfo.switch_gamestate(GameInfo.GameStates.LOADING)
