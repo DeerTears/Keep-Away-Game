@@ -7,9 +7,7 @@ onready var quit = $MarginContainer/VBoxContainer/GridContainer/Quit
 
 func _ready():
 	play_romp.connect("pressed",self,"play_level",["romp"])
-	#play_romp.connect("pressed",get_tree(),"change_scene",["res://levels/romping.tscn"])
 	play_pits.connect("pressed",self,"play_level",["pits"])
-	#play_pits.connect("pressed",get_tree(),"change_scene",["res://levels/2pits.tscn"])
 	about.connect("pressed",get_tree(),"change_scene",["res://menus/about.tscn"])
 	quit.connect("pressed",get_tree(),"quit")
 

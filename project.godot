@@ -174,12 +174,9 @@ toggle_fullscreen={
 
 3d_physics/layer_1="world"
 3d_physics/layer_2="players"
-3d_physics/layer_3="props"
+3d_physics/layer_3="balls"
 3d_physics/layer_4="coins"
-3d_physics/layer_5="ingredients"
-3d_physics/layer_6="pots"
-3d_physics/layer_7="traps"
-3d_physics/layer_8="pits"
+3d_physics/layer_5="worldtriggers"
 
 [rendering]
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://actors/player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://actors/coin.tscn" type="PackedScene" id=2]
@@ -26,6 +26,17 @@ background_mode = 2
 background_sky = SubResource( 3 )
 tonemap_mode = 3
 tonemap_white = 5.0
+
+[sub_resource type="BoxShape" id=5]
+extents = Vector3( 3, 3, 3 )
+
+[sub_resource type="SpatialMaterial" id=6]
+flags_transparent = true
+albedo_color = Color( 1, 1, 1, 0.196078 )
+
+[sub_resource type="CubeMesh" id=7]
+material = SubResource( 6 )
+size = Vector3( 6, 6, 6 )
 
 [node name="Game" type="Spatial"]
 __meta__ = {
@@ -334,7 +345,7 @@ __meta__ = {
 
 [node name="Area" type="Area" parent="Pits"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4, 0 )
-collision_layer = 2147483776
+collision_layer = 2147483664
 collision_mask = 0
 script = ExtResource( 5 )
 
@@ -343,7 +354,7 @@ shape = SubResource( 2 )
 
 [node name="Area2" type="Area" parent="Pits"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -17, 0 )
-collision_layer = 2147483776
+collision_layer = 2147483664
 collision_mask = 0
 
 [node name="CollisionShape" type="CollisionShape" parent="Pits/Area2"]
@@ -447,5 +458,33 @@ shadow_atlas_size = 1
 [node name="Player2" parent="Control/HBoxContainer/ViewportContainer2/Viewport" instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0 )
 player_number = 1
+
+[node name="Scorezone" type="Spatial" parent="."]
+
+[node name="Area" type="Area" parent="Scorezone"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 1, -1 )
+monitoring = false
+collision_layer = 16
+collision_mask = 0
+
+[node name="CollisionShape" type="CollisionShape" parent="Scorezone/Area"]
+shape = SubResource( 5 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Scorezone/Area"]
+mesh = SubResource( 7 )
+material/0 = null
+
+[node name="Area2" type="Area" parent="Scorezone"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 1, -1 )
+monitoring = false
+collision_layer = 16
+collision_mask = 0
+
+[node name="CollisionShape" type="CollisionShape" parent="Scorezone/Area2"]
+shape = SubResource( 5 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Scorezone/Area2"]
+mesh = SubResource( 7 )
+material/0 = null
 
 [editable path="SpawnLocations"]

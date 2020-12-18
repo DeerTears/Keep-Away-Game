@@ -15,7 +15,7 @@ enum GameStates {
 }
 
 var current_gamestate: int = GameStates.LOADING
-var loading_time: float = 3.0
+var loading_time: float = 10.0
 var warmup_time: float = 15.0
 var countdown_time: float = 10.0
 var round_time: float = 25.0
@@ -38,6 +38,7 @@ func switch_gamestate(state:int): # self-contained and recursive
 			get_tree().call_group("Coins","change_to_state", Coin.states.DISABLED)
 			yield(get_tree().create_timer(loading_time),"timeout")
 			switch_gamestate(GameStates.WARMUP)
+			get_tree().call_group("Balls","hide")
 		GameStates.WARMUP:
 			reset_scores()
 			# Inform players
@@ -45,9 +46,9 @@ func switch_gamestate(state:int): # self-contained and recursive
 			get_tree().call_group("Players","show_notice",HUD.notice.WARMUP)
 			# Let other objects get our wait_time
 			start(warmup_time)
-			# Hide Coins
+			# Hide Coins and Balls
 			get_tree().call_group("Coins","change_to_state", Coin.states.DISABLED)
-			
+			get_tree().call_group("Balls","hide")
 			yield(get_tree().create_timer(warmup_time),"timeout")
 			switch_gamestate(GameStates.COUNTDOWN)
 		
@@ -57,8 +58,10 @@ func switch_gamestate(state:int): # self-contained and recursive
 			get_tree().call_group("Players","respawn")
 			get_tree().call_group("Players","enable_movement",false)
 			get_tree().call_group("Players","show_notice",HUD.notice.INTRO_KEEPAWAY)
-			# Spawn Coins
+			# Spawn Coins and Balls
 			get_tree().call_group("Coins","change_to_state", Coin.states.SPAWNED)
+			get_tree().call_group("Balls","show")
+			get_tree().call_group("Balls","update_last_hit", -1) # neutral == -1
 			# Let other objects get our wait_time
 			start(countdown_time)
 			# Start the countdown timer
