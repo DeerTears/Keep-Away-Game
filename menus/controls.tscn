@@ -1,0 +1,173 @@
+[gd_scene load_steps=2 format=2]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.243137, 0.168627, 0, 1 )
+
+[node name="Controls" type="Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Margin" type="MarginContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/margin_right = 32
+custom_constants/margin_top = 32
+custom_constants/margin_left = 32
+custom_constants/margin_bottom = 32
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBox" type="VBoxContainer" parent="Margin"]
+margin_left = 32.0
+margin_top = 32.0
+margin_right = 1248.0
+margin_bottom = 568.0
+custom_constants/separation = 16
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Settings" type="HBoxContainer" parent="Margin/VBox"]
+margin_right = 1216.0
+margin_bottom = 488.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 16
+
+[node name="DevicePicker" type="VBoxContainer" parent="Margin/VBox/Settings"]
+margin_right = 830.0
+margin_bottom = 488.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 16
+
+[node name="Controller" type="Button" parent="Margin/VBox/Settings/DevicePicker"]
+margin_right = 830.0
+margin_bottom = 236.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Controller"
+
+[node name="Mouse" type="Button" parent="Margin/VBox/Settings/DevicePicker"]
+margin_top = 252.0
+margin_right = 830.0
+margin_bottom = 488.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Mouse"
+
+[node name="Affirming" type="Panel" parent="Margin/VBox/Settings"]
+margin_left = 846.0
+margin_right = 1102.0
+margin_bottom = 488.0
+rect_min_size = Vector2( 256, 0 )
+
+[node name="Label" type="Label" parent="Margin/VBox/Settings/Affirming"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "Player 1 is using Controller
+
+Player 2 is using Mouse & Keyboard"
+valign = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sensitivity" type="Panel" parent="Margin/VBox/Settings"]
+margin_left = 1118.0
+margin_right = 1216.0
+margin_bottom = 488.0
+rect_min_size = Vector2( 98, 0 )
+size_flags_vertical = 3
+custom_styles/panel = SubResource( 1 )
+
+[node name="MarginContainer" type="MarginContainer" parent="Margin/VBox/Settings/Sensitivity"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/margin_right = 16
+custom_constants/margin_top = 16
+custom_constants/margin_left = 16
+custom_constants/margin_bottom = 16
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Margin/VBox/Settings/Sensitivity/MarginContainer"]
+margin_left = 16.0
+margin_top = 16.0
+margin_right = 82.0
+margin_bottom = 472.0
+custom_constants/separation = 16
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Margin/VBox/Settings/Sensitivity/MarginContainer/VBoxContainer2"]
+margin_right = 66.0
+margin_bottom = 14.0
+size_flags_horizontal = 3
+text = "Sensitivity"
+align = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Margin/VBox/Settings/Sensitivity/MarginContainer/VBoxContainer2"]
+margin_top = 30.0
+margin_right = 66.0
+margin_bottom = 456.0
+size_flags_vertical = 3
+
+[node name="VSlider" type="VSlider" parent="Margin/VBox/Settings/Sensitivity/MarginContainer/VBoxContainer2/HBoxContainer"]
+margin_left = 7.0
+margin_right = 23.0
+margin_bottom = 426.0
+size_flags_horizontal = 6
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="Margin/VBox/Settings/Sensitivity/MarginContainer/VBoxContainer2/HBoxContainer"]
+margin_left = 42.0
+margin_top = 206.0
+margin_right = 58.0
+margin_bottom = 220.0
+size_flags_horizontal = 6
+text = "08"
+
+[node name="PlayerSelector" type="HBoxContainer" parent="Margin/VBox"]
+margin_top = 504.0
+margin_right = 1216.0
+margin_bottom = 536.0
+custom_constants/separation = 8
+
+[node name="Back" type="Button" parent="Margin/VBox/PlayerSelector"]
+margin_right = 42.0
+margin_bottom = 32.0
+text = "Back"
+
+[node name="Label" type="Label" parent="Margin/VBox/PlayerSelector"]
+margin_left = 565.0
+margin_top = 9.0
+margin_right = 604.0
+margin_bottom = 23.0
+size_flags_horizontal = 10
+text = "Player"
+align = 1
+
+[node name="Option" type="OptionButton" parent="Margin/VBox/PlayerSelector"]
+margin_left = 612.0
+margin_right = 676.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 64, 32 )
+size_flags_horizontal = 2
+text = "1"
+align = 1
+items = [ "1", null, false, 0, null, "2", null, false, 1, null, "3", null, false, 2, null, "4", null, false, 3, null ]
+selected = 0
+
+[node name="Dummy" type="Control" parent="Margin/VBox/PlayerSelector"]
+margin_left = 1174.0
+margin_right = 1216.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 42, 0 )

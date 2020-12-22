@@ -1,0 +1,65 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://scripts/settingsmenu.gd" type="Script" id=1]
+
+[node name="Settings" type="Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/margin_right = 32
+custom_constants/margin_top = 32
+custom_constants/margin_left = 32
+custom_constants/margin_bottom = 32
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+margin_left = 607.0
+margin_top = 32.0
+margin_right = 672.0
+margin_bottom = 568.0
+size_flags_horizontal = 4
+custom_constants/separation = 16
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
+margin_right = 65.0
+margin_bottom = 14.0
+text = "Settings"
+align = 1
+
+[node name="Controls" type="Button" parent="MarginContainer/VBoxContainer"]
+margin_top = 30.0
+margin_right = 65.0
+margin_bottom = 50.0
+text = "Controls"
+
+[node name="Video" type="Button" parent="MarginContainer/VBoxContainer"]
+margin_top = 66.0
+margin_right = 65.0
+margin_bottom = 86.0
+text = "Video"
+
+[node name="Audio" type="Button" parent="MarginContainer/VBoxContainer"]
+margin_top = 102.0
+margin_right = 65.0
+margin_bottom = 122.0
+text = "Audio"
+
+[node name="Back" type="Button" parent="MarginContainer/VBoxContainer"]
+margin_top = 516.0
+margin_right = 65.0
+margin_bottom = 536.0
+size_flags_vertical = 10
+text = "Back"
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Controls" to="." method="changemenu" binds= [ "controls" ]]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Video" to="." method="changemenu" binds= [ "video" ]]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Audio" to="." method="changemenu" binds= [ "audio" ]]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Back" to="." method="changemenu" binds= [ "mainmenu" ]]
