@@ -33,6 +33,7 @@ config/icon="res://icon.png"
 [autoload]
 
 GameInfo="*res://scripts/singletons/gameinfo.gd"
+Settings="*res://scripts/singletons/settings.gd"
 
 [debug]
 

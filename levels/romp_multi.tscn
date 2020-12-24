@@ -1,10 +1,11 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://actors/player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://actors/coin.tscn" type="PackedScene" id=2]
 [ext_resource path="res://actors/bouncyball.tscn" type="PackedScene" id=3]
 [ext_resource path="res://actors/spawnlocations.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scripts/pit.gd" type="Script" id=5]
+[ext_resource path="res://scripts/viewportquality.gd" type="Script" id=6]
 
 [sub_resource type="SpatialMaterial" id=1]
 params_diffuse_mode = 3
@@ -424,6 +425,10 @@ __meta__ = {
 [node name="HBoxContainer" type="HBoxContainer" parent="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+script = ExtResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="ViewportContainer" type="ViewportContainer" parent="Control/HBoxContainer"]
 margin_right = 638.0
@@ -448,9 +453,10 @@ margin_bottom = 600.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 stretch = true
+stretch_shrink = 2
 
 [node name="Viewport" type="Viewport" parent="Control/HBoxContainer/ViewportContainer2"]
-size = Vector2( 638, 600 )
+size = Vector2( 319, 300 )
 handle_input_locally = false
 render_target_update_mode = 3
 shadow_atlas_size = 1

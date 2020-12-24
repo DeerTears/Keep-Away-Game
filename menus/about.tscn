@@ -26,6 +26,7 @@ margin_left = 32.0
 margin_top = 32.0
 margin_right = 1248.0
 margin_bottom = 568.0
+custom_constants/separation = 16
 
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
 margin_right = 1216.0
@@ -40,8 +41,8 @@ If you'd like to see my other projects, check out deertears.itch.io for more!"
 autowrap = true
 
 [node name="Button" type="Button" parent="MarginContainer/VBoxContainer"]
-margin_top = 516.0
+margin_top = 166.0
 margin_right = 1216.0
 margin_bottom = 536.0
-size_flags_vertical = 10
+size_flags_vertical = 11
 text = "Back"

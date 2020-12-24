@@ -5,6 +5,7 @@ extends Timer
 # statemachine
 
 var ingame: bool = false # don't start the machine if we're not in a game yet
+var start_with_debug_trails = false
 
 enum GameStates {
 	LOADING,
@@ -41,6 +42,7 @@ func switch_gamestate(state:int): # self-contained and recursive
 			get_tree().call_group("Balls","hide")
 		GameStates.WARMUP:
 			reset_scores()
+			set_debug_trails(start_with_debug_trails)
 			# Inform players
 			print("Warming up...")
 			get_tree().call_group("Players","show_notice",HUD.notice.WARMUP)
@@ -149,9 +151,5 @@ func reset_scores():
 	print("All scores reset.")
 	get_tree().call_group("Players", "reset_score_label")
 
-var fullscreen = false
-
-func _unhandled_input(event):
-	if event.is_action_pressed("toggle_fullscreen"):
-		fullscreen = not fullscreen
-		OS.window_fullscreen = fullscreen
+func set_debug_trails(enabled:bool):
+	get_tree().call_group("Players", "set_debug_trails", enabled)

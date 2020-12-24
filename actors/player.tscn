@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://scripts/playerstats.gd" type="Script" id=1]
 [ext_resource path="res://sounds/combat/clang.wav" type="AudioStream" id=2]
@@ -11,55 +11,44 @@
 
 [sub_resource type="CapsuleShape" id=1]
 radius = 0.5
-height = 0.8
 
-[sub_resource type="CubeMesh" id=2]
-size = Vector3( 0.2, 0.6, 0.2 )
-
-[sub_resource type="SphereMesh" id=12]
-radius = 0.5
-height = 1.0
-radial_segments = 16
-rings = 8
-
-[sub_resource type="SpatialMaterial" id=3]
+[sub_resource type="SpatialMaterial" id=2]
 params_diffuse_mode = 3
 params_specular_mode = 1
 albedo_color = Color( 1, 0, 0.470588, 1 )
 
-[sub_resource type="CapsuleMesh" id=4]
-material = SubResource( 3 )
+[sub_resource type="CapsuleMesh" id=3]
+material = SubResource( 2 )
 radius = 0.5
-mid_height = 0.8
 radial_segments = 32
 rings = 6
 
-[sub_resource type="CylinderShape" id=5]
+[sub_resource type="CylinderShape" id=4]
 radius = 0.6
 
-[sub_resource type="Gradient" id=6]
+[sub_resource type="Gradient" id=5]
 offsets = PoolRealArray( 0.25, 0.5, 0.75, 1 )
 colors = PoolColorArray( 0, 1, 0, 1, 1, 1, 0, 1, 1, 0, 0, 1, 0, 0, 0, 0 )
 
-[sub_resource type="GradientTexture" id=7]
-gradient = SubResource( 6 )
+[sub_resource type="GradientTexture" id=6]
+gradient = SubResource( 5 )
 
-[sub_resource type="ParticlesMaterial" id=8]
+[sub_resource type="ParticlesMaterial" id=7]
 gravity = Vector3( 0, 0, 0 )
 scale = 0.13
-color_ramp = SubResource( 7 )
+color_ramp = SubResource( 6 )
 
-[sub_resource type="SpatialMaterial" id=9]
+[sub_resource type="SpatialMaterial" id=8]
 flags_transparent = true
 flags_unshaded = true
 vertex_color_use_as_albedo = true
 params_billboard_mode = 2
 
-[sub_resource type="QuadMesh" id=10]
-material = SubResource( 9 )
+[sub_resource type="QuadMesh" id=9]
+material = SubResource( 8 )
 size = Vector2( 0.25, 0.25 )
 
-[sub_resource type="StyleBoxFlat" id=11]
+[sub_resource type="StyleBoxFlat" id=10]
 bg_color = Color( 0.164706, 0.164706, 0.180392, 1 )
 expand_margin_left = 12.0
 expand_margin_right = 12.0
@@ -87,15 +76,6 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0 )
 current = true
 fov = 90.0
 
-[node name="MeshInstance" type="MeshInstance" parent="KinematicBody/Head/Camera"]
-mesh = SubResource( 2 )
-material/0 = null
-
-[node name="MeshInstance" type="MeshInstance" parent="KinematicBody/Head/Camera/MeshInstance"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.58, 0 )
-mesh = SubResource( 12 )
-material/0 = null
-
 [node name="AttackRay" type="RayCast" parent="KinematicBody/Head"]
 enabled = true
 cast_to = Vector3( 0, 0, -2 )
@@ -106,7 +86,7 @@ __meta__ = {
 
 [node name="MeshInstance" type="MeshInstance" parent="KinematicBody"]
 transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0, 0 )
-mesh = SubResource( 4 )
+mesh = SubResource( 3 )
 material/0 = null
 
 [node name="ItemGrabber" type="Area" parent="KinematicBody"]
@@ -115,7 +95,7 @@ collision_layer = 0
 collision_mask = 2147483672
 
 [node name="CollisionShape" type="CollisionShape" parent="KinematicBody/ItemGrabber"]
-shape = SubResource( 5 )
+shape = SubResource( 4 )
 
 [node name="AttackCooldown" type="Timer" parent="KinematicBody"]
 process_mode = 0
@@ -144,19 +124,14 @@ stream = ExtResource( 6 )
 [node name="Teleport" type="AudioStreamPlayer3D" parent="KinematicBody/Sounds"]
 stream = ExtResource( 7 )
 
-[node name="Score" type="Sprite3D" parent="KinematicBody"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0 )
-visible = false
-billboard = 1
-
 [node name="Particles" type="Particles" parent="KinematicBody"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0 )
 visible = false
 amount = 50
 lifetime = 2.5
 local_coords = false
-process_material = SubResource( 8 )
-draw_pass_1 = SubResource( 10 )
+process_material = SubResource( 7 )
+draw_pass_1 = SubResource( 9 )
 
 [node name="HUD" type="MarginContainer" parent="."]
 anchor_right = 1.0
@@ -180,8 +155,8 @@ margin_bottom = 584.0
 modulate = Color( 1, 1, 1, 0.862745 )
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = -16.0
-margin_right = 16.0
+margin_left = -24.0
+margin_right = 24.0
 margin_bottom = 32.0
 __meta__ = {
 "_edit_use_anchors_": false
@@ -290,7 +265,7 @@ __meta__ = {
 show_behind_parent = true
 anchor_right = 1.0
 anchor_bottom = 1.0
-custom_styles/panel = SubResource( 11 )
+custom_styles/panel = SubResource( 10 )
 __meta__ = {
 "_edit_use_anchors_": false
 }

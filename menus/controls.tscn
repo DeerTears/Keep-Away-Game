@@ -1,4 +1,7 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://menus/controls.gd" type="Script" id=1]
+[ext_resource path="res://fonts/Header1.res" type="DynamicFont" id=2]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.243137, 0.168627, 0, 1 )
@@ -6,6 +9,7 @@ bg_color = Color( 0.243137, 0.168627, 0, 1 )
 [node name="Controls" type="Panel"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -31,57 +35,78 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Settings" type="HBoxContainer" parent="Margin/VBox"]
+[node name="Label" type="Label" parent="Margin/VBox"]
 margin_right = 1216.0
-margin_bottom = 488.0
+margin_bottom = 40.0
+custom_fonts/font = ExtResource( 2 )
+text = "Controls"
+
+[node name="PlayerPicker" type="HBoxContainer" parent="Margin/VBox"]
+margin_top = 56.0
+margin_right = 1216.0
+margin_bottom = 88.0
+custom_constants/separation = 8
+
+[node name="Label" type="Label" parent="Margin/VBox/PlayerPicker"]
+margin_left = 540.0
+margin_top = 9.0
+margin_right = 579.0
+margin_bottom = 23.0
+size_flags_horizontal = 10
+text = "Player"
+align = 1
+
+[node name="Option" type="OptionButton" parent="Margin/VBox/PlayerPicker"]
+margin_left = 587.0
+margin_right = 651.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 64, 32 )
+size_flags_horizontal = 2
+text = "1"
+align = 1
+items = [ "1", null, false, 0, null, "2", null, false, 1, null, "3", null, false, 2, null, "4", null, false, 3, null ]
+selected = 0
+
+[node name="Dummy" type="Control" parent="Margin/VBox/PlayerPicker"]
+margin_left = 1174.0
+margin_right = 1216.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 42, 0 )
+
+[node name="Settings" type="HBoxContainer" parent="Margin/VBox"]
+margin_top = 104.0
+margin_right = 1216.0
+margin_bottom = 500.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 16
 
 [node name="DevicePicker" type="VBoxContainer" parent="Margin/VBox/Settings"]
-margin_right = 830.0
-margin_bottom = 488.0
+margin_right = 926.0
+margin_bottom = 396.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 16
 
 [node name="Controller" type="Button" parent="Margin/VBox/Settings/DevicePicker"]
-margin_right = 830.0
-margin_bottom = 236.0
+margin_right = 926.0
+margin_bottom = 190.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "Controller"
 
 [node name="Mouse" type="Button" parent="Margin/VBox/Settings/DevicePicker"]
-margin_top = 252.0
-margin_right = 830.0
-margin_bottom = 488.0
+margin_top = 206.0
+margin_right = 926.0
+margin_bottom = 396.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "Mouse"
 
-[node name="Affirming" type="Panel" parent="Margin/VBox/Settings"]
-margin_left = 846.0
-margin_right = 1102.0
-margin_bottom = 488.0
-rect_min_size = Vector2( 256, 0 )
-
-[node name="Label" type="Label" parent="Margin/VBox/Settings/Affirming"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-text = "Player 1 is using Controller
-
-Player 2 is using Mouse & Keyboard"
-valign = 1
-autowrap = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="Sensitivity" type="Panel" parent="Margin/VBox/Settings"]
-margin_left = 1118.0
-margin_right = 1216.0
-margin_bottom = 488.0
+margin_left = 942.0
+margin_right = 1040.0
+margin_bottom = 396.0
 rect_min_size = Vector2( 98, 0 )
 size_flags_vertical = 3
 custom_styles/panel = SubResource( 1 )
@@ -101,7 +126,7 @@ __meta__ = {
 margin_left = 16.0
 margin_top = 16.0
 margin_right = 82.0
-margin_bottom = 472.0
+margin_bottom = 380.0
 custom_constants/separation = 16
 __meta__ = {
 "_edit_use_anchors_": false
@@ -114,60 +139,131 @@ size_flags_horizontal = 3
 text = "Sensitivity"
 align = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Margin/VBox/Settings/Sensitivity/MarginContainer/VBoxContainer2"]
+[node name="VSlider" type="VSlider" parent="Margin/VBox/Settings/Sensitivity/MarginContainer/VBoxContainer2"]
+margin_left = 25.0
 margin_top = 30.0
+margin_right = 41.0
+margin_bottom = 334.0
+size_flags_horizontal = 6
+size_flags_vertical = 3
+min_value = 0.01
+max_value = 1.0
+step = 0.01
+value = 0.3
+
+[node name="Indicator" type="Label" parent="Margin/VBox/Settings/Sensitivity/MarginContainer/VBoxContainer2"]
+margin_top = 350.0
 margin_right = 66.0
-margin_bottom = 456.0
-size_flags_vertical = 3
-
-[node name="VSlider" type="VSlider" parent="Margin/VBox/Settings/Sensitivity/MarginContainer/VBoxContainer2/HBoxContainer"]
-margin_left = 7.0
-margin_right = 23.0
-margin_bottom = 426.0
-size_flags_horizontal = 6
-size_flags_vertical = 3
-
-[node name="Label" type="Label" parent="Margin/VBox/Settings/Sensitivity/MarginContainer/VBoxContainer2/HBoxContainer"]
-margin_left = 42.0
-margin_top = 206.0
-margin_right = 58.0
-margin_bottom = 220.0
-size_flags_horizontal = 6
+margin_bottom = 364.0
+size_flags_horizontal = 5
 text = "08"
+align = 1
 
-[node name="PlayerSelector" type="HBoxContainer" parent="Margin/VBox"]
-margin_top = 504.0
+[node name="Affirming" type="Panel" parent="Margin/VBox/Settings"]
+margin_left = 1056.0
 margin_right = 1216.0
-margin_bottom = 536.0
-custom_constants/separation = 8
+margin_bottom = 396.0
+rect_min_size = Vector2( 160, 0 )
 
-[node name="Back" type="Button" parent="Margin/VBox/PlayerSelector"]
-margin_right = 42.0
-margin_bottom = 32.0
-text = "Back"
+[node name="Label" type="Label" parent="Margin/VBox/Settings/Affirming"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "player 1: keyboard
+player 1: keyboard
+player 1: keyboard
+player 1: keyboard"
+valign = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="Label" type="Label" parent="Margin/VBox/PlayerSelector"]
-margin_left = 565.0
-margin_top = 9.0
-margin_right = 604.0
-margin_bottom = 23.0
-size_flags_horizontal = 10
-text = "Player"
+[node name="VSeparator" type="VSeparator" parent="Margin/VBox/Settings"]
+visible = false
+margin_left = 1212.0
+margin_right = 1216.0
+margin_bottom = 396.0
+
+[node name="FOV" type="Panel" parent="Margin/VBox/Settings"]
+visible = false
+margin_left = 997.0
+margin_right = 1095.0
+margin_bottom = 396.0
+rect_min_size = Vector2( 98, 0 )
+size_flags_vertical = 3
+custom_styles/panel = SubResource( 1 )
+
+[node name="MarginContainer" type="MarginContainer" parent="Margin/VBox/Settings/FOV"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/margin_right = 8
+custom_constants/margin_top = 16
+custom_constants/margin_left = 8
+custom_constants/margin_bottom = 16
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Margin/VBox/Settings/FOV/MarginContainer"]
+margin_left = 8.0
+margin_top = 16.0
+margin_right = 90.0
+margin_bottom = 380.0
+custom_constants/separation = 16
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Margin/VBox/Settings/FOV/MarginContainer/VBoxContainer2"]
+margin_right = 82.0
+margin_bottom = 14.0
+size_flags_horizontal = 3
+text = "Field of View"
 align = 1
 
-[node name="Option" type="OptionButton" parent="Margin/VBox/PlayerSelector"]
-margin_left = 612.0
-margin_right = 676.0
-margin_bottom = 32.0
-rect_min_size = Vector2( 64, 32 )
-size_flags_horizontal = 2
-text = "1"
+[node name="VSlider" type="VSlider" parent="Margin/VBox/Settings/FOV/MarginContainer/VBoxContainer2"]
+margin_left = 33.0
+margin_top = 30.0
+margin_right = 49.0
+margin_bottom = 334.0
+size_flags_horizontal = 6
+size_flags_vertical = 3
+min_value = 45.0
+value = 90.0
+
+[node name="Indicator" type="Label" parent="Margin/VBox/Settings/FOV/MarginContainer/VBoxContainer2"]
+margin_top = 350.0
+margin_right = 82.0
+margin_bottom = 364.0
+size_flags_horizontal = 5
+text = "90"
 align = 1
-items = [ "1", null, false, 0, null, "2", null, false, 1, null, "3", null, false, 2, null, "4", null, false, 3, null ]
+
+[node name="Camera" type="VBoxContainer" parent="Margin/VBox/Settings"]
+visible = false
+margin_left = 1111.0
+margin_right = 1216.0
+margin_bottom = 396.0
+custom_constants/separation = 16
+
+[node name="Label" type="Label" parent="Margin/VBox/Settings/Camera"]
+margin_right = 105.0
+margin_bottom = 14.0
+text = "Camera Type"
+align = 1
+
+[node name="OptionButton" type="OptionButton" parent="Margin/VBox/Settings/Camera"]
+margin_top = 30.0
+margin_right = 105.0
+margin_bottom = 50.0
+text = "First Person"
+items = [ "First Person", null, false, 0, null, "Third Person", null, false, 1, null ]
 selected = 0
 
-[node name="Dummy" type="Control" parent="Margin/VBox/PlayerSelector"]
-margin_left = 1174.0
-margin_right = 1216.0
-margin_bottom = 32.0
-rect_min_size = Vector2( 42, 0 )
+[node name="Back" type="Button" parent="Margin/VBox"]
+margin_top = 516.0
+margin_right = 42.0
+margin_bottom = 536.0
+size_flags_horizontal = 0
+text = "Back"
+[connection signal="value_changed" from="Margin/VBox/Settings/Sensitivity/MarginContainer/VBoxContainer2/VSlider" to="." method="_on_VSlider_value_changed"]
