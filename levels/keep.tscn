@@ -1,11 +1,423 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://actors/spawnlocations.tscn" type="PackedScene" id=1]
+[ext_resource path="res://models/props/keep/keep_a1.obj" type="ArrayMesh" id=2]
+[ext_resource path="res://actors/player.tscn" type="PackedScene" id=3]
+[ext_resource path="res://models/props/keep/keep_blue.material" type="Material" id=4]
+[ext_resource path="res://scripts/gamevalidator.gd" type="Script" id=5]
+[ext_resource path="res://actors/bouncyball.tscn" type="PackedScene" id=6]
+
+[sub_resource type="BoxShape" id=8]
+extents = Vector3( 200, 6, 200 )
+
+[sub_resource type="SpatialMaterial" id=7]
+params_diffuse_mode = 1
+params_specular_mode = 3
+albedo_color = Color( 1, 0.384314, 0.384314, 1 )
+metallic = 0.15
+metallic_specular = 0.0
+roughness = 0.9
+
+[sub_resource type="ConcavePolygonShape" id=1]
+data = PoolVector3Array( -256, -128, 256, -256, -128, -256, -256, 0, 256, -256, 0, 256, -256, -128, -256, -256, 0, -256, -256, 0, 256, -128, 0, 256, -256, -128, 256, -256, -128, 256, -128, 0, 256, -128, -128, 256, -256, -128, 256, -128, -128, 256, -256, -128, -256, -256, -128, -256, -128, -128, 256, -128, -128, -256, -256, 0, -256, -128, 0, -256, -256, 0, 256, -256, 0, 256, -128, 0, -256, -128, 0, 256, -256, -128, -256, -128, -128, -256, -256, 0, -256, -256, 0, -256, -128, -128, -256, -128, 0, -256, -128, 0, 256, -128, 0, -256, -128, -128, 256, -128, -128, 256, -128, 0, -256, -128, -128, -256, 128, -128, 256, 128, -128, -256, 128, 0, 256, 128, 0, 256, 128, -128, -256, 128, 0, -256, 128, 0, 256, 256, 0, 256, 128, -128, 256, 128, -128, 256, 256, 0, 256, 256, -128, 256, 128, -128, 256, 256, -128, 256, 128, -128, -256, 128, -128, -256, 256, -128, 256, 256, -128, -256, 128, 0, -256, 256, 0, -256, 128, 0, 256, 128, 0, 256, 256, 0, -256, 256, 0, 256, 128, -128, -256, 256, -128, -256, 128, 0, -256, 128, 0, -256, 256, -128, -256, 256, 0, -256, 256, 0, 256, 256, 0, -256, 256, -128, 256, 256, -128, 256, 256, 0, -256, 256, -128, -256, -384, -128, 512, -384, -128, 256, -384, 0, 512, -384, 0, 512, -384, -128, 256, -384, 0, 256, -384, 0, 512, 384, 0, 512, -384, -128, 512, -384, -128, 512, 384, 0, 512, 384, -128, 512, -384, -128, 512, 384, -128, 512, -384, -128, 256, -384, -128, 256, 384, -128, 512, 384, -128, 256, -384, 0, 256, 384, 0, 256, -384, 0, 512, -384, 0, 512, 384, 0, 256, 384, 0, 512, -384, -128, 256, 384, -128, 256, -384, 0, 256, -384, 0, 256, 384, -128, 256, 384, 0, 256, 384, 0, 512, 384, 0, 256, 384, -128, 512, 384, -128, 512, 384, 0, 256, 384, -128, 256, -896, -128, 1408, -896, -128, 512, -896, 0, 1408, -896, 0, 1408, -896, -128, 512, -896, 0, 512, -896, 0, 1408, 896, 0, 1408, -896, -128, 1408, -896, -128, 1408, 896, 0, 1408, 896, -128, 1408, -896, -128, 1408, 896, -128, 1408, -896, -128, 512, -896, -128, 512, 896, -128, 1408, 896, -128, 512, -896, 0, 512, 896, 0, 512, -896, 0, 1408, -896, 0, 1408, 896, 0, 512, 896, 0, 1408, -896, -128, 512, 896, -128, 512, -896, 0, 512, -896, 0, 512, 896, -128, 512, 896, 0, 512, 896, 0, 1408, 896, 0, 512, 896, -128, 1408, 896, -128, 1408, 896, 0, 512, 896, -128, 512, -512, 0, 1024, -512, 0, 896, -512, 384, 1024, -512, 384, 1024, -512, 0, 896, -512, 384, 896, -512, 384, 1024, 512, 384, 1024, -512, 0, 1024, -512, 0, 1024, 512, 384, 1024, 512, 0, 1024, -512, 0, 1024, 512, 0, 1024, -512, 0, 896, -512, 0, 896, 512, 0, 1024, 512, 0, 896, -512, 384, 896, 512, 384, 896, -512, 384, 1024, -512, 384, 1024, 512, 384, 896, 512, 384, 1024, -512, 0, 896, 512, 0, 896, -512, 384, 896, -512, 384, 896, 512, 0, 896, 512, 384, 896, 512, 384, 1024, 512, 384, 896, 512, 0, 1024, 512, 0, 1024, 512, 384, 896, 512, 0, 896, -512, 256, 1408, -512, 256, 1024, -512, 384, 1408, -512, 384, 1408, -512, 256, 1024, -512, 384, 1024, -512, 384, 1408, -384, 384, 1408, -512, 256, 1408, -512, 256, 1408, -384, 384, 1408, -384, 256, 1408, -512, 256, 1408, -384, 256, 1408, -512, 256, 1024, -512, 256, 1024, -384, 256, 1408, -384, 256, 1024, -512, 384, 1024, -384, 384, 1024, -512, 384, 1408, -512, 384, 1408, -384, 384, 1024, -384, 384, 1408, -512, 256, 1024, -384, 256, 1024, -512, 384, 1024, -512, 384, 1024, -384, 256, 1024, -384, 384, 1024, -384, 384, 1408, -384, 384, 1024, -384, 256, 1408, -384, 256, 1408, -384, 384, 1024, -384, 256, 1024, 384, 256, 1408, 384, 256, 1024, 384, 384, 1408, 384, 384, 1408, 384, 256, 1024, 384, 384, 1024, 384, 384, 1408, 512, 384, 1408, 384, 256, 1408, 384, 256, 1408, 512, 384, 1408, 512, 256, 1408, 384, 256, 1408, 512, 256, 1408, 384, 256, 1024, 384, 256, 1024, 512, 256, 1408, 512, 256, 1024, 384, 384, 1024, 512, 384, 1024, 384, 384, 1408, 384, 384, 1408, 512, 384, 1024, 512, 384, 1408, 384, 256, 1024, 512, 256, 1024, 384, 384, 1024, 384, 384, 1024, 512, 256, 1024, 512, 384, 1024, 512, 384, 1408, 512, 384, 1024, 512, 256, 1408, 512, 256, 1408, 512, 384, 1024, 512, 256, 1024, -512, 0, 1408, -512, 0, 1280, -512, 256, 1408, -512, 256, 1408, -512, 0, 1280, -512, 256, 1280, -512, 256, 1408, -384, 256, 1408, -512, 0, 1408, -512, 0, 1408, -384, 256, 1408, -384, 0, 1408, -512, 0, 1408, -384, 0, 1408, -512, 0, 1280, -512, 0, 1280, -384, 0, 1408, -384, 0, 1280, -512, 256, 1280, -384, 256, 1280, -512, 256, 1408, -512, 256, 1408, -384, 256, 1280, -384, 256, 1408, -512, 0, 1280, -384, 0, 1280, -512, 256, 1280, -512, 256, 1280, -384, 0, 1280, -384, 256, 1280, -384, 256, 1408, -384, 256, 1280, -384, 0, 1408, -384, 0, 1408, -384, 256, 1280, -384, 0, 1280, 384, 0, 1408, 384, 0, 1280, 384, 256, 1408, 384, 256, 1408, 384, 0, 1280, 384, 256, 1280, 384, 256, 1408, 512, 256, 1408, 384, 0, 1408, 384, 0, 1408, 512, 256, 1408, 512, 0, 1408, 384, 0, 1408, 512, 0, 1408, 384, 0, 1280, 384, 0, 1280, 512, 0, 1408, 512, 0, 1280, 384, 256, 1280, 512, 256, 1280, 384, 256, 1408, 384, 256, 1408, 512, 256, 1280, 512, 256, 1408, 384, 0, 1280, 512, 0, 1280, 384, 256, 1280, 384, 256, 1280, 512, 0, 1280, 512, 256, 1280, 512, 256, 1408, 512, 256, 1280, 512, 0, 1408, 512, 0, 1408, 512, 256, 1280, 512, 0, 1280, -384, 0, 2176, -384, 0, 1792, -384, 256, 2176, -384, 256, 2176, -384, 0, 1792, -384, 256, 1792, -384, 256, 2176, 384, 256, 2176, -384, 0, 2176, -384, 0, 2176, 384, 256, 2176, 384, 0, 2176, -384, 0, 2176, 384, 0, 2176, -384, 0, 1792, -384, 0, 1792, 384, 0, 2176, 384, 0, 1792, -384, 256, 1792, 384, 256, 1792, -384, 256, 2176, -384, 256, 2176, 384, 256, 1792, 384, 256, 2176, -384, 0, 1792, 384, 0, 1792, -384, 256, 1792, -384, 256, 1792, 384, 0, 1792, 384, 256, 1792, 384, 256, 2176, 384, 256, 1792, 384, 0, 2176, 384, 0, 2176, 384, 256, 1792, 384, 0, 1792, -384, 0, 1792, -384, 0, 1408, -384, 256, 1792, -384, 256, 1792, 384, 256, 1792, -384, 0, 1792, -384, 0, 1792, 384, 256, 1792, 384, 0, 1792, -384, 0, 1792, 384, 0, 1792, -384, 0, 1408, -384, 0, 1408, 384, 0, 1792, 384, 0, 1408, -384, 0, 1408, 384, 0, 1408, -384, 256, 1792, -384, 256, 1792, 384, 0, 1408, 384, 256, 1792, 384, 0, 1408, 384, 0, 1792, 384, 256, 1792, -512, 0, 2304, -512, 0, 2176, -512, 640, 2304, -512, 640, 2304, -512, 0, 2176, -512, 640, 2176, -512, 640, 2304, 512, 640, 2304, -512, 0, 2304, -512, 0, 2304, 512, 640, 2304, 512, 0, 2304, -512, 0, 2304, 512, 0, 2304, -512, 0, 2176, -512, 0, 2176, 512, 0, 2304, 512, 0, 2176, -512, 640, 2176, 512, 640, 2176, -512, 640, 2304, -512, 640, 2304, 512, 640, 2176, 512, 640, 2304, -512, 0, 2176, 512, 0, 2176, -512, 640, 2176, -512, 640, 2176, 512, 0, 2176, 512, 640, 2176, 512, 640, 2304, 512, 640, 2176, 512, 0, 2304, 512, 0, 2304, 512, 640, 2176, 512, 0, 2176, -384, 576, 1792, -384, 320, 1408, -384, 640, 1792, -384, 640, 1792, -384, 320, 1408, -384, 384, 1408, -384, 640, 1792, 384, 640, 1792, -384, 576, 1792, -384, 576, 1792, 384, 640, 1792, 384, 576, 1792, -384, 576, 1792, 384, 576, 1792, -384, 320, 1408, -384, 320, 1408, 384, 576, 1792, 384, 320, 1408, -384, 384, 1408, 384, 384, 1408, -384, 640, 1792, -384, 640, 1792, 384, 384, 1408, 384, 640, 1792, -384, 320, 1408, 384, 320, 1408, -384, 384, 1408, -384, 384, 1408, 384, 320, 1408, 384, 384, 1408, 384, 640, 1792, 384, 384, 1408, 384, 576, 1792, 384, 576, 1792, 384, 384, 1408, 384, 320, 1408, -512, 0, 2176, -512, 0, 1408, -512, 640, 2176, -512, 640, 2176, -512, 0, 1408, -512, 640, 1792, -512, 640, 1792, -512, 0, 1408, -512, 384, 1408, -512, 640, 2176, -384, 640, 2176, -512, 0, 2176, -512, 0, 2176, -384, 640, 2176, -384, 0, 2176, -512, 0, 2176, -384, 0, 2176, -512, 0, 1408, -512, 0, 1408, -384, 0, 2176, -384, 0, 1408, -512, 640, 1792, -384, 640, 1792, -512, 640, 2176, -512, 640, 2176, -384, 640, 1792, -384, 640, 2176, -512, 384, 1408, -384, 384, 1408, -512, 640, 1792, -512, 640, 1792, -384, 384, 1408, -384, 640, 1792, -512, 0, 1408, -384, 0, 1408, -512, 384, 1408, -512, 384, 1408, -384, 0, 1408, -384, 384, 1408, -384, 640, 1792, -384, 384, 1408, -384, 640, 2176, -384, 640, 2176, -384, 384, 1408, -384, 0, 2176, -384, 0, 2176, -384, 384, 1408, -384, 0, 1408, 384, 0, 2176, 384, 0, 1408, 384, 640, 2176, 384, 640, 2176, 384, 0, 1408, 384, 640, 1792, 384, 640, 1792, 384, 0, 1408, 384, 384, 1408, 384, 640, 2176, 512, 640, 2176, 384, 0, 2176, 384, 0, 2176, 512, 640, 2176, 512, 0, 2176, 384, 0, 2176, 512, 0, 2176, 384, 0, 1408, 384, 0, 1408, 512, 0, 2176, 512, 0, 1408, 384, 640, 1792, 512, 640, 1792, 384, 640, 2176, 384, 640, 2176, 512, 640, 1792, 512, 640, 2176, 384, 384, 1408, 512, 384, 1408, 384, 640, 1792, 384, 640, 1792, 512, 384, 1408, 512, 640, 1792, 384, 0, 1408, 512, 0, 1408, 384, 384, 1408, 384, 384, 1408, 512, 0, 1408, 512, 384, 1408, 512, 640, 1792, 512, 384, 1408, 512, 640, 2176, 512, 640, 2176, 512, 384, 1408, 512, 0, 2176, 512, 0, 2176, 512, 384, 1408, 512, 0, 1408, -384, 576, 2176, -384, 576, 1792, -384, 640, 2176, -384, 640, 2176, -384, 576, 1792, -384, 640, 1792, -384, 640, 2176, 384, 640, 2176, -384, 576, 2176, -384, 576, 2176, 384, 640, 2176, 384, 576, 2176, -384, 576, 2176, 384, 576, 2176, -384, 576, 1792, -384, 576, 1792, 384, 576, 2176, 384, 576, 1792, -384, 640, 1792, 384, 640, 1792, -384, 640, 2176, -384, 640, 2176, 384, 640, 1792, 384, 640, 2176, -384, 576, 1792, 384, 576, 1792, -384, 640, 1792, -384, 640, 1792, 384, 576, 1792, 384, 640, 1792, 384, 640, 2176, 384, 640, 1792, 384, 576, 2176, 384, 576, 2176, 384, 640, 1792, 384, 576, 1792, -384, 320, 1408, -384, 320, 1024, -384, 384, 1408, -384, 384, 1408, -384, 320, 1024, -384, 384, 1024, -384, 384, 1408, 384, 384, 1408, -384, 320, 1408, -384, 320, 1408, 384, 384, 1408, 384, 320, 1408, -384, 320, 1408, 384, 320, 1408, -384, 320, 1024, -384, 320, 1024, 384, 320, 1408, 384, 320, 1024, -384, 384, 1024, 384, 384, 1024, -384, 384, 1408, -384, 384, 1408, 384, 384, 1024, 384, 384, 1408, -384, 320, 1024, 384, 320, 1024, -384, 384, 1024, -384, 384, 1024, 384, 320, 1024, 384, 384, 1024, 384, 384, 1408, 384, 384, 1024, 384, 320, 1408, 384, 320, 1408, 384, 384, 1024, 384, 320, 1024, -512, 0, 1088, -512, 0, 1024, -512, 256, 1088, -512, 256, 1088, -512, 0, 1024, -512, 256, 1024, -512, 256, 1088, -384, 256, 1088, -512, 0, 1088, -512, 0, 1088, -384, 256, 1088, -384, 0, 1088, -512, 0, 1088, -384, 0, 1088, -512, 0, 1024, -512, 0, 1024, -384, 0, 1088, -384, 0, 1024, -512, 256, 1024, -384, 256, 1024, -512, 256, 1088, -512, 256, 1088, -384, 256, 1024, -384, 256, 1088, -512, 0, 1024, -384, 0, 1024, -512, 256, 1024, -512, 256, 1024, -384, 0, 1024, -384, 256, 1024, -384, 256, 1088, -384, 256, 1024, -384, 0, 1088, -384, 0, 1088, -384, 256, 1024, -384, 0, 1024, 384, 0, 1088, 384, 0, 1024, 384, 256, 1088, 384, 256, 1088, 384, 0, 1024, 384, 256, 1024, 384, 256, 1088, 512, 256, 1088, 384, 0, 1088, 384, 0, 1088, 512, 256, 1088, 512, 0, 1088, 384, 0, 1088, 512, 0, 1088, 384, 0, 1024, 384, 0, 1024, 512, 0, 1088, 512, 0, 1024, 384, 256, 1024, 512, 256, 1024, 384, 256, 1088, 384, 256, 1088, 512, 256, 1024, 512, 256, 1088, 384, 0, 1024, 512, 0, 1024, 384, 256, 1024, 384, 256, 1024, 512, 0, 1024, 512, 256, 1024, 512, 256, 1088, 512, 256, 1024, 512, 0, 1088, 512, 0, 1088, 512, 256, 1024, 512, 0, 1024, -1344, 0, 1472, -1344, 0, 1408, -1344, 192, 1472, -1344, 192, 1472, -1344, 0, 1408, -1344, 192, 1408, -1344, 192, 1472, -512, 192, 1472, -1344, 0, 1472, -1344, 0, 1472, -512, 192, 1472, -512, 0, 1472, -1344, 0, 1472, -512, 0, 1472, -1344, 0, 1408, -1344, 0, 1408, -512, 0, 1472, -512, 0, 1408, -1344, 192, 1408, -512, 192, 1408, -1344, 192, 1472, -1344, 192, 1472, -512, 192, 1408, -512, 192, 1472, -1344, 0, 1408, -512, 0, 1408, -1344, 192, 1408, -1344, 192, 1408, -512, 0, 1408, -512, 192, 1408, -512, 192, 1472, -512, 192, 1408, -512, 0, 1472, -512, 0, 1472, -512, 192, 1408, -512, 0, 1408, -1344, -128, 2496, -1344, -128, 1408, -1344, 0, 2496, -1344, 0, 2496, -1344, -128, 1408, -1344, 0, 1408, -1344, 0, 2496, 1344, 0, 2496, -1344, -128, 2496, -1344, -128, 2496, 1344, 0, 2496, 1344, -128, 2496, -1344, -128, 2496, 1344, -128, 2496, -1344, -128, 1408, -1344, -128, 1408, 1344, -128, 2496, 1344, -128, 1408, -1344, 0, 1408, 1344, 0, 1408, -1344, 0, 2496, -1344, 0, 2496, 1344, 0, 1408, 1344, 0, 2496, -1344, -128, 1408, 1344, -128, 1408, -1344, 0, 1408, -1344, 0, 1408, 1344, -128, 1408, 1344, 0, 1408, 1344, 0, 2496, 1344, 0, 1408, 1344, -128, 2496, 1344, -128, 2496, 1344, 0, 1408, 1344, -128, 1408, 512, 0, 1472, 512, 0, 1408, 512, 192, 1472, 512, 192, 1472, 512, 0, 1408, 512, 192, 1408, 512, 192, 1472, 1344, 192, 1472, 512, 0, 1472, 512, 0, 1472, 1344, 192, 1472, 1344, 0, 1472, 512, 0, 1472, 1344, 0, 1472, 512, 0, 1408, 512, 0, 1408, 1344, 0, 1472, 1344, 0, 1408, 512, 192, 1408, 1344, 192, 1408, 512, 192, 1472, 512, 192, 1472, 1344, 192, 1408, 1344, 192, 1472, 512, 0, 1408, 1344, 0, 1408, 512, 192, 1408, 512, 192, 1408, 1344, 0, 1408, 1344, 192, 1408, 1344, 192, 1472, 1344, 192, 1408, 1344, 0, 1472, 1344, 0, 1472, 1344, 192, 1408, 1344, 0, 1408 )
+
+[sub_resource type="ProceduralSky" id=4]
+sky_top_color = Color( 0.298039, 0.486275, 0.678431, 1 )
+sky_horizon_color = Color( 0.992157, 0.733333, 0.498039, 1 )
+sky_curve = 0.141225
+ground_bottom_color = Color( 0.176471, 0.160784, 0.219608, 1 )
+ground_horizon_color = Color( 0.929412, 0.439216, 0.360784, 1 )
+ground_curve = 0.0606287
+
+[sub_resource type="Environment" id=5]
+background_mode = 2
+background_sky = SubResource( 4 )
+ambient_light_sky_contribution = 0.12
+tonemap_mode = 1
+tonemap_exposure = 1.5
+tonemap_white = 3.5
 
 [node name="Spatial" type="Spatial"]
 
 [node name="SpawnLocations" parent="." instance=ExtResource( 1 )]
 
+[node name="Player0" parent="SpawnLocations" index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8, 45 )
+
+[node name="Player1" parent="SpawnLocations" index="1"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8, -57 )
+
+[node name="Player2" parent="SpawnLocations" index="2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 3, 0 )
+
+[node name="Player3" parent="SpawnLocations" index="3"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 3, 0 )
+
 [node name="Pits" type="Spatial" parent="."]
 
-[node name="CSGCombiner" type="CSGCombiner" parent="."]
+[node name="Area" type="Area" parent="Pits"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -16, 0 )
+monitoring = false
+collision_layer = 16
+collision_mask = 0
+
+[node name="CollisionShape" type="CollisionShape" parent="Pits/Area"]
+shape = SubResource( 8 )
+
+[node name="Worlds" type="Spatial" parent="."]
+
+[node name="Red" type="StaticBody" parent="Worlds"]
+transform = Transform( 0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0, 0, -0.02 )
+
+[node name="keep_a1" type="MeshInstance" parent="Worlds/Red"]
+transform = Transform( 0.04, 0, 0, 0, 0.04, 0, 0, 0, 0.04, 0, 0, 0 )
+material_override = SubResource( 7 )
+mesh = ExtResource( 2 )
+material/0 = null
+material/1 = null
+material/2 = null
+material/3 = null
+material/4 = null
+material/5 = null
+material/6 = null
+material/7 = null
+material/8 = null
+material/9 = null
+material/10 = null
+material/11 = null
+material/12 = null
+material/13 = null
+material/14 = null
+material/15 = null
+material/16 = null
+material/17 = null
+material/18 = null
+material/19 = null
+material/20 = null
+material/21 = null
+material/22 = null
+material/23 = null
+material/24 = null
+material/25 = null
+material/26 = null
+material/27 = null
+material/28 = null
+material/29 = null
+material/30 = null
+material/31 = null
+material/32 = null
+material/33 = null
+material/34 = null
+material/35 = null
+material/36 = null
+material/37 = null
+material/38 = null
+material/39 = null
+material/40 = null
+material/41 = null
+material/42 = null
+material/43 = null
+material/44 = null
+material/45 = null
+material/46 = null
+material/47 = null
+material/48 = null
+material/49 = null
+material/50 = null
+material/51 = null
+material/52 = null
+material/53 = null
+material/54 = null
+material/55 = null
+material/56 = null
+material/57 = null
+material/58 = null
+material/59 = null
+material/60 = null
+material/61 = null
+material/62 = null
+material/63 = null
+material/64 = null
+material/65 = null
+material/66 = null
+material/67 = null
+material/68 = null
+material/69 = null
+material/70 = null
+material/71 = null
+material/72 = null
+material/73 = null
+material/74 = null
+material/75 = null
+material/76 = null
+material/77 = null
+material/78 = null
+material/79 = null
+material/80 = null
+material/81 = null
+material/82 = null
+material/83 = null
+material/84 = null
+material/85 = null
+material/86 = null
+material/87 = null
+material/88 = null
+material/89 = null
+material/90 = null
+material/91 = null
+material/92 = null
+material/93 = null
+material/94 = null
+material/95 = null
+material/96 = null
+material/97 = null
+material/98 = null
+material/99 = null
+material/100 = null
+material/101 = null
+material/102 = null
+material/103 = null
+material/104 = null
+material/105 = null
+material/106 = null
+material/107 = null
+material/108 = null
+material/109 = null
+material/110 = null
+material/111 = null
+material/112 = null
+material/113 = null
+material/114 = null
+material/115 = null
+material/116 = null
+material/117 = null
+material/118 = null
+material/119 = null
+material/120 = null
+material/121 = null
+material/122 = null
+material/123 = null
+material/124 = null
+material/125 = null
+material/126 = null
+material/127 = null
+material/128 = null
+material/129 = null
+material/130 = null
+material/131 = null
+material/132 = null
+
+[node name="CollisionShape" type="CollisionShape" parent="Worlds/Red"]
+transform = Transform( 0.04, 0, 0, 0, 0.04, 0, 0, 0, 0.04, 0, 0, 0 )
+shape = SubResource( 1 )
+
+[node name="Blue" type="StaticBody" parent="Worlds"]
+transform = Transform( -0.6, 0, -2.33649e-07, 0, 0.6, 0, 2.33649e-07, 0, -0.6, 0, 0, -12.3 )
+
+[node name="keep_a1" type="MeshInstance" parent="Worlds/Blue"]
+transform = Transform( 0.04, 0, 0, 0, 0.04, 0, 0, 0, 0.04, 0, 0, 0 )
+material_override = ExtResource( 4 )
+mesh = ExtResource( 2 )
+material/0 = null
+material/1 = null
+material/2 = null
+material/3 = null
+material/4 = null
+material/5 = null
+material/6 = null
+material/7 = null
+material/8 = null
+material/9 = null
+material/10 = null
+material/11 = null
+material/12 = null
+material/13 = null
+material/14 = null
+material/15 = null
+material/16 = null
+material/17 = null
+material/18 = null
+material/19 = null
+material/20 = null
+material/21 = null
+material/22 = null
+material/23 = null
+material/24 = null
+material/25 = null
+material/26 = null
+material/27 = null
+material/28 = null
+material/29 = null
+material/30 = null
+material/31 = null
+material/32 = null
+material/33 = null
+material/34 = null
+material/35 = null
+material/36 = null
+material/37 = null
+material/38 = null
+material/39 = null
+material/40 = null
+material/41 = null
+material/42 = null
+material/43 = null
+material/44 = null
+material/45 = null
+material/46 = null
+material/47 = null
+material/48 = null
+material/49 = null
+material/50 = null
+material/51 = null
+material/52 = null
+material/53 = null
+material/54 = null
+material/55 = null
+material/56 = null
+material/57 = null
+material/58 = null
+material/59 = null
+material/60 = null
+material/61 = null
+material/62 = null
+material/63 = null
+material/64 = null
+material/65 = null
+material/66 = null
+material/67 = null
+material/68 = null
+material/69 = null
+material/70 = null
+material/71 = null
+material/72 = null
+material/73 = null
+material/74 = null
+material/75 = null
+material/76 = null
+material/77 = null
+material/78 = null
+material/79 = null
+material/80 = null
+material/81 = null
+material/82 = null
+material/83 = null
+material/84 = null
+material/85 = null
+material/86 = null
+material/87 = null
+material/88 = null
+material/89 = null
+material/90 = null
+material/91 = null
+material/92 = null
+material/93 = null
+material/94 = null
+material/95 = null
+material/96 = null
+material/97 = null
+material/98 = null
+material/99 = null
+material/100 = null
+material/101 = null
+material/102 = null
+material/103 = null
+material/104 = null
+material/105 = null
+material/106 = null
+material/107 = null
+material/108 = null
+material/109 = null
+material/110 = null
+material/111 = null
+material/112 = null
+material/113 = null
+material/114 = null
+material/115 = null
+material/116 = null
+material/117 = null
+material/118 = null
+material/119 = null
+material/120 = null
+material/121 = null
+material/122 = null
+material/123 = null
+material/124 = null
+material/125 = null
+material/126 = null
+material/127 = null
+material/128 = null
+material/129 = null
+material/130 = null
+material/131 = null
+material/132 = null
+
+[node name="CollisionShape" type="CollisionShape" parent="Worlds/Blue"]
+transform = Transform( 0.04, 0, 0, 0, 0.04, 0, 0, 0, 0.04, 0, 0, 0 )
+shape = SubResource( 1 )
+
+[node name="OmniLight" type="OmniLight" parent="Worlds"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 5, 34 )
+omni_range = 6.0
+
+[node name="Player1" parent="." instance=ExtResource( 3 )]
+player_number = 1
+
+[node name="Player0" parent="." instance=ExtResource( 3 )]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 5 )
+
+[node name="Sun" type="DirectionalLight" parent="WorldEnvironment"]
+transform = Transform( -0.173648, -0.492404, 0.852868, 0, 0.866025, 0.5, -0.984808, 0.0868242, -0.150384, 0, 26, 0 )
+light_energy = 1.2
+shadow_enabled = true
+
+[node name="GameValidator" type="Spatial" parent="."]
+script = ExtResource( 5 )
+
+[node name="Balls" type="Spatial" parent="."]
+
+[node name="RedBalls" type="Spatial" parent="Balls"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 17 )
+
+[node name="BouncyBall" parent="Balls/RedBalls" instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 2.5 )
+
+[node name="BouncyBall2" parent="Balls/RedBalls" instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 2, 2.5 )
+
+[node name="BouncyBall3" parent="Balls/RedBalls" instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 2, 2.5 )
+
+[node name="BouncyBall4" parent="Balls/RedBalls" instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 2, -2.5 )
+
+[node name="BouncyBall5" parent="Balls/RedBalls" instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -2.5 )
+
+[node name="BouncyBall6" parent="Balls/RedBalls" instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 2, -2.5 )
+
+[node name="BlueBalls" type="Spatial" parent="Balls"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -29 )
+
+[node name="BouncyBall" parent="Balls/BlueBalls" instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 2.5 )
+
+[node name="BouncyBall2" parent="Balls/BlueBalls" instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 2, 2.5 )
+
+[node name="BouncyBall3" parent="Balls/BlueBalls" instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 2, 2.5 )
+
+[node name="BouncyBall4" parent="Balls/BlueBalls" instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 2, -2.5 )
+
+[node name="BouncyBall5" parent="Balls/BlueBalls" instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -2.5 )
+
+[node name="BouncyBall6" parent="Balls/BlueBalls" instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 2, -2.5 )
+
+[editable path="SpawnLocations"]
