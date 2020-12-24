@@ -26,29 +26,29 @@ rings = 6
 [sub_resource type="CylinderShape" id=4]
 radius = 0.6
 
-[sub_resource type="Gradient" id=12]
+[sub_resource type="Gradient" id=5]
 offsets = PoolRealArray( 0.25, 0.5, 0.75, 1 )
 colors = PoolColorArray( 0, 1, 0, 1, 1, 1, 0, 1, 1, 0, 0, 1, 0, 0, 0, 0 )
 
-[sub_resource type="GradientTexture" id=13]
-gradient = SubResource( 12 )
+[sub_resource type="GradientTexture" id=6]
+gradient = SubResource( 5 )
 
-[sub_resource type="ParticlesMaterial" id=9]
+[sub_resource type="ParticlesMaterial" id=7]
 gravity = Vector3( 0, 0, 0 )
 scale = 0.13
-color_ramp = SubResource( 13 )
+color_ramp = SubResource( 6 )
 
-[sub_resource type="SpatialMaterial" id=10]
+[sub_resource type="SpatialMaterial" id=8]
 flags_transparent = true
 flags_unshaded = true
 vertex_color_use_as_albedo = true
 params_billboard_mode = 2
 
-[sub_resource type="QuadMesh" id=11]
-material = SubResource( 10 )
+[sub_resource type="QuadMesh" id=9]
+material = SubResource( 8 )
 size = Vector2( 0.25, 0.25 )
 
-[sub_resource type="StyleBoxFlat" id=14]
+[sub_resource type="StyleBoxFlat" id=10]
 bg_color = Color( 0.164706, 0.164706, 0.180392, 1 )
 expand_margin_left = 12.0
 expand_margin_right = 12.0
@@ -70,9 +70,9 @@ transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0, 0
 shape = SubResource( 1 )
 
 [node name="Head" type="Spatial" parent="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0 )
 
 [node name="Camera" type="Camera" parent="KinematicBody/Head"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0 )
 current = true
 fov = 90.0
 
@@ -92,7 +92,7 @@ material/0 = null
 [node name="ItemGrabber" type="Area" parent="KinematicBody"]
 monitorable = false
 collision_layer = 0
-collision_mask = 2147483896
+collision_mask = 2147483672
 
 [node name="CollisionShape" type="CollisionShape" parent="KinematicBody/ItemGrabber"]
 shape = SubResource( 4 )
@@ -124,18 +124,14 @@ stream = ExtResource( 6 )
 [node name="Teleport" type="AudioStreamPlayer3D" parent="KinematicBody/Sounds"]
 stream = ExtResource( 7 )
 
-[node name="Score" type="Sprite3D" parent="KinematicBody"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0 )
-billboard = 1
-
 [node name="Particles" type="Particles" parent="KinematicBody"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0 )
 visible = false
 amount = 50
 lifetime = 2.5
 local_coords = false
-process_material = SubResource( 9 )
-draw_pass_1 = SubResource( 11 )
+process_material = SubResource( 7 )
+draw_pass_1 = SubResource( 9 )
 
 [node name="HUD" type="MarginContainer" parent="."]
 anchor_right = 1.0
@@ -159,8 +155,8 @@ margin_bottom = 584.0
 modulate = Color( 1, 1, 1, 0.862745 )
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = -16.0
-margin_right = 16.0
+margin_left = -24.0
+margin_right = 24.0
 margin_bottom = 32.0
 __meta__ = {
 "_edit_use_anchors_": false
@@ -269,7 +265,7 @@ __meta__ = {
 show_behind_parent = true
 anchor_right = 1.0
 anchor_bottom = 1.0
-custom_styles/panel = SubResource( 14 )
+custom_styles/panel = SubResource( 10 )
 __meta__ = {
 "_edit_use_anchors_": false
 }

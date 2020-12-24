@@ -46,7 +46,7 @@ var h_velocity = Vector3()
 var gravity_vec = Vector3()
 var impact_vec = Vector3()
 var translate_offset = Vector3()
-var camera_height = 0.5
+var camera_height = 0
 var joy_head_horizontal_movement: float
 var joy_head_vertical_movement: float
 
@@ -134,6 +134,7 @@ func _physics_process(delta):
 			match impact_type:
 				"RigidBody": # physics object
 					reported_body.apply_impulse(Vector3.ZERO,look_direction)
+					reported_body.update_last_hit(player_number)
 				"KinematicBody": # player
 					reported_body.is_hitstunned = true
 					reported_body.impact_vec += look_direction * 1.5
@@ -158,7 +159,6 @@ func _physics_process(delta):
 			impact_vec *= impact_decay
 			return
 		if impact_vec.length() <= 26 and is_hitstunned:
-			print("yo!")
 			is_hitstunned = false
 
 func play_impact_sound(impact_type:String):

@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/keep_a1.obj-e8283ba536133474f1237d11e337b425.mesh"
+
+[deps]
+
+files=[ "res://.import/keep_a1.obj-e8283ba536133474f1237d11e337b425.mesh" ]
+
+source_file="res://models/props/keep/keep_a1.obj"
+dest_files=[ "res://.import/keep_a1.obj-e8283ba536133474f1237d11e337b425.mesh", "res://.import/keep_a1.obj-e8283ba536133474f1237d11e337b425.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true
