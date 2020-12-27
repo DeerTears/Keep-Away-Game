@@ -26,7 +26,8 @@ _global_script_class_icons={
 
 [application]
 
-config/name="BrewMakersProto"
+config/name="Keep Away"
+config/description="A multiplayer FPS keep-away game made in Godot. Protect your ballpit from enemy attackers! "
 run/main_scene="res://menus/mainmenu.tscn"
 config/icon="res://icon.png"
 
