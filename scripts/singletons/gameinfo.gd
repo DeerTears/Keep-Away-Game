@@ -2,7 +2,17 @@ extends Timer
 
 # using Timer to allow global access of time_left property, yield and create_timer is still used to handle the state machine
 
-# statemachine
+# gamemode
+
+enum GameModes {
+	KEEPAWAY,
+	SOCCER,
+	SANDBOX
+}
+
+var gamemode = GameModes.KEEPAWAY
+
+# gamestate/round statemachine
 
 var ingame: bool = false # don't start the machine if we're not in a game yet
 var start_with_debug_trails = false
@@ -40,6 +50,7 @@ func switch_gamestate(state:int): # self-contained and recursive
 			yield(get_tree().create_timer(loading_time),"timeout")
 			switch_gamestate(GameStates.WARMUP)
 			get_tree().call_group("Balls","hide")
+			get_tree().call_group("Balls","assign_gamemode", gamemode)
 		GameStates.WARMUP:
 			reset_scores()
 			set_debug_trails(start_with_debug_trails)
@@ -63,6 +74,7 @@ func switch_gamestate(state:int): # self-contained and recursive
 			# Spawn Coins and Balls
 			get_tree().call_group("Coins","change_to_state", Coin.states.SPAWNED)
 			get_tree().call_group("Balls","show")
+			get_tree().call_group("Balls","assign_gamemode", gamemode)
 			get_tree().call_group("Balls","update_last_hit", -1) # neutral == -1
 			# Let other objects get our wait_time
 			start(countdown_time)

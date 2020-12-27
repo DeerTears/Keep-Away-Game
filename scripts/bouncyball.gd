@@ -1,11 +1,30 @@
 extends RigidBody
 
+var gamemode: int
+
+const team = {
+	"none":-1,
+	"red":0,
+	"blue":1,
+}
+
 onready var mesh_neutral = $Neutral
 onready var mesh_red = $Red
 onready var mesh_blue = $Blue
 
+var owned_by_team: int = -1 # none == -1
 var last_hit_by_player: int = -1 # none == -1
 var ball_value: int = 1
+
+func assign_gamemode(current_gamemode:int):
+	gamemode = current_gamemode
+	match gamemode:
+		GameInfo.GameModes.KEEPAWAY:
+			update_appearance(-1) # refactor: replace -1s with team["none"]
+		GameInfo.GameModes.SOCCER:
+			update_appearance(owned_by_team)
+		GameInfo.GameModes.SANDBOX:
+			update_appearance(-1)
 
 func teleport(target:Vector3):
 	transform.origin = target
@@ -13,11 +32,8 @@ func teleport(target:Vector3):
 	print(global_transform.origin)
 	set_linear_velocity(Vector3.ZERO)
 	set_angular_velocity(Vector3.ZERO)
-	#set_transform(Transform(Basis(),target))
-	mesh_red.hide()
-	mesh_blue.hide()
-	mesh_neutral.show()
-	last_hit_by_player = -1
+	update_appearance(-1)
+	last_hit_by_player = -1 # refactor: replace -1s with team["none"]
 	yield(get_tree(),"idle_frame")
 
 func _on_Area_area_entered(area):
@@ -34,10 +50,14 @@ func score():
 	queue_free()
 
 func update_last_hit(player_number:int):
-	$Neutral.hide()
-	last_hit_by_player = player_number
-	match player_number:
-		0:
+	if gamemode == GameInfo.GameModes.KEEPAWAY or gamemode == GameInfo.GameModes.SANDBOX:
+		$Neutral.hide()
+		last_hit_by_player = player_number
+		update_appearance(player_number) # -1 for none, 0 for red, 1 for blue
+
+func update_appearance(team:int):
+	match team:
+		0: # refactor: replace -1. 0, and 1 with team["none", "red" and "blue"]
 			$Red.show()
 			$Blue.hide()
 		1:
