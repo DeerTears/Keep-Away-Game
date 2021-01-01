@@ -40,14 +40,17 @@ text = "About"
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
 margin_top = 56.0
 margin_right = 1216.0
-margin_bottom = 313.0
-text = "A 3D local multiplayer game about whacking balls at eachother for points, made in Godot.
+margin_bottom = 469.0
+text = "A 3D local multiplayer prototype about whacking balls for points, made in Godot. 
 
-I started this project on December 1st, and published this prototype on github December 15th. My goal was to take inspiration from this game https://bitzawolf.itch.io/potion-wolf and to create a FPS multiplayer splitscreen game from it. The result was instead a game about whacking balls in first person in an attempt to recreate some of many sports that also feature balls in them. I don't have a precise idea of what the game is going to be about, other than there's probably going to be some golf-with-your-friends stuff going on.
+I started this project on December 1st and first published this repo December 15th.
 
-This game is not open-source, it's just source-available.
+This is the largest coding project I've ever taken on, and I've already restarted the project twice. I consider my custom classes and statemachines to be okay, but the scoring code, the UI code, and the reliance on a Singleton need to be broken down and simplified.
 
-If you'd like to see my other projects, check out deertears.itch.io for more!"
+I've had too many unplanned ideas during the creation of this prototype and I did not hesitate to introduce new, unfinished gamemodes that are still lingering in the code right now. Hopefully I can take some time to refactor this project (in a clean folder, restarting the project a third time) so it's even more streamlined and easier to work with.
+
+My inspiration for this game was initially Potion Wolf: bitzawolf.itch.io/potion-wolf, an arcade singleplayer game about combining potions under a time limit. I wanted to create a FPS multiplayer splitscreen version of it after seeing some Goldeneye splitscreen multiplayer footage. After a failed attempt to make a potion-combining game, what I ended up with was instead a game about whacking balls in first person to score points. I am looking to cartoony sportsy games as my next set of inspirations.
+"
 autowrap = true
 
 [node name="Button" type="Button" parent="MarginContainer/VBoxContainer"]

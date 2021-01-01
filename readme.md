@@ -1,6 +1,8 @@
-# Baskee-Ball Prototype
+# Keep Away Game
 
-A 3D local multiplayer game about whacking balls at eachother for points, made in Godot. 
+A 3D local multiplayer prototype about whacking balls for points, made in Godot. 
+
+I started this project on December 1st and first published this repo December 15th.
 
 <!-- <img src="/docs/images/2020-12-16_editor.jpg" alt="Screenshot of Editor Prototype Level"/> -->
 
@@ -10,4 +12,25 @@ A 3D local multiplayer game about whacking balls at eachother for points, made i
 
 ![Screenshot of Player looking at other Player](/docs/images/2020-12-16_ingame1.jpg)
 
-Started this project on December 1st, published this repo December 15th. Goal was to take inspiration from this game https://bitzawolf.itch.io/potion-wolf and to create a FPS multiplayer splitscreen game from it. The result was instead a game about whacking balls in first person in an attempt to recreate some of many sports that also feature balls in them. I don't have a precise idea of what the game is going to be about, other than there's probably going to be some golf-with-your-friends stuff going on.
+This is the largest coding project I've ever taken on, and I've already restarted the project twice. I consider my custom classes and statemachines to be okay, but the scoring code, the UI code, and the reliance on a Singleton need to be broken down and simplified.
+
+I've had too many unplanned ideas during the creation of this prototype and I did not hesitate to introduce new, unfinished gamemodes that are still lingering in the code right now. Hopefully I can take some time to refactor this project (in a clean folder, restarting the project a third time) so it's even more streamlined and easier to work with.
+
+# Current Gamemodes
+
+## Graffiti
+- hit balls to colour them for your team
+- hit balls of your opponent's colour to recolour it and steal it back
+- whoever has the most balls at the end of the game wins
+
+## Soccer?
+- hit balls into anyone's goal to win
+- whoever scores the most goals at the end wins
+
+note: ScoreZones as a parent of area nodes denotes them as soccer-scoring zones. remember to enable "worldtriggers" physics layer as well
+
+## Keep Away (broken)
+- i should probably rename this project since this gamemode doesn't work yet
+- there is no logic for this yet unfortunately
+
+My inspiration for this game was initially [Potion Wolf](https://bitzawolf.itch.io/potion-wolf), an arcade singleplayer game about combining potions under a time limit. I wanted to create a FPS multiplayer splitscreen version of it after seeing some Goldeneye splitscreen multiplayer footage. After a failed attempt to make a potion-combining game, what I ended up with was instead a game about whacking balls in first person to score points. I am looking to cartoony sportsy games as my next set of inspirations.
