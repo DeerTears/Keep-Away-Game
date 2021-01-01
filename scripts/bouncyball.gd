@@ -25,6 +25,8 @@ func assign_gamemode(current_gamemode:int):
 			update_appearance(owned_by_team)
 		GameInfo.GameModes.SANDBOX:
 			update_appearance(-1)
+		GameInfo.GameModes.GRAFFITI:
+			update_appearance(-1)
 
 func teleport(target:Vector3):
 	transform.origin = target
@@ -50,7 +52,7 @@ func score():
 	queue_free()
 
 func update_last_hit(player_number:int):
-	if gamemode == GameInfo.GameModes.KEEPAWAY or gamemode == GameInfo.GameModes.SANDBOX:
+	if gamemode == GameInfo.GameModes.GRAFFITI:
 		$Neutral.hide()
 		last_hit_by_player = player_number
 		update_appearance(player_number) # -1 for none, 0 for red, 1 for blue
@@ -67,3 +69,9 @@ func update_appearance(team:int):
 			$Neutral.show()
 			$Blue.hide()
 			$Red.hide()
+
+func determine_winner():
+	if last_hit_by_player == -1:
+		return
+	else:
+		GameInfo.graffiti_balls_owned[last_hit_by_player].append("Ball")

@@ -465,31 +465,32 @@ shadow_atlas_size = 1
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0 )
 player_number = 1
 
-[node name="Scorezone" type="Spatial" parent="."]
+[node name="Scorezone (Disabled)" type="Spatial" parent="."]
+visible = false
 
-[node name="Area" type="Area" parent="Scorezone"]
+[node name="Area" type="Area" parent="Scorezone (Disabled)"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 1, -1 )
 monitoring = false
 collision_layer = 16
 collision_mask = 0
 
-[node name="CollisionShape" type="CollisionShape" parent="Scorezone/Area"]
+[node name="CollisionShape" type="CollisionShape" parent="Scorezone (Disabled)/Area"]
 shape = SubResource( 5 )
 
-[node name="MeshInstance" type="MeshInstance" parent="Scorezone/Area"]
+[node name="MeshInstance" type="MeshInstance" parent="Scorezone (Disabled)/Area"]
 mesh = SubResource( 7 )
 material/0 = null
 
-[node name="Area2" type="Area" parent="Scorezone"]
+[node name="Area2" type="Area" parent="Scorezone (Disabled)"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 1, -1 )
 monitoring = false
 collision_layer = 16
 collision_mask = 0
 
-[node name="CollisionShape" type="CollisionShape" parent="Scorezone/Area2"]
+[node name="CollisionShape" type="CollisionShape" parent="Scorezone (Disabled)/Area2"]
 shape = SubResource( 5 )
 
-[node name="MeshInstance" type="MeshInstance" parent="Scorezone/Area2"]
+[node name="MeshInstance" type="MeshInstance" parent="Scorezone (Disabled)/Area2"]
 mesh = SubResource( 7 )
 material/0 = null
 

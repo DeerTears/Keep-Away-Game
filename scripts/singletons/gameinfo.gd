@@ -5,12 +5,17 @@ extends Timer
 # gamemode
 
 enum GameModes {
+	GRAFFITI,
 	KEEPAWAY,
 	SOCCER,
 	SANDBOX
 }
 
-var gamemode = GameModes.KEEPAWAY
+var gamemode = GameModes.GRAFFITI
+
+# for graffiti
+
+var graffiti_balls_owned = [[],[],[],[]]
 
 # gamestate/round statemachine
 
@@ -26,10 +31,10 @@ enum GameStates {
 }
 
 var current_gamestate: int = GameStates.LOADING
-var loading_time: float = 10.0
-var warmup_time: float = 15.0
-var countdown_time: float = 10.0
-var round_time: float = 25.0
+var loading_time: float = 2.0
+var warmup_time: float = 10.0
+var countdown_time: float = 6.0
+var round_time: float = 20.0
 var postgame_time: float = 10.0
 
 func _ready():
@@ -136,6 +141,17 @@ var player_scores = [ # todo, make the above variables condensed and easier to a
 ]
 
 func determine_winner():
+	match gamemode:
+		GameModes.KEEPAWAY:
+			pass
+		GameModes.GRAFFITI:
+			get_tree().call_group("Balls","determine_winner")
+			yield(get_tree(),"idle_frame")
+			p0_score = graffiti_balls_owned[0].size()
+			p1_score = graffiti_balls_owned[1].size()
+			p2_score = graffiti_balls_owned[2].size()
+			p3_score = graffiti_balls_owned[3].size()
+			print("%s, %s, %s, %s" % [p0_score, p1_score, p2_score, p3_score])
 	if p0_score > p1_score:
 		print("p0 is the winner!")
 		get_tree().call_group("Players","show_notice",HUD.notice.WIN)
@@ -161,6 +177,11 @@ func reset_scores():
 	p2_score = 0
 	p3_score = 0
 	print("All scores reset.")
+	if gamemode == GameModes.GRAFFITI:
+		graffiti_balls_owned[0].clear()
+		graffiti_balls_owned[1].clear()
+		graffiti_balls_owned[2].clear()
+		graffiti_balls_owned[3].clear()
 	get_tree().call_group("Players", "reset_score_label")
 
 func set_debug_trails(enabled:bool):
