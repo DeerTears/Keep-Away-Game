@@ -5,7 +5,7 @@ var player_1_device
 
 var fullscreen = false
 var render_scale: int = 1
-var shadow_quality: int = 0
+var shadow_quality: int = 1
 
 func _unhandled_input(event):
 	if event.is_action_pressed("toggle_fullscreen"):

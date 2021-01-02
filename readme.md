@@ -1,8 +1,12 @@
-# Keep Away Game
-
+# Keep Away Game (out now!)
 A 3D local multiplayer prototype about whacking balls for points, made in Godot. 
 
-I started this project on December 1st and first published this repo December 15th.
+go check out the 1.1 prototype on itch.io!
+https://deertears.itch.io/keep-away-prototype
+https://deertears.itch.io/keep-away-prototype
+https://deertears.itch.io/keep-away-prototype
+
+I started this project on December 1st 2020, published this repo December 15th 2020, and released my first build on itch.io January 1st 2021. This may be my most successfully managed prototype-type project yet.
 
 <!-- <img src="/docs/images/2020-12-16_editor.jpg" alt="Screenshot of Editor Prototype Level"/> -->
 

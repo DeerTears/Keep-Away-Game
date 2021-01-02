@@ -37,7 +37,7 @@ custom_constants/separation = 16
 margin_right = 1216.0
 margin_bottom = 40.0
 custom_fonts/font = ExtResource( 3 )
-text = "Keep-Away! // Hit balls for points!"
+text = "Keep-Away! (Graffiti) // Hit balls for points!"
 align = 1
 valign = 1
 

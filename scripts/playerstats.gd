@@ -22,6 +22,15 @@ func _ready():
 	kinematic.look_device = devices_in_use[player_number]
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	kinematic.connect("score_changed",self,"change_score")
+	match player_number:
+		0:
+			$HUD/Control/MouseReminder.show()
+			yield(get_tree().create_timer(6.0),"timeout")
+			$HUD/Control/MouseReminder.hide()
+		1:
+			$HUD/Control/JoyReminder.show()
+			yield(get_tree().create_timer(8.0),"timeout")
+			$HUD/Control/JoyReminder.hide()
 
 func _input(event):
 	if event.is_action_released("toggle_debug"):

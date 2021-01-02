@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://scripts/playerstats.gd" type="Script" id=1]
 [ext_resource path="res://sounds/combat/clang.wav" type="AudioStream" id=2]
@@ -7,7 +7,10 @@
 [ext_resource path="res://sounds/combat/ow.wav" type="AudioStream" id=5]
 [ext_resource path="res://sounds/combat/hitworld.wav" type="AudioStream" id=6]
 [ext_resource path="res://sounds/combat/teleport.wav" type="AudioStream" id=7]
+[ext_resource path="res://icons/mouse.png" type="Texture" id=8]
 [ext_resource path="res://scripts/hud.gd" type="Script" id=9]
+[ext_resource path="res://icons/gamepad.png" type="Texture" id=10]
+[ext_resource path="res://fonts/Body.res" type="DynamicFont" id=11]
 
 [sub_resource type="CapsuleShape" id=1]
 radius = 0.5
@@ -266,6 +269,53 @@ show_behind_parent = true
 anchor_right = 1.0
 anchor_bottom = 1.0
 custom_styles/panel = SubResource( 10 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MouseReminder" type="TextureRect" parent="HUD/Control"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 8 )
+stretch_mode = 4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="HUD/Control/MouseReminder"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -101.0
+margin_top = -68.0
+margin_right = 101.0
+margin_bottom = 11.5
+custom_fonts/font = ExtResource( 11 )
+text = "Use WASD + Left Click"
+
+[node name="JoyReminder" type="TextureRect" parent="HUD/Control"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 10 )
+stretch_mode = 4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="HUD/Control/JoyReminder"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -136.0
+margin_top = -68.0
+margin_right = 136.0
+margin_bottom = 11.5
+custom_fonts/font = ExtResource( 11 )
+text = "Use Left Stick + Right Bumper"
 __meta__ = {
 "_edit_use_anchors_": false
 }
