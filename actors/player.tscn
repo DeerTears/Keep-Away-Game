@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://scripts/playerstats.gd" type="Script" id=1]
 [ext_resource path="res://sounds/combat/clang.wav" type="AudioStream" id=2]
@@ -14,6 +14,100 @@
 
 [sub_resource type="CapsuleShape" id=1]
 radius = 0.5
+
+[sub_resource type="SpatialMaterial" id=15]
+albedo_color = Color( 0.764706, 0.764706, 0.764706, 1 )
+metallic = 0.85
+metallic_specular = 0.0
+roughness = 0.69
+
+[sub_resource type="CubeMesh" id=11]
+material = SubResource( 15 )
+size = Vector3( 0.02, 0.2, 0.02 )
+
+[sub_resource type="Animation" id=14]
+resource_name = "attack"
+tracks/0/type = "value"
+tracks/0/path = NodePath("MeshInstance:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.3, 0.4, 0.7, 0.9 ),
+"transitions": PoolRealArray( -2, 6, 1, 3, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0.15, 0, 0 ), Vector3( 0.161, 0, 0 ), Vector3( 0.012, -0.025, 0 ), Vector3( -0.04, -0.074, 0.04 ), Vector3( 0.15, 0.01, 0 ), Vector3( 0.15, 0, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("MeshInstance:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1, 0.3, 0.4, 0.7, 0.9 ),
+"transitions": PoolRealArray( 1, 6, 1, 3, 1, 1 ),
+"update": 0,
+"values": [ Vector3( -5, 0, 5 ), Vector3( 15, 0, -10 ), Vector3( -65, 0, 30 ), Vector3( -80, 0, 80 ), Vector3( -1, 0, 5 ), Vector3( -5, 0, 5 ) ]
+}
+
+[sub_resource type="Animation" id=13]
+resource_name = "idle"
+length = 3.5
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("MeshInstance:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1.6, 3.1 ),
+"transitions": PoolRealArray( -2, -2, 1 ),
+"update": 0,
+"values": [ Vector3( 0.15, 0, 0 ), Vector3( 0.15, 0.01, 0 ), Vector3( 0.15, 0, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("MeshInstance:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 2.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( -5, 0, 5 ), Vector3( -5, 0, 3 ) ]
+}
+
+[sub_resource type="Animation" id=12]
+resource_name = "zzz"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("MeshInstance:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("MeshInstance:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ) ]
+}
 
 [sub_resource type="SpatialMaterial" id=2]
 params_diffuse_mode = 3
@@ -78,6 +172,22 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0 )
 [node name="Camera" type="Camera" parent="KinematicBody/Head"]
 current = true
 fov = 90.0
+
+[node name="Viewmodel" type="Spatial" parent="KinematicBody/Head/Camera"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.03, 0, -0.12 )
+
+[node name="MeshInstance" type="MeshInstance" parent="KinematicBody/Head/Camera/Viewmodel"]
+transform = Transform( 0.996195, -0.0871557, 0, 0.0868241, 0.992404, 0.0871557, -0.00759612, -0.0868241, 0.996195, 0.15, 0, 0 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="KinematicBody/Head/Camera/Viewmodel"]
+anims/attack = SubResource( 14 )
+anims/idle = SubResource( 13 )
+anims/zzz = SubResource( 12 )
+__meta__ = {
+"_editor_description_": ""
+}
 
 [node name="AttackRay" type="RayCast" parent="KinematicBody/Head"]
 enabled = true
@@ -177,6 +287,7 @@ __meta__ = {
 }
 
 [node name="Score" type="Panel" parent="HUD/Control"]
+visible = false
 anchor_left = 1.0
 anchor_right = 1.0
 margin_left = -89.0
@@ -320,4 +431,5 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 [connection signal="area_entered" from="KinematicBody/ItemGrabber" to="KinematicBody" method="_on_ItemGrabber_area_entered"]
+[connection signal="timeout" from="KinematicBody/AttackCooldown" to="KinematicBody" method="_on_AttackCooldown_timeout"]
 [connection signal="timeout" from="KinematicBody/AttackWindup" to="KinematicBody" method="_on_AttackWindup_timeout"]

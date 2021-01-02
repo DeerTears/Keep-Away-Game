@@ -34,7 +34,7 @@ var current_gamestate: int = GameStates.LOADING
 var loading_time: float = 2.0
 var warmup_time: float = 10.0
 var countdown_time: float = 6.0
-var round_time: float = 20.0
+var round_time: float = 60.0
 var postgame_time: float = 10.0
 
 func _ready():
@@ -75,7 +75,7 @@ func switch_gamestate(state:int): # self-contained and recursive
 			# Reset and Freeze Players
 			get_tree().call_group("Players","respawn")
 			get_tree().call_group("Players","enable_movement",false)
-			get_tree().call_group("Players","show_notice",HUD.notice.INTRO_KEEPAWAY)
+			get_tree().call_group("Players","show_notice",HUD.notice.INTRO_GRAFFITI)
 			# Spawn Coins and Balls
 			get_tree().call_group("Coins","change_to_state", Coin.states.SPAWNED)
 			get_tree().call_group("Balls","show")

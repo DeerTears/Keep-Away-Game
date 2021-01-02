@@ -2,14 +2,6 @@ extends KinematicBody
 
 signal score_changed
 
-# overview:
-
-# NON-STANDARD FUNCTIONS
-# playing impact sounds
-# teleporting self
-# taking hits
-# enabling input
-
 onready var head = $Head
 onready var attack_ray = $Head/AttackRay
 
@@ -30,8 +22,8 @@ var look_device = InputEventMouseMotion # todo: test with Joypads
 
 # combat statistics
 var push_strength = 8
-var attack_windup_time = 0.1
-var attack_cooldown_time = 0.4
+var attack_windup_time = 0.3
+var attack_cooldown_time = 0.6
 
 # movement statistics
 var speed = 5
@@ -50,12 +42,10 @@ var camera_height = 0
 var joy_head_horizontal_movement: float
 var joy_head_vertical_movement: float
 
-
 # movement checks
 var movement_enabled = true
 var attacking = false
 var is_hitstunned: bool = false
-
 
 func _ready():
 	init()
@@ -65,6 +55,7 @@ func init():
 	attack_windup.wait_time = attack_windup_time
 	attack_cooldown.wait_time = attack_cooldown_time
 	teleport(GameInfo.get_my_respawn_location(player_number), true)
+	$Head/Camera/Viewmodel/AnimationPlayer.play("idle")
 
 func _on_AttackWindup_timeout():
 	if attack_cooldown.is_stopped():
@@ -72,6 +63,10 @@ func _on_AttackWindup_timeout():
 		yield(get_tree(),"idle_frame")
 		attacking = false
 		attack_cooldown.start()
+
+func _on_AttackCooldown_timeout():
+	if attack_windup.is_stopped():
+		$Head/Camera/Viewmodel/AnimationPlayer.play("idle")
 
 func _on_ItemGrabber_area_entered(area):
 	if "coin_quality" in area.get_parent():
@@ -93,6 +88,8 @@ func _input(event):
 	if attack_cooldown.is_stopped() and attack_windup.is_stopped() and movement_enabled:
 		if event.is_action_pressed("attack_%s" % [player_number]):
 			attack_windup.start()
+			$Head/Camera/Viewmodel/AnimationPlayer.stop()
+			$Head/Camera/Viewmodel/AnimationPlayer.play("attack")
 			sound_swoosh.play()
 
 func _physics_process(delta):
