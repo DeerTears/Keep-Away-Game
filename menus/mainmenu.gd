@@ -1,12 +1,12 @@
 extends Panel
 
-onready var play_romp = $MarginContainer/VBoxContainer/HBox/VBox/Grid/Romp
+onready var play_romp = $MarginContainer/VBoxContainer/Grid/Romp
 onready var play_pits
 onready var play_keep
-onready var about = $MarginContainer/VBoxContainer/HBox/VBox/Grid/About
-onready var quit = $MarginContainer/VBoxContainer/HBox/VBox/Grid/Quit
-onready var settings = $MarginContainer/VBoxContainer/HBox/VBox/Grid/Settings
-onready var itch_link = $MarginContainer/VBoxContainer/HBoxContainer/LinkButton
+onready var about = $MarginContainer/VBoxContainer/Grid/About
+onready var quit = $MarginContainer/VBoxContainer/Grid/Quit
+onready var settings = $MarginContainer/VBoxContainer/Grid/Settings
+onready var itch_link = $MarginContainer/VBoxContainer/PanelContainer2/HBoxContainer/LinkButton
 
 func _ready():
 	if MenuMusic.is_playing() == false:
