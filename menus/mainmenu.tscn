@@ -1,14 +1,32 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://menus/main.theme" type="Theme" id=1]
 [ext_resource path="res://menus/mainmenu.gd" type="Script" id=2]
 [ext_resource path="res://fonts/Header1.res" type="DynamicFont" id=3]
+
+[sub_resource type="Shader" id=1]
+code = "shader_type canvas_item;
+
+"
+custom_defines = ""
+
+[sub_resource type="ShaderMaterial" id=2]
+shader = SubResource( 1 )
 
 [node name="MainMenu" type="Panel"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 theme = ExtResource( 1 )
 script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="."]
+visible = false
+material = SubResource( 2 )
+anchor_right = 1.0
+anchor_bottom = 1.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -33,132 +51,89 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 16
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/VBoxContainer"]
 margin_right = 1216.0
-margin_bottom = 40.0
+margin_bottom = 54.0
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/PanelContainer"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 1209.0
+margin_bottom = 47.0
 custom_fonts/font = ExtResource( 3 )
-text = "Keep-Away! (Graffiti) // Hit balls for points!"
+text = "Keep-Away! // Hit balls for points!"
 align = 1
 valign = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
-margin_top = 56.0
+[node name="PanelContainer2" type="PanelContainer" parent="MarginContainer/VBoxContainer"]
+margin_top = 70.0
 margin_right = 1216.0
-margin_bottom = 79.0
+margin_bottom = 107.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/PanelContainer2"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 1209.0
+margin_bottom = 30.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label2" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer"]
-margin_right = 1030.0
+[node name="Label2" type="Label" parent="MarginContainer/VBoxContainer/PanelContainer2/HBoxContainer"]
+margin_right = 1016.0
 margin_bottom = 23.0
 size_flags_horizontal = 3
 size_flags_vertical = 1
 text = "a local multiplayer prototype by Emberlynn Bland (DeerTears)"
 
-[node name="LinkButton" type="LinkButton" parent="MarginContainer/VBoxContainer/HBoxContainer"]
-margin_left = 1034.0
-margin_right = 1216.0
+[node name="LinkButton" type="LinkButton" parent="MarginContainer/VBoxContainer/PanelContainer2/HBoxContainer"]
+margin_left = 1020.0
+margin_right = 1202.0
 margin_bottom = 23.0
 text = "Follow me on Itch.io"
 
 [node name="HSeparator" type="HSeparator" parent="MarginContainer/VBoxContainer"]
-margin_top = 95.0
+margin_top = 123.0
 margin_right = 1216.0
-margin_bottom = 99.0
+margin_bottom = 127.0
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
-margin_top = 115.0
-margin_right = 1216.0
+[node name="Grid" type="GridContainer" parent="MarginContainer/VBoxContainer"]
+margin_left = 484.0
+margin_top = 143.0
+margin_right = 732.0
 margin_bottom = 536.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-custom_constants/separation = 16
-
-[node name="Play" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer2"]
-margin_right = 600.0
-margin_bottom = 421.0
-size_flags_horizontal = 3
-custom_constants/separation = 8
-
-[node name="GridContainer" type="GridContainer" parent="MarginContainer/VBoxContainer/HBoxContainer2/Play"]
-margin_right = 600.0
-margin_bottom = 421.0
-size_flags_horizontal = 3
+size_flags_horizontal = 4
 size_flags_vertical = 3
 custom_constants/vseparation = 16
 custom_constants/hseparation = 16
 
-[node name="Romp" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer2/Play/GridContainer"]
-margin_right = 600.0
-margin_bottom = 331.0
+[node name="Romp" type="Button" parent="MarginContainer/VBoxContainer/Grid"]
+margin_right = 248.0
+margin_bottom = 86.0
+rect_min_size = Vector2( 248, 0 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
-text = "Play \"Graffiti\" Gamemode"
+text = "Start Multiplayer Game"
 
-[node name="Keep" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer2/Play/GridContainer"]
-margin_top = 347.0
-margin_right = 600.0
-margin_bottom = 376.0
-size_flags_horizontal = 3
-size_flags_vertical = 0
-text = "unfinished forts level"
-
-[node name="Pits" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer2/Play/GridContainer"]
-margin_top = 392.0
-margin_right = 600.0
-margin_bottom = 421.0
-size_flags_horizontal = 3
-size_flags_vertical = 0
-text = "unfinished soccer level"
-
-[node name="Customize" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer2"]
-margin_left = 616.0
-margin_right = 1216.0
-margin_bottom = 421.0
-size_flags_horizontal = 3
-custom_constants/separation = 8
-
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer2/Customize"]
-visible = false
-margin_right = 372.0
-margin_bottom = 40.0
-custom_fonts/font = ExtResource( 3 )
-text = "Customize!"
-align = 1
-
-[node name="HSeparator2" type="HSeparator" parent="MarginContainer/VBoxContainer/HBoxContainer2/Customize"]
-visible = false
-margin_top = 48.0
-margin_right = 372.0
-margin_bottom = 52.0
-
-[node name="GridContainer" type="GridContainer" parent="MarginContainer/VBoxContainer/HBoxContainer2/Customize"]
-margin_right = 600.0
-margin_bottom = 421.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-custom_constants/vseparation = 16
-custom_constants/hseparation = 16
-
-[node name="Settings" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer2/Customize/GridContainer"]
-margin_right = 600.0
-margin_bottom = 129.0
+[node name="Settings" type="Button" parent="MarginContainer/VBoxContainer/Grid"]
+margin_top = 102.0
+margin_right = 248.0
+margin_bottom = 188.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "Settings"
 
-[node name="About" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer2/Customize/GridContainer"]
-margin_top = 145.0
-margin_right = 600.0
-margin_bottom = 274.0
+[node name="About" type="Button" parent="MarginContainer/VBoxContainer/Grid"]
+margin_top = 204.0
+margin_right = 248.0
+margin_bottom = 290.0
 size_flags_vertical = 3
 text = "About"
 
-[node name="Quit" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer2/Customize/GridContainer"]
-margin_top = 290.0
-margin_right = 600.0
-margin_bottom = 419.0
+[node name="Quit" type="Button" parent="MarginContainer/VBoxContainer/Grid"]
+margin_top = 306.0
+margin_right = 248.0
+margin_bottom = 392.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "Quit"

@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/no way i cant have fun.ogg-9ee3ed6a903c084426c5d064a129cc51.oggstr"
+
+[deps]
+
+source_file="res://sounds/music/no way i cant have fun.ogg"
+dest_files=[ "res://.import/no way i cant have fun.ogg-9ee3ed6a903c084426c5d064a129cc51.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=2.16491e+06

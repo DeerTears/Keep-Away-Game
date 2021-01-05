@@ -7,6 +7,10 @@ var fullscreen = false
 var render_scale: int = 1
 var shadow_quality: int = 1
 
+var volume: Array = [
+	0.0, 0.0, 0.0,
+]
+
 func _unhandled_input(event):
 	if event.is_action_pressed("toggle_fullscreen"):
 		fullscreen = not fullscreen
@@ -14,3 +18,4 @@ func _unhandled_input(event):
 func set_fullscreen(enabled:bool):
 	fullscreen = enabled
 	OS.window_fullscreen = fullscreen
+

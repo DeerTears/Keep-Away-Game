@@ -1,11 +1,11 @@
 extends Panel
 
 onready var fullscreen_button = $MarginContainer/VBoxContainer/Fullscreen
-onready var shadow_slider = $MarginContainer/VBoxContainer/HBox2/ShadowQuality/ShadowQuality
-onready var render_scale_slider = $MarginContainer/VBoxContainer/HBox/RenderScale/RenderScale
+onready var shadow_slider = $MarginContainer/VBoxContainer/ShadowPanel/HBox/VBox/ShadowSlider
+onready var render_scale_slider = $MarginContainer/VBoxContainer/RenderPanel/HBox/VBox/RenderSlider
 
-onready var render_indicator = $MarginContainer/VBoxContainer/HBox/RenderIndicator
-onready var shadow_indicator = $MarginContainer/VBoxContainer/HBox2/ShadowIndicator
+onready var render_indicator = $MarginContainer/VBoxContainer/RenderPanel/HBox/RenderIndicator
+onready var shadow_indicator = $MarginContainer/VBoxContainer/ShadowPanel/HBox/ShadowIndicator
 
 func _ready():
 	fullscreen_button.pressed = Settings.fullscreen

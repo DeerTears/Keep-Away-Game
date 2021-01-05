@@ -20,6 +20,7 @@ enum notice {
 	GO,
 	READY,
 	WARMUP,
+	POSTGAME,
 }
 
 var notify_msg: Dictionary = {
@@ -32,6 +33,7 @@ var notify_msg: Dictionary = {
 	notice.LOSE:"Player 2 Wins!",
 	notice.WIN:"Player 1 Wins!",
 	notice.TIE:"It's a tie!",
+	notice.POSTGAME:"Press ESC to quit to the main menu.",
 	notice.GO:"Go!",
 	notice.READY:"Ready?",
 	notice.WARMUP:"The round will begin after a quick warmup."
@@ -54,5 +56,18 @@ func show_notice(notice_type:int):
 			onscreen_duration = 1.0
 		notice.GO:
 			onscreen_duration = 3.0
-	yield(get_tree().create_timer(onscreen_duration),"timeout")
+		notice.WIN:
+			onscreen_duration = (GameInfo.postgame_time / 2) - 0.01 # - 0.01 to ensure warmup notice doesn't get overwritten
+			yield(get_tree().create_timer(onscreen_duration),"timeout")
+			show_notice(notice.POSTGAME)
+		notice.LOSE:
+			onscreen_duration = (GameInfo.postgame_time / 2) - 0.01 # - 0.01 to ensure warmup notice doesn't get overwritten
+			yield(get_tree().create_timer(onscreen_duration),"timeout")
+			show_notice(notice.POSTGAME)
+		notice.TIE:
+			onscreen_duration = (GameInfo.postgame_time / 2) - 0.01 # - 0.01 to ensure warmup notice doesn't get overwritten
+			yield(get_tree().create_timer(onscreen_duration),"timeout")
+			show_notice(notice.POSTGAME)
+		notice.POSTGAME:
+			onscreen_duration = (GameInfo.postgame_time / 2) - 0.01 # - 0.01 to ensure warmup notice doesn't get overwritten	yield(get_tree().create_timer(onscreen_duration),"timeout")
 	notifier.hide()

@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/hit em up.ogg-fd98bd11d7c8bddb505e696db19d7410.oggstr"
+
+[deps]
+
+source_file="res://sounds/music/hit em up.ogg"
+dest_files=[ "res://.import/hit em up.ogg-fd98bd11d7c8bddb505e696db19d7410.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

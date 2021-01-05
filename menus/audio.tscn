@@ -14,7 +14,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="Margin" type="MarginContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
 custom_constants/margin_right = 32
@@ -25,70 +25,142 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+[node name="VBox" type="VBoxContainer" parent="Margin"]
 margin_left = 32.0
 margin_top = 32.0
 margin_right = 1248.0
 margin_bottom = 568.0
-custom_constants/separation = 16
+custom_constants/separation = 8
 
-[node name="Title" type="Label" parent="MarginContainer/VBoxContainer"]
+[node name="Title" type="Label" parent="Margin/VBox"]
 margin_right = 1216.0
 margin_bottom = 40.0
 custom_fonts/font = ExtResource( 3 )
 text = "Audio"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
-margin_top = 56.0
-margin_right = 1216.0
-margin_bottom = 488.0
-size_flags_horizontal = 3
+[node name="Sliders" type="HBoxContainer" parent="Margin/VBox"]
+margin_left = 390.0
+margin_top = 48.0
+margin_right = 825.0
+margin_bottom = 496.0
+size_flags_horizontal = 6
 size_flags_vertical = 3
+custom_constants/separation = 8
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer"]
-margin_left = 286.0
-margin_top = 178.0
-margin_right = 606.0
-margin_bottom = 253.0
-rect_min_size = Vector2( 320, 0 )
-size_flags_horizontal = 10
-text = "Sound Warning!
-A test sound will play as you adjust the volume."
-align = 2
-autowrap = true
+[node name="Master" type="PanelContainer" parent="Margin/VBox/Sliders"]
+margin_right = 152.0
+margin_bottom = 448.0
+size_flags_horizontal = 6
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
-margin_left = 610.0
-margin_right = 748.0
-margin_bottom = 432.0
-size_flags_horizontal = 2
+[node name="VBox" type="VBoxContainer" parent="Margin/VBox/Sliders/Master"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 145.0
+margin_bottom = 441.0
+size_flags_horizontal = 3
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="Margin/VBox/Sliders/Master/VBox"]
 margin_right = 138.0
 margin_bottom = 23.0
 text = "Master Volume"
 align = 1
 
-[node name="VSlider" type="VSlider" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+[node name="MasterSlider" type="VSlider" parent="Margin/VBox/Sliders/Master/VBox"]
 margin_left = 61.0
 margin_top = 27.0
 margin_right = 77.0
-margin_bottom = 405.0
+margin_bottom = 407.0
 size_flags_horizontal = 4
 size_flags_vertical = 3
-min_value = -80.0
+min_value = -50.0
 max_value = 0.0
 step = 0.1
 
-[node name="Indicator" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+[node name="MasterIndicator" type="Label" parent="Margin/VBox/Sliders/Master/VBox"]
 margin_left = 51.0
-margin_top = 409.0
+margin_top = 411.0
 margin_right = 87.0
-margin_bottom = 432.0
+margin_bottom = 434.0
 size_flags_horizontal = 4
 text = "0db"
 
-[node name="Button" type="Button" parent="MarginContainer/VBoxContainer"]
+[node name="Music" type="PanelContainer" parent="Margin/VBox/Sliders"]
+margin_left = 160.0
+margin_right = 303.0
+margin_bottom = 448.0
+size_flags_horizontal = 6
+
+[node name="VBox" type="VBoxContainer" parent="Margin/VBox/Sliders/Music"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 136.0
+margin_bottom = 441.0
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="Margin/VBox/Sliders/Music/VBox"]
+margin_right = 129.0
+margin_bottom = 23.0
+text = "Music Volume"
+align = 1
+
+[node name="MusicSlider" type="VSlider" parent="Margin/VBox/Sliders/Music/VBox"]
+margin_left = 56.0
+margin_top = 27.0
+margin_right = 72.0
+margin_bottom = 407.0
+size_flags_horizontal = 4
+size_flags_vertical = 3
+min_value = -50.0
+max_value = 0.0
+step = 0.1
+
+[node name="MusicIndicator" type="Label" parent="Margin/VBox/Sliders/Music/VBox"]
+margin_left = 46.0
+margin_top = 411.0
+margin_right = 82.0
+margin_bottom = 434.0
+size_flags_horizontal = 4
+text = "0db"
+
+[node name="SFX" type="PanelContainer" parent="Margin/VBox/Sliders"]
+margin_left = 311.0
+margin_right = 435.0
+margin_bottom = 448.0
+size_flags_horizontal = 6
+
+[node name="VBox" type="VBoxContainer" parent="Margin/VBox/Sliders/SFX"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 117.0
+margin_bottom = 441.0
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="Margin/VBox/Sliders/SFX/VBox"]
+margin_right = 110.0
+margin_bottom = 23.0
+text = "SFX Volume"
+align = 1
+
+[node name="SFXSlider" type="VSlider" parent="Margin/VBox/Sliders/SFX/VBox"]
+margin_left = 47.0
+margin_top = 27.0
+margin_right = 63.0
+margin_bottom = 407.0
+size_flags_horizontal = 4
+size_flags_vertical = 3
+min_value = -50.0
+max_value = 0.0
+step = 0.1
+
+[node name="SFXIndicator" type="Label" parent="Margin/VBox/Sliders/SFX/VBox"]
+margin_left = 37.0
+margin_top = 411.0
+margin_right = 73.0
+margin_bottom = 434.0
+size_flags_horizontal = 4
+text = "0db"
+
+[node name="Button" type="Button" parent="Margin/VBox"]
 margin_top = 504.0
 margin_right = 143.0
 margin_bottom = 536.0
@@ -98,5 +170,6 @@ text = "Back"
 
 [node name="Test" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 2 )
-[connection signal="value_changed" from="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/VSlider" to="." method="_on_VSlider_value_changed"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/Button" to="." method="_on_Button_pressed"]
+volume_db = -10.0
+bus = "SFX"
+[connection signal="pressed" from="Margin/VBox/Button" to="." method="_on_Button_pressed"]

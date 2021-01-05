@@ -97,8 +97,8 @@ func _physics_process(delta):
 	if look_device == InputEventJoypadMotion:
 		joy_head_vertical_movement = Input.get_action_strength("look_up_%s" % [player_number]) - Input.get_action_strength("look_down_%s" % [player_number]) 
 		joy_head_horizontal_movement = Input.get_action_strength("look_left_%s" % [player_number]) - Input.get_action_strength("look_right_%s" % [player_number])
-		head.rotate_x(deg2rad(joy_head_vertical_movement * joy_look_sensitivity * 3))
-		rotate_y(deg2rad(joy_head_horizontal_movement * joy_look_sensitivity * 3))
+		head.rotate_x(deg2rad(joy_head_vertical_movement * joy_look_sensitivity * 8))
+		rotate_y(deg2rad(joy_head_horizontal_movement * joy_look_sensitivity * 8))
 		head.rotation.x = clamp(head.rotation.x, deg2rad(-90), deg2rad(90))
 	# jumping and falling
 	if not is_on_floor() and not is_hitstunned:

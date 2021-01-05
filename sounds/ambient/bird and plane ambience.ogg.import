@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/bird and plane ambience.ogg-83566db3052e8f2cd2c4a2606f1d4d67.oggstr"
+
+[deps]
+
+source_file="res://sounds/ambient/bird and plane ambience.ogg"
+dest_files=[ "res://.import/bird and plane ambience.ogg-83566db3052e8f2cd2c4a2606f1d4d67.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0
