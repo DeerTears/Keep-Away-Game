@@ -7,14 +7,14 @@
 
 [sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 4 )
-shader_param/base_color = Color( 0.12549, 0.356863, 0.498039, 1 )
-shader_param/lowerlevel_speed = 0.359
-shader_param/toplevel_speed = 0.9
-shader_param/clarity = 2.9
-shader_param/foam_average = 0.0
-shader_param/foam_max = 1.4
-shader_param/zoom_level = 3.1
-shader_param/square_count = 1001.59
+shader_param/base_color = Color( 0.494118, 0.176471, 0, 1 )
+shader_param/lowerlevel_speed = 1.0
+shader_param/toplevel_speed = 0.5
+shader_param/clarity = 2.0
+shader_param/foam_average = 0.5
+shader_param/foam_max = 4.0
+shader_param/zoom_level = 5.0
+shader_param/square_count = 20.0
 
 [node name="Settings" type="Panel"]
 anchor_right = 1.0

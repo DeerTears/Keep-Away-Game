@@ -28,6 +28,7 @@ func _ready():
 	$Margin/VBox/Settings/DevicePicker/Mouse.connect("pressed",self,"use_controller",[false])
 	indicator.text = "%s" % [look_sensitivities[editing_player_idx]]
 	update_affirming_label()
+	$Margin/VBox/PlayerPicker/Option.grab_focus()
 
 func change_player(index:int):
 	editing_player_idx = index

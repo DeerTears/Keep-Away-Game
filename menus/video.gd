@@ -13,6 +13,7 @@ func _ready():
 	render_scale_slider.value = Settings.render_scale
 	render_indicator.text = "%s" % [render_scale_slider.value]
 	shadow_indicator.text = "%s" % [shadow_slider.value]
+	$MarginContainer/VBoxContainer/Fullscreen.grab_focus()
 
 func _on_Back_pressed():
 	get_tree().change_scene("res://menus/settings.tscn")

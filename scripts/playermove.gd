@@ -7,7 +7,8 @@ onready var attack_ray = $Head/AttackRay
 
 onready var attack_windup = $AttackWindup
 onready var attack_cooldown = $AttackCooldown
-onready var respawn_timer = $RespawnTimer
+onready var lob_cooldown = $LobCooldown
+onready var lob_windup = $LobWindup
 
 onready var sound_swoosh = $Sounds/Swoosh
 onready var sound_clang = $Sounds/Clang
@@ -22,8 +23,10 @@ var look_device = InputEventMouseMotion # todo: test with Joypads
 
 # combat statistics
 var push_strength = 8
-var attack_windup_time = 0.3
+var attack_windup_time = 0.275
 var attack_cooldown_time = 0.6
+var lob_windup_time = 0.1
+var lob_cooldown_time = 0.5
 
 # movement statistics
 var speed = 5
@@ -45,6 +48,7 @@ var joy_head_vertical_movement: float
 # movement checks
 var movement_enabled = true
 var attacking = false
+var lobbing = false
 var is_hitstunned: bool = false
 
 func _ready():
@@ -54,6 +58,8 @@ func init():
 	translate_offset = Vector3(0,camera_height,0)
 	attack_windup.wait_time = attack_windup_time
 	attack_cooldown.wait_time = attack_cooldown_time
+	lob_windup.wait_time = lob_windup_time
+	lob_cooldown.wait_time = lob_cooldown_time
 	teleport(GameInfo.get_my_respawn_location(player_number), true)
 	$Head/Camera/Viewmodel/AnimationPlayer.play("idle")
 
@@ -67,6 +73,15 @@ func _on_AttackWindup_timeout():
 func _on_AttackCooldown_timeout():
 	if attack_windup.is_stopped():
 		$Head/Camera/Viewmodel/AnimationPlayer.play("idle")
+
+func _on_LobCooldown_timeout():
+	pass
+
+func _on_LobWindup_timeout():
+	lobbing = true
+	yield(get_tree(),"idle_frame")
+	lobbing = false
+	lob_cooldown.start()
 
 func _on_ItemGrabber_area_entered(area):
 	if "coin_quality" in area.get_parent():
@@ -83,13 +98,15 @@ func _input(event):
 			rotate_y(deg2rad(-event.relative.x * mouse_look_sensitivity))
 			head.rotate_x(deg2rad(-event.relative.y * mouse_look_sensitivity))
 			head.rotation.x = clamp(head.rotation.x, deg2rad(-90), deg2rad(90))
-	if event.is_action_pressed("aim_%s" % [player_number]):
-		print("aim %s" % [player_number])
 	if attack_cooldown.is_stopped() and attack_windup.is_stopped() and movement_enabled:
 		if event.is_action_pressed("attack_%s" % [player_number]):
 			attack_windup.start()
 			$Head/Camera/Viewmodel/AnimationPlayer.stop()
 			$Head/Camera/Viewmodel/AnimationPlayer.play("attack")
+			sound_swoosh.play()
+	if lob_cooldown.is_stopped() and lob_windup.is_stopped() and movement_enabled:
+		if event.is_action_pressed("lob_%s" % [player_number]):
+			lob_windup.start()
 			sound_swoosh.play()
 
 func _physics_process(delta):
@@ -125,6 +142,19 @@ func _physics_process(delta):
 		var look_direction = Vector3(0,head.rotation.x,0) - transform.basis.z # get all angles
 		look_direction.y += 1.15 # hit items off the ground for cartoony effect
 		look_direction *= push_strength # apply strength stat
+		var reported_body = attack_ray.get_collider()
+		if reported_body != null:
+			var impact_type = reported_body.get_class()
+			match impact_type:
+				"RigidBody": # physics object
+					reported_body.apply_impulse(Vector3.ZERO,look_direction)
+					reported_body.update_last_hit(player_number)
+				"KinematicBody": # player
+					reported_body.is_hitstunned = true
+					reported_body.impact_vec += look_direction * 1.5
+			play_impact_sound(impact_type)
+	if lobbing:
+		var look_direction = Vector3(0,5.5,0)
 		var reported_body = attack_ray.get_collider()
 		if reported_body != null:
 			var impact_type = reported_body.get_class()

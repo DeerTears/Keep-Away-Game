@@ -5,19 +5,19 @@
 [sub_resource type="SpatialMaterial" id=1]
 params_diffuse_mode = 3
 params_specular_mode = 1
+albedo_color = Color( 0.6, 0.6, 0.6, 1 )
 metallic = 1.0
 metallic_specular = 0.55
-roughness = 0.9
 
 [sub_resource type="SphereMesh" id=2]
 material = SubResource( 1 )
 
 [sub_resource type="SpatialMaterial" id=3]
-params_diffuse_mode = 3
+params_diffuse_mode = 2
 params_specular_mode = 1
 albedo_color = Color( 0, 0.623529, 1, 1 )
-metallic = 1.0
-metallic_specular = 0.55
+metallic = 0.25
+metallic_specular = 0.0
 roughness = 0.9
 
 [sub_resource type="SphereMesh" id=4]

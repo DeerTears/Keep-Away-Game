@@ -5,15 +5,15 @@
 [ext_resource path="res://fonts/Header1.res" type="DynamicFont" id=3]
 [ext_resource path="res://menus/clouds.shader" type="Shader" id=4]
 
-[sub_resource type="ShaderMaterial" id=2]
+[sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 4 )
 shader_param/base_color = Color( 0, 0.309804, 0.635294, 1 )
-shader_param/lowerlevel_speed = 0.3
-shader_param/toplevel_speed = 0.871
-shader_param/clarity = 2.3
-shader_param/foam_average = 0.436
-shader_param/foam_max = 5.0
-shader_param/zoom_level = 5.0
+shader_param/lowerlevel_speed = 1.0
+shader_param/toplevel_speed = 0.1
+shader_param/clarity = 2.5
+shader_param/foam_average = 0.4
+shader_param/foam_max = 3.0
+shader_param/zoom_level = 2.25
 shader_param/square_count = 15.0
 
 [node name="MainMenu" type="Panel"]
@@ -26,7 +26,7 @@ __meta__ = {
 }
 
 [node name="ColorRect" type="ColorRect" parent="."]
-material = SubResource( 2 )
+material = SubResource( 1 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 __meta__ = {

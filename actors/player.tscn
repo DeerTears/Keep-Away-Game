@@ -218,7 +218,13 @@ one_shot = true
 process_mode = 0
 one_shot = true
 
-[node name="RespawnTimer" type="Timer" parent="KinematicBody"]
+[node name="LobCooldown" type="Timer" parent="KinematicBody"]
+process_mode = 0
+one_shot = true
+
+[node name="LobWindup" type="Timer" parent="KinematicBody"]
+process_mode = 0
+one_shot = true
 
 [node name="Sounds" type="Node" parent="KinematicBody"]
 
@@ -415,6 +421,7 @@ margin_right = 101.0
 margin_bottom = 11.5
 custom_fonts/font = ExtResource( 11 )
 text = "Use WASD + Left Click"
+align = 1
 
 [node name="JoyReminder" type="TextureRect" parent="HUD/Control"]
 visible = false
@@ -436,10 +443,13 @@ margin_top = -68.0
 margin_right = 136.0
 margin_bottom = 11.5
 custom_fonts/font = ExtResource( 11 )
-text = "Use Left Stick + Right Bumper"
+text = "Use Left Stick + R2"
+align = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 [connection signal="area_entered" from="KinematicBody/ItemGrabber" to="KinematicBody" method="_on_ItemGrabber_area_entered"]
 [connection signal="timeout" from="KinematicBody/AttackCooldown" to="KinematicBody" method="_on_AttackCooldown_timeout"]
 [connection signal="timeout" from="KinematicBody/AttackWindup" to="KinematicBody" method="_on_AttackWindup_timeout"]
+[connection signal="timeout" from="KinematicBody/LobCooldown" to="KinematicBody" method="_on_LobCooldown_timeout"]
+[connection signal="timeout" from="KinematicBody/LobWindup" to="KinematicBody" method="_on_LobWindup_timeout"]

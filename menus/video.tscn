@@ -39,14 +39,14 @@ text = "Video"
 
 [node name="Fullscreen" type="CheckButton" parent="MarginContainer/VBoxContainer"]
 margin_top = 56.0
-margin_right = 173.0
+margin_right = 171.0
 margin_bottom = 96.0
 size_flags_horizontal = 0
 text = "Fullscreen"
 
 [node name="DebugTrails" type="CheckButton" parent="MarginContainer/VBoxContainer"]
 margin_top = 112.0
-margin_right = 250.0
+margin_right = 248.0
 margin_bottom = 152.0
 size_flags_horizontal = 2
 text = "Show Debug Trails"

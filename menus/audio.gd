@@ -17,6 +17,8 @@ func _ready():
 	music_slider.connect("value_changed", self, "_on_MusicSlider_value_changed")
 	master_slider.connect("value_changed", self, "_on_MasterSlider_value_changed")
 	sfx_slider.connect("value_changed", self, "_on_SFXSlider_value_changed")
+	$Margin/VBox/Sliders/Master/VBox/MasterSlider.grab_focus()
+
 func _on_Button_pressed():
 	get_tree().change_scene("res://menus/settings.tscn")
 

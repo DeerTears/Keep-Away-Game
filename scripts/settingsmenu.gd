@@ -20,6 +20,7 @@ func _ready():
 	warmup.connect("value_changed",self,"warmup_changed")
 	roundtime.connect("value_changed",self,"roundtime_changed")
 	postgame.connect("value_changed",self,"postgame_changed")
+	$MarginContainer/HBoxContainer/Buttons/Controls.grab_focus()
 
 func changemenu(scene:String):
 	get_tree().change_scene("res://menus/%s.tscn" % [scene])

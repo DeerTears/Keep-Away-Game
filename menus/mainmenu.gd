@@ -18,6 +18,7 @@ func _ready():
 	about.connect("pressed",get_tree(),"change_scene",["res://menus/about.tscn"])
 	quit.connect("pressed",get_tree(),"quit")
 	itch_link.connect("pressed",self,"open_link",["https://deertears.itch.io"])
+	$MarginContainer/VBoxContainer/Grid/Romp.grab_focus()
 
 func open_link(url:String):
 	OS.shell_open(url)
