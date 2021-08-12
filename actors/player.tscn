@@ -199,6 +199,7 @@ __meta__ = {
 
 [node name="MeshInstance" type="MeshInstance" parent="KinematicBody"]
 transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0, 0 )
+use_in_baked_light = true
 mesh = SubResource( 8 )
 material/0 = null
 
@@ -448,6 +449,7 @@ align = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
 [connection signal="area_entered" from="KinematicBody/ItemGrabber" to="KinematicBody" method="_on_ItemGrabber_area_entered"]
 [connection signal="timeout" from="KinematicBody/AttackCooldown" to="KinematicBody" method="_on_AttackCooldown_timeout"]
 [connection signal="timeout" from="KinematicBody/AttackWindup" to="KinematicBody" method="_on_AttackWindup_timeout"]

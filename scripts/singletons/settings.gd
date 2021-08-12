@@ -14,6 +14,7 @@ var volume: Array = [
 func _unhandled_input(event):
 	if event.is_action_pressed("toggle_fullscreen"):
 		fullscreen = not fullscreen
+		set_fullscreen(fullscreen)
 
 func set_fullscreen(enabled:bool):
 	fullscreen = enabled
