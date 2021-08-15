@@ -51,6 +51,9 @@ var attacking = false
 var lobbing = false
 var is_hitstunned: bool = false
 
+#This signal is necessary for online multiplayer.
+signal hit_ball
+
 func _ready():
 	init()
 
@@ -147,6 +150,7 @@ func _physics_process(delta):
 			var impact_type = reported_body.get_class()
 			match impact_type:
 				"RigidBody": # physics object
+					emit_signal("hit_ball", reported_body.name, look_direction)
 					reported_body.apply_impulse(Vector3.ZERO,look_direction)
 					reported_body.update_last_hit(player_number)
 				"KinematicBody": # player
@@ -160,6 +164,7 @@ func _physics_process(delta):
 			var impact_type = reported_body.get_class()
 			match impact_type:
 				"RigidBody": # physics object
+					emit_signal("hit_ball", reported_body.name, look_direction)
 					reported_body.apply_impulse(Vector3.ZERO,look_direction)
 					reported_body.update_last_hit(player_number)
 				"KinematicBody": # player

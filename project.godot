@@ -227,6 +227,10 @@ toggle_pause={
 3d_physics/layer_4="coins"
 3d_physics/layer_5="worldtriggers"
 
+[network]
+
+limits/tcp/connect_timeout_seconds=10
+
 [rendering]
 
 quality/directional_shadow/size=8192

@@ -39,6 +39,7 @@ func _input(event):
 	if event.is_action_released("toggle_pause"):
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 		GameInfo.ingame = false
+		get_tree().network_peer = null
 		get_tree().change_scene("res://menus/mainmenu.tscn")
 
 func set_debug_trails(enabled:bool):
