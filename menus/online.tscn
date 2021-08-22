@@ -1,0 +1,337 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://menus/main.theme" type="Theme" id=1]
+[ext_resource path="res://fonts/Header1.res" type="DynamicFont" id=2]
+[ext_resource path="res://scripts/multiplayer.gd" type="Script" id=3]
+[ext_resource path="res://menus/clouds.shader" type="Shader" id=4]
+[ext_resource path="res://materials/blur.shader" type="Shader" id=5]
+
+[sub_resource type="ShaderMaterial" id=1]
+shader = ExtResource( 4 )
+shader_param/base_color = Color( 0, 0.309804, 0.635294, 1 )
+shader_param/lowerlevel_speed = 1.0
+shader_param/toplevel_speed = 0.1
+shader_param/clarity = 2.5
+shader_param/foam_average = 0.4
+shader_param/foam_max = 3.0
+shader_param/zoom_level = 2.25
+shader_param/square_count = 15.0
+
+[sub_resource type="ShaderMaterial" id=2]
+shader = ExtResource( 5 )
+shader_param/blurSize = 35
+
+[sub_resource type="Animation" id=3]
+resource_name = "ip"
+length = 0.5
+tracks/0/type = "bezier"
+tracks/0/path = NodePath(".:modulate:r")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.5 )
+}
+tracks/1/type = "bezier"
+tracks/1/path = NodePath(".:modulate:g")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.5 )
+}
+tracks/2/type = "bezier"
+tracks/2/path = NodePath(".:modulate:b")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.5 )
+}
+tracks/3/type = "bezier"
+tracks/3/path = NodePath(".:modulate:a")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.5 )
+}
+
+[node name="online" type="Panel"]
+self_modulate = Color( 1, 1, 1, 0 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 1 )
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource( 1 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/margin_right = 32
+custom_constants/margin_top = 32
+custom_constants/margin_left = 32
+custom_constants/margin_bottom = 32
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Meta" type="VBoxContainer" parent="MarginContainer"]
+margin_left = 32.0
+margin_top = 32.0
+margin_right = 1248.0
+margin_bottom = 568.0
+rect_min_size = Vector2( 327, 536 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Title" type="HBoxContainer" parent="MarginContainer/Meta"]
+margin_right = 1216.0
+margin_bottom = 40.0
+custom_constants/separation = 16
+
+[node name="Label" type="Label" parent="MarginContainer/Meta/Title"]
+margin_right = 335.0
+margin_bottom = 40.0
+custom_fonts/font = ExtResource( 2 )
+text = "Online Multiplayer"
+align = 1
+
+[node name="Back" type="HBoxContainer" parent="MarginContainer/Meta"]
+margin_top = 504.0
+margin_right = 1216.0
+margin_bottom = 536.0
+rect_min_size = Vector2( 0, 32 )
+size_flags_vertical = 10
+
+[node name="BackButton" type="Button" parent="MarginContainer/Meta/Back"]
+margin_right = 143.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 143, 32 )
+text = "Back"
+
+[node name="ButtonContainer" type="HBoxContainer" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -608.0
+margin_top = -25.0
+margin_right = 608.0
+margin_bottom = 25.0
+rect_min_size = Vector2( 1216, 50 )
+custom_constants/separation = 100
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Host" type="Button" parent="ButtonContainer"]
+margin_left = 358.0
+margin_right = 558.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 200, 50 )
+hint_tooltip = "Host a multiplayer game. This requires port forwarding when playing over the internet."
+text = "Host Game"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Join" type="Button" parent="ButtonContainer"]
+margin_left = 658.0
+margin_right = 858.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 200, 50 )
+text = "Join Game"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="username" type="LineEdit" parent="."]
+anchor_left = 0.5
+anchor_top = 0.4
+anchor_right = 0.5
+anchor_bottom = 0.4
+margin_left = -250.0
+margin_top = -24.5
+margin_right = 250.0
+margin_bottom = 24.5
+max_length = 15
+placeholder_text = "Username"
+caret_blink = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="warning" type="Label" parent="username"]
+visible = false
+margin_top = -39.0
+margin_right = 500.0
+margin_bottom = -16.0
+custom_colors/font_color = Color( 1, 0.72549, 0, 1 )
+text = "Please enter a username."
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ip_adress" type="Control" parent="."]
+visible = false
+modulate = Color( 1, 1, 1, 0 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="ip_adress"]
+self_modulate = Color( 0.643137, 0.643137, 0.643137, 1 )
+material = SubResource( 2 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 0.501961 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="waiting_text" type="Label" parent="ip_adress"]
+anchor_left = 0.5
+anchor_top = 0.4
+anchor_right = 0.5
+anchor_bottom = 0.4
+margin_left = -640.0
+margin_top = -300.0
+margin_right = 640.0
+margin_bottom = 300.0
+custom_fonts/font = ExtResource( 2 )
+text = "Please enter IP-Adress"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LineEdit" type="LineEdit" parent="ip_adress"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -250.0
+margin_top = -25.0
+margin_right = 250.0
+margin_bottom = 25.0
+placeholder_text = "IP-Adress"
+caret_blink = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ip_adress"]
+anchor_left = 0.5
+anchor_top = 0.6
+anchor_right = 0.5
+anchor_bottom = 0.6
+margin_left = -640.0
+margin_top = -20.0
+margin_right = 640.0
+margin_bottom = 9.0
+custom_constants/separation = 215
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BackIP" type="Button" parent="ip_adress/HBoxContainer"]
+margin_left = 389.0
+margin_right = 532.0
+margin_bottom = 29.0
+rect_min_size = Vector2( 143, 29 )
+text = "Back"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Connect" type="Button" parent="ip_adress/HBoxContainer"]
+margin_left = 747.0
+margin_right = 890.0
+margin_bottom = 29.0
+rect_min_size = Vector2( 143, 29 )
+text = "Connect"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ip_adress_animation" type="AnimationPlayer" parent="ip_adress"]
+anims/ip = SubResource( 3 )
+
+[node name="waiting" type="Control" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="waiting"]
+material = SubResource( 1 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="waiting_text" type="Label" parent="waiting"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -640.0
+margin_top = -300.0
+margin_right = 640.0
+margin_bottom = 300.0
+custom_fonts/font = ExtResource( 2 )
+text = "Waiting for players..."
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Cancel" type="Button" parent="waiting"]
+anchor_left = 0.5
+anchor_top = 0.9
+anchor_right = 0.5
+anchor_bottom = 0.9
+margin_left = -71.0
+margin_top = -29.0
+margin_right = 72.0
+rect_min_size = Vector2( 138.529, 0 )
+text = "Cancel"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="game" type="Spatial" parent="."]
+
+[connection signal="pressed" from="MarginContainer/Meta/Back/BackButton" to="." method="_on_BackButton_pressed"]
+[connection signal="pressed" from="ButtonContainer/Host" to="." method="_on_Host_pressed"]
+[connection signal="pressed" from="ButtonContainer/Join" to="." method="_on_Join_pressed"]
+[connection signal="pressed" from="ip_adress/HBoxContainer/BackIP" to="." method="_on_BackIP_pressed"]
+[connection signal="pressed" from="ip_adress/HBoxContainer/Connect" to="." method="_on_Connect_pressed"]
+[connection signal="pressed" from="waiting/Cancel" to="." method="_on_Cancel_pressed"]

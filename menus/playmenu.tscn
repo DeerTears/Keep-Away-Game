@@ -1,0 +1,120 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://menus/main.theme" type="Theme" id=1]
+[ext_resource path="res://fonts/Header1.res" type="DynamicFont" id=2]
+[ext_resource path="res://scripts/playmenu.gd" type="Script" id=3]
+[ext_resource path="res://menus/clouds.shader" type="Shader" id=4]
+
+[sub_resource type="ShaderMaterial" id=1]
+shader = ExtResource( 4 )
+shader_param/base_color = Color( 0, 0.309804, 0.635294, 1 )
+shader_param/lowerlevel_speed = 1.0
+shader_param/toplevel_speed = 0.1
+shader_param/clarity = 2.5
+shader_param/foam_average = 0.4
+shader_param/foam_max = 3.0
+shader_param/zoom_level = 2.25
+shader_param/square_count = 15.0
+
+[node name="Play" type="Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 1 )
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource( 1 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/margin_right = 32
+custom_constants/margin_top = 32
+custom_constants/margin_left = 32
+custom_constants/margin_bottom = 32
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Meta" type="VBoxContainer" parent="MarginContainer"]
+margin_left = 32.0
+margin_top = 32.0
+margin_right = 1248.0
+margin_bottom = 568.0
+rect_min_size = Vector2( 327, 536 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Title" type="HBoxContainer" parent="MarginContainer/Meta"]
+margin_right = 1216.0
+margin_bottom = 40.0
+custom_constants/separation = 16
+
+[node name="Label" type="Label" parent="MarginContainer/Meta/Title"]
+margin_right = 327.0
+margin_bottom = 40.0
+custom_fonts/font = ExtResource( 2 )
+text = "Select game mode"
+align = 1
+
+[node name="Back" type="HBoxContainer" parent="MarginContainer/Meta"]
+margin_top = 504.0
+margin_right = 1216.0
+margin_bottom = 536.0
+rect_min_size = Vector2( 0, 32 )
+size_flags_vertical = 10
+
+[node name="BackButton" type="Button" parent="MarginContainer/Meta/Back"]
+margin_right = 143.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 143, 32 )
+text = "Back"
+
+[node name="ButtonContainer" type="HBoxContainer" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -608.0
+margin_top = -25.0
+margin_right = 608.0
+margin_bottom = 25.0
+rect_min_size = Vector2( 1216, 50 )
+custom_constants/separation = 100
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Local" type="Button" parent="ButtonContainer"]
+margin_left = 358.0
+margin_right = 558.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 200, 50 )
+text = "Local Multiplayer"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Online" type="Button" parent="ButtonContainer"]
+margin_left = 658.0
+margin_right = 858.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 200, 50 )
+text = "Online Multiplayer"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="pressed" from="MarginContainer/Meta/Back/BackButton" to="." method="_on_BackButton_pressed"]
+[connection signal="pressed" from="ButtonContainer/Local" to="." method="_on_Local_pressed"]
+[connection signal="pressed" from="ButtonContainer/Online" to="." method="_on_Online_pressed"]
