@@ -314,7 +314,6 @@ __meta__ = {
 }
 
 [node name="Cancel" type="Button" parent="waiting"]
-visible = false
 anchor_left = 0.5
 anchor_top = 0.9
 anchor_right = 0.5
@@ -335,3 +334,4 @@ __meta__ = {
 [connection signal="pressed" from="ButtonContainer/Join" to="." method="_on_Join_pressed"]
 [connection signal="pressed" from="ip_adress/HBoxContainer/BackIP" to="." method="_on_BackIP_pressed"]
 [connection signal="pressed" from="ip_adress/HBoxContainer/Connect" to="." method="_on_Connect_pressed"]
+[connection signal="pressed" from="waiting/Cancel" to="." method="_on_Cancel_pressed"]

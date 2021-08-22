@@ -114,11 +114,11 @@ func _player_disconnected(id):
 	get_tree().network_peer = null
 	get_tree().change_scene("res://menus/playmenu.tscn")
 
-remote func register_player(username):
-	print("Player " + username + " connected!")
+remote func register_player(_username):
+	print("Player " + _username + " connected!")
 	var id = get_tree().get_rpc_sender_id()
 	#Save username in dictionary
-	player_info[id] = username
+	player_info[id] = _username
 
 func _connected_ok():
 	#Called on clients if connection is successful
@@ -177,3 +177,8 @@ remote func apply_target_force(target_name, direction):
 		var player = game.get_node("romp_online/player/Player/KinematicBody")
 		player.impact_vec += direction * 1.5
 		player.is_hitstunned = true
+
+
+func _on_Cancel_pressed():
+	get_tree().network_peer = null #Terminate network
+	get_tree().reload_current_scene()
