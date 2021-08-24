@@ -20,6 +20,7 @@ func _on_Back_pressed():
 
 func _on_Fullscreen_toggled(button_pressed):
 	Settings.set_fullscreen(button_pressed)
+	Settings.save_settings()
 	pass # Replace with function body.
 
 func _on_RenderScale_value_changed(value):
@@ -28,6 +29,7 @@ func _on_RenderScale_value_changed(value):
 
 func _on_ShadowQuality_value_changed(value):
 	Settings.shadow_quality = value
+	Settings.save_settings()
 	shadow_indicator.text = "%s" % [shadow_slider.value]
 
 func _on_DebugTrails_toggled(button_pressed):
