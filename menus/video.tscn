@@ -164,6 +164,7 @@ rect_min_size = Vector2( 134, 32 )
 size_flags_horizontal = 0
 size_flags_vertical = 0
 text = "Back"
+
 [connection signal="toggled" from="MarginContainer/VBoxContainer/Fullscreen" to="." method="_on_Fullscreen_toggled"]
 [connection signal="toggled" from="MarginContainer/VBoxContainer/DebugTrails" to="." method="_on_DebugTrails_toggled"]
 [connection signal="value_changed" from="MarginContainer/VBoxContainer/RenderPanel/HBox/VBox/RenderSlider" to="." method="_on_RenderScale_value_changed"]

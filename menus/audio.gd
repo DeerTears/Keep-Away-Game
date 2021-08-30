@@ -26,6 +26,7 @@ func _on_MasterSlider_value_changed(value):
 	master_indicator.text = "%sdb" % [value]
 	AudioServer.set_bus_volume_db(0, value)
 	Settings.volume[0] = value
+	Settings.save_settings()
 	if $Test.is_playing():
 		return
 	$Test.play()
@@ -34,11 +35,13 @@ func _on_MusicSlider_value_changed(value):
 	music_indicator.text = "%sdb" % [value]
 	AudioServer.set_bus_volume_db(1, value)
 	Settings.volume[1] = value
+	Settings.save_settings()
 
 func _on_SFXSlider_value_changed(value):
 	sfx_indicator.text = "%sdb" % [value]
 	AudioServer.set_bus_volume_db(2, value)
 	Settings.volume[2] = value
+	Settings.save_settings()
 	if $Test.is_playing():
 		return
 	$Test.play()
